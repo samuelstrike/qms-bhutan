@@ -2,7 +2,7 @@ Quarantine Registration and Management System
 
 Please follow the following process to install the project
 
-1. https://github.com/samuelstrike/qms-bhutan.git
+1. git clone https://github.com/samuelstrike/qms-bhutan.git
 
 2. Composer install
 
