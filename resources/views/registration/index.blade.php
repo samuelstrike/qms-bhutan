@@ -10,6 +10,9 @@
         <div class="card-body">
           <h5 class="card-title">Test</h5>
           <p class="card-text">Need to desgin registration form here</p>
+          <ul>
+              <li><b>Need to do database design first **user and quarantine facility registration**</b></li>
+          </ul>
         </div>
       </div>
 </div>
