@@ -15,3 +15,4 @@ Please follow the following process to install the project
 6. php artisan migrate
 
 
+For roles and Permission use the documentation of spatie as i have installed the spatie package for permision management https://spatie.be/docs/laravel-permission/v5/basic-usage/basic-usage
