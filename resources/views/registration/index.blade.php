@@ -5,7 +5,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-          Register for Quarantine Facilit
+          Register for Quarantine Facility
         </div>
         <div class="card-body">
           <h5 class="card-title">Test</h5>
