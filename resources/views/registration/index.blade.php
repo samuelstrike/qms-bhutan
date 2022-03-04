@@ -9,12 +9,12 @@
         </div>
        <div class="card-body">
           <form action="">
-              <div class="row">
+              <div class="row" x-date="{}">
                 <div class="col-md-5">
                   <label for="nationality" class="form-label"><b>Nationality</b></label>
                   <div class="input-group">
                     <select name="" id="" class="form-select">
-                      <option selected>Bhutanese</option>
+                      <option value="1" selected>Bhutanese</option>
                       <option value="2">Indian</option>
                     </select>
                   </div>
@@ -23,7 +23,7 @@
                   <label for="got-cid" class="form-label"><b>Do you have CID?</b></label>
                   <div class="d-flex justify-content-start">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                       <label class="form-check-label" for="flexRadioDefault1">
                         Yes
                       </label>
@@ -52,12 +52,12 @@
                 </div>
                 <div class="col-md-5">
                   <label for="name" class="form-label"><b>Name</b></label>
-                  <input type="text" class="form-control" name="Name" id="name">
+                  <input type="text" class="form-control" name="Name" id="name" disabled readonly>
                 </div>
                 <div class="col-md-2">
                   <label for="gender" class="form-label"><b>Gender</b></label>
                   <div class="input-group">
-                    <select name="" id="" class="form-select">
+                    <select name="" id="" class="form-select" disabled readonly>
                         <option selected></option>
                         <option value="1">Male</option>
                         <option value="2">Female</option>
