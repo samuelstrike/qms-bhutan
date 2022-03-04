@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-light shadow-sm">
+        <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 @if(Auth::check())
                 <a class="navbar-brand" href="{{ url('/dashboard') }}">

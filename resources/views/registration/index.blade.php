@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container">
     <div class="card">
         <div class="card-header">
           <h5><b>Register for Quarantine Facility</b></h5>
