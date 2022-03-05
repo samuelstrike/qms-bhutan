@@ -1,63 +1,60 @@
 @extends('layouts.app')
-
 @section('content')
 
-<div class="container">
+<div class="container-fluid">
     <div class="card">
         <div class="card-header">
           <h5><b>Register for Quarantine Facility</b></h5>
         </div>
        <div class="card-body">
           <form action="">
-              <div class="row" x-date="{}">
-                <div class="col-md-5">
+              <div class="row g-3">
+                <div class="col-md-6">
                   <label for="nationality" class="form-label"><b>Nationality</b></label>
-                  <div class="input-group">
-                    <select name="" id="" class="form-select">
-                      <option value="1" selected>Bhutanese</option>
-                      <option value="2">Indian</option>
-                    </select>
-                  </div>
+                    <div class="input-group">
+                      <select
+                        name="" id="selectNationality" class="form-select">
+                        <option value="">Select Nationality</option>
+                        <option value="1">Bhutanese</option>
+                        <option value="2">Indian</option>
+                        <option value="2">USA</option>
+                      </select>
+                    </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6" id="selectCID">
                   <label for="got-cid" class="form-label"><b>Do you have CID?</b></label>
-                  <div class="d-flex justify-content-start">
+                  <div class="d-flex justify-content-start" id="noCID">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <input class="form-check-input" value="yes" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" checked>
+                      <label class="form-check-label" for="flexRadioDefault">
                         Yes
                       </label>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                      <label class="form-check-label" for="flexRadioDefault1">
+                    <div class="form-check" >
+                      <input
+                        class="form-check-input" value="no" type="radio" name="flexRadioDefault1" id="">
+                      <label class="form-check-label" for="flexRadioDefault">
                         No
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-3">
-                  <label for="" class="form-label"><b>Have minor?</b></label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Yes</label>
-                  </div>
-                </div>
               </div>
               
-              <div class="row mt-3">
-                <div class="col-md-3">
-                    <label for="cid" class="form-label"><b>CID/Passport</b></label>
+              <div class="row mt-3" id="form-wrapper">
+                <div class="col-md-3" >
+                    <label for="cid" id="nameLabel" class="form-label"><b>Enter Your CID/Passport Nos</b></label>
                     <input type="number" class="form-control" name="CID" id="cid">
                 </div>
-                <div class="col-md-5">
-                  <label for="name" class="form-label"><b>Name</b></label>
-                  <input type="text" class="form-control" name="Name" id="name" disabled readonly>
+                <div class="col-md-3">
+                  <label for="name" class="form-label"><b>Your Full Name</b></label>
+                  <input 
+                    type="text" class="form-control" name="Name" id="name" disabled>
                 </div>
                 <div class="col-md-2">
                   <label for="gender" class="form-label"><b>Gender</b></label>
                   <div class="input-group">
-                    <select name="" id="" class="form-select" disabled readonly>
+                    <select name="" id="gender" class="form-select" disabled>
                         <option selected></option>
                         <option value="1">Male</option>
                         <option value="2">Female</option>
@@ -68,6 +65,17 @@
                 <div class="col-md-2">
                   <label for="phone" class="form-label"><b>Contact Number</b></label>
                   <input type="text" class="form-control required number mobileInput" name="phone" autocomplete="off">
+                </div>
+                <div class="col-md-2 add">
+                  <label for="" class="form-label"><b>Any one accompanying?</b></label>
+                  <div >
+                    <button class="btn btn-success" id="addField">Add</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div id="copied">
+
                 </div>
               </div>
               <div class="row mt-3 g-2 d-flex justify-content-between">
@@ -88,7 +96,11 @@
                       <option value="2">Thimphu </option>
                     </select>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
+                  <label for="" class="form-label">Residence Address</label>
+                  <textarea name="" id="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
+                </div>
+                <div class="col-sm-2">
                   <label for="" class="form-label">Occupation</label>
                     <select name="" id="" class="form-select">
                       <option selected>Select Occupation</option>
@@ -102,22 +114,6 @@
                   <label for="" class="form-label"><b>Travel Details</b></label>
                   <div class="col-sm-2">
                     <label for="" class="form-label">Travel Purpose</label>
-                    <select name="" id="" class="form-select">
-                      <option selected>Select</option>
-                      <option value="">Medical Emergency</option>
-                      <option value="">Official</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <label for="" class="form-label">Traveling from</label>
-                    <select name="" id="" class="form-select">
-                      <option selected>Select Dzongkhag</option>
-                      <option value="">Thimphu</option>
-                      <option value="">Official</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <label for="" class="form-label">Gewog</label>
                     <select name="" id="" class="form-select">
                       <option selected>Select</option>
                       <option value="">Medical Emergency</option>
@@ -140,17 +136,17 @@
                       <option value="">Official</option>
                     </select>
                   </div>
+                  <div class="col-sm-5">
+                    <label for="" class="form-label"><b>Reason for Travel</b></label>
+                    <textarea name="" id="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
+                  </div>
               </div>
               <div class="row mt-3 g-2">
-                <div class="col-sm-6">
-                  <label for="" class="form-label"><b>Reason for Travel</b></label>
-                  <textarea name="" id="" class="form-control" placeholder="Specify Reason"></textarea>
-                </div>
                 <div class="col-sm-3">
                   <label for="" class="form-label"><b>Supporting Document</b></label>
                   <input type="file" class="form-control">
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-5">
                   <label for="" class="form-label"><b>Vaccination Status</b></label>
                   <div>
                     <div class="form-check form-check-inline">
@@ -177,4 +173,57 @@
           </form>
         </div>
 </div>
+
+@endsection
+@section('scripts')
+  <script>
+    $(document).ready(function(){
+
+      $('#selectNationality').on('change', function(){
+        var optionValue = $(this).val();
+        if (optionValue != 1){
+          $("#name").prop('disabled',false);
+          $("#gender").prop('disabled',false);
+          $("#selectCID").hide();
+          
+        }
+        else {
+          $("#name").prop('disabled',true);
+          $("#gender").prop('disabled',true);
+          $("#selectCID").show();
+        }
+      });
+      $('#noCID').on('click', function(){
+        var checkCID = $('input:radio:checked').val()
+        if (checkCID != 'yes'){
+          $('#nameLabel').empty();
+          $('#nameLabel').append("<b>Enter Your SRP/other Identification Nos</b>");
+          $("#name").prop('disabled',false);
+          $("#gender").prop('disabled',false);
+        }
+        else {
+          $('#nameLabel').empty();
+          $('#nameLabel').append("<b>CID/Passport Nos</b>");
+          $("#name").prop('disabled',true);
+          $("#gender").prop('disabled',true);
+        }
+      });
+      var formWrapper = $("#form-wrapper");
+
+
+      $("#addField").on('click', function(e){
+        e.preventDefault();
+        formWrapper.clone().appendTo('#copied').find('.add').remove();
+        $('<div class=""><b><label>Remove details</label></b><div><button class="btn btn-danger delete">delete</button></div></div>').appendTo('#copied')
+        attach_delete();
+      })
+      function attach_delete(){
+      $('.delete').off();
+      $('.delete').click(function(){
+        $(this).parents('#form-wrapper').remove();
+      });
+    }
+    });
+
+  </script>
 @endsection
