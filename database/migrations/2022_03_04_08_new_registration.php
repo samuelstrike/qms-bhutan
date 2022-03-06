@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_id');
             $table->foreignId('nationality_id')->constrained('nationalities');
             $table->boolean('has_cid'); 
             $table->string('cid')->nullable();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->foreignId('to_dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
+            $table->string('status');
             $table->timestamps();
         });
     }
