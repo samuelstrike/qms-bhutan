@@ -18,5 +18,23 @@ Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
-
+//checkin
 Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
+//verification
+Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
+//allocation
+Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
+
+//fetching Facility list
+
+Route::get('getFacility/{id}', function ($id) {
+    $facility =  App\Models\Quanaintine_Facility::where('dzongkhag_id',$id)->get();
+    return response()->json($facility);
+});
+
+//fetching Gewog
+
+Route::get('getGewog/{id}', function ($id) {
+    $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
+    return response()->json($gewog);
+});
