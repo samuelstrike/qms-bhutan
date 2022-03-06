@@ -24,6 +24,7 @@ class CheckinController extends Controller
                             ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
                             ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
                             ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name')
+                            ->where('registrations.r_status','R')
                             ->get();
         return view('checkin.index',['check_in_list'=>$check_in_list]);
     }
@@ -39,6 +40,7 @@ class CheckinController extends Controller
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
         ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','vaccination_status.dose_name')
         ->where('registrations.ref_id',$ref_id)
+        ->where('registrations.r_status','R')
         ->get();
         
         return view('checkin.allocate',['check_in_list' =>$check_in_list]);
@@ -53,8 +55,6 @@ class CheckinController extends Controller
         if($action=="Allocate")
         {
             
-            
-            
             foreach($reg_id as $rid)
                 {
                     DB::table('checkins')->insert([
@@ -66,19 +66,39 @@ class CheckinController extends Controller
                         'check_in_date' => $request->checkin_dt
                     ]);
                 }
+
+            $status_update = DB::table('registrations')
+              ->where('ref_id', $ref)
+              ->update(['r_status' => 'A']);
                
         }
            
         else
         if($action=="Transfer")
         {
-            echo $action;
+            foreach($reg_id as $rid)
+                {
+                    DB::table('transfers')->insert([
+                        'registration_id' =>$rid->id,
+                        'dzongkhag_id' => $request->t_dzongkhag,
+                        'gewog_id'   => $request->t_gewog,
+                        'remarks' => $request->remarks
+                    ]);
+                }
+
+            $status_update = DB::table('registrations')
+              ->where('ref_id', $ref)
+              ->update(['r_status' => 'T']);
+            
         }
         else
         {
-            echo $action;
+            $status_update = DB::table('registrations')
+            ->where('ref_id', $ref)
+            ->update(['r_status' => 'Re']);
         }
             
+        return redirect('checkin');
        
     }
 }

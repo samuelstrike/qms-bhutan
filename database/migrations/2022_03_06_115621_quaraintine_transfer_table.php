@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('occupations', function (Blueprint $table) {
+        Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->string('occupation_name'); 
-           
+            $table->foreignId('registration_id')->constrained('registrations');
+            $table->foreignId('dzongkhag_id')->constrained('dzongkhags');
+            $table->foreignId('gewog_id')->constrained('gewogs');
+            $table->string('remarks')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('occupations');
+        Schema::dropIfExists('transfers');
     }
 };

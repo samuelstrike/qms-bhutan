@@ -92,8 +92,8 @@
                         </select>                          
                     </div>
                     <div class="col-sm-8">
-                        <label for="remarks"><strong>Remarks</strong></label>
-                        <textarea class="form-control"></textarea>
+                        <label for="remarks"><strong>Remarks if any</strong></label>
+                        <textarea class="form-control" name="remarks" id="remarks"></textarea>
                     </div>
             <input type="hidden" name="ref_id" id="ref_id" value="{{$checkin->ref_id}}">
                 </div>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label for="room_no"><strong>Number of Days</strong></label>
-                        <input type="number" name="days" id="days" class="form-control" required>
+                        <input type="number" name="days" id="days" class="form-control" required >
                     </div>
                     <div class="col-sm-2">
                         <label for="room_no"><strong>Funding</strong></label>
@@ -145,13 +145,13 @@
                         @endforeach
                         </select>                          
                     </div>
-                    <div class="col-sm-8">
-                        <label for="t_gewog"><strong>Gewog</strong></label>
+                    <div class="col-sm-4">
+                        <label for="t_gewog"><strong>Gewog:</strong></label>
                         <select name="t_gewog" id="t_gewog" class="form-control">
                            
                         </select>
                     </div>
-    
+                    
                 </div>
                 <div class="form-group row" id="input-submit" >
                     <div class="col-sm-4">
@@ -171,6 +171,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
+    $("input").attr("required",false);
     var x = document.getElementById("Allocate");
     var t = document.getElementById("Transfer");
     x.style.display = "none";
@@ -180,17 +181,23 @@ $( document ).ready(function() {
           
         if(optionID == "Allocate")
             {
+                $("input").attr("required",true);
                 x.style.display = "";
                 t.style.display = "none";
             }
         else if (optionID == "Transfer")
         {
+            $("input").attr("required",false);
             t.style.display = "";
             x.style.display = "none";
+            
+            
+            
         }
         else{
             t.style.display = "none";
             x.style.display = "none";
+            $("input").attr("required",false);
         }
           
             
