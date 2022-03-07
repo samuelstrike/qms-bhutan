@@ -16,7 +16,13 @@ use App\Http\Controllers\Registration\RegistrationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+<<<<<<< HEAD
 //Registraiton
+=======
+Route::get('/test', function(){
+    return view('test');
+});
+>>>>>>> ed34a5f2edecf3132b8b6f9a1a49ca6174f99630
 Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
 Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
 

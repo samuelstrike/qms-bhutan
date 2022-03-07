@@ -33,11 +33,7 @@ return new class extends Migration
             $table->foreignId('to_dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
-<<<<<<< HEAD
-            $table->string('r_status')->default('R');
-=======
             $table->string('r_status')->detault('P');
->>>>>>> 88229f5018d0fa2eac7223144d1ce1f2e3b485dd
             $table->timestamps();
         });
     }

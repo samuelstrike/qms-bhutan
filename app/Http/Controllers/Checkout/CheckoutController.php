@@ -33,7 +33,6 @@ class CheckoutController extends Controller
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
         ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
-        
         ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
         ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
         ->join('checkins','registrations.id','checkins.registration_id')
@@ -42,7 +41,6 @@ class CheckoutController extends Controller
         ->where('registrations.r_status','A')
         ->where('registrations.id',$ref_id)
         ->get();
-        
         return view('checkout.checkout',['check_out'=>$check_out]);
     }
 

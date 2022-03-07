@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Registration;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Registration;
-
+use Illuminate\Support\Facades\DB;
 class RegistrationController extends Controller
 {
     public function index()
@@ -13,7 +13,6 @@ class RegistrationController extends Controller
 
         return view ('registration.index');
     }
-<<<<<<< Updated upstream
 
     public function store(Request $request)
     {
@@ -67,13 +66,31 @@ class RegistrationController extends Controller
 
     }
     
-=======
     public function apply(Request $request)
     {
+        $ref = \random_int(100000,999999);
         foreach ($request->cid as $key => $id) {
-           
+
+            DB::table('registrations')->insert([
+                'ref_id' =>$ref,
+                'nationality_id' => $request->selectNationality[$key],
+                'has_cid'   => 1,
+                'cid' => $request->cid[$key],
+                'name' => $request->name[$key],
+                'gender' => 'Male',
+                'phone_no' => $request->phone,
+                'present_address' => $request->resident,
+                'occupation_id' => $request->occupation[$key],
+                'travel_details' => $request->reason,
+                'travel_mode' => $request->travel,
+                'from_dzongkhag_id' =>$request->f_dzongkhag,
+                'from_gewog_id' => $request->f_gewog,
+                'to_dzongkhag_id' => $request->t_dzongkhag,
+                'to_gewog_id' => $request->t_gewog,
+                'vaccine_status_id' => $request->vaccine[$key],
+                'r_status' =>'P',
+            ]);
         }
     
     }
->>>>>>> Stashed changes
 }
