@@ -53,7 +53,9 @@ class RegistrationController extends Controller
                 'vaccine_status_id' => $vaccineStatus
 
             );
+            
             $insert[]=$data;
+            dd($insert);
 
             Registration::create($insert);
             return 'success';
