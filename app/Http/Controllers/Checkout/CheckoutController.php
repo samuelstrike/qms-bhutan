@@ -11,6 +11,7 @@ class CheckoutController extends Controller
     {
         $check_out_list = DB::table('registrations')
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
+        
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
@@ -31,11 +32,13 @@ class CheckoutController extends Controller
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
+        ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
+        
         ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
         ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
         ->join('checkins','registrations.id','checkins.registration_id')
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
-        ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','checkins.registration_id','vaccination_status.dose_name')
+        ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','checkins.registration_id','vaccination_status.dose_name','occupations.occupation_name')
         ->where('registrations.r_status','A')
         ->where('registrations.id',$ref_id)
         ->get();

@@ -32,7 +32,7 @@
                             <td>{{ $checkin->gender }} </td>
                             <td>{{ $checkin->phone_no }}</td>
                             
-                            <td> {{ $checkin->phone_no }} </td>
+                            <td> {{ $checkin->occupation_name }} </td>
                             <td>{{ $checkin->dose_name }} </td>
                         </tr>
                         

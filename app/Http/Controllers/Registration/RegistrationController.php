@@ -13,6 +13,7 @@ class RegistrationController extends Controller
 
         return view ('registration.index');
     }
+<<<<<<< Updated upstream
 
     public function store(Request $request)
     {
@@ -66,4 +67,13 @@ class RegistrationController extends Controller
 
     }
     
+=======
+    public function apply(Request $request)
+    {
+        foreach ($request->cid as $key => $id) {
+           
+        }
+    
+    }
+>>>>>>> Stashed changes
 }

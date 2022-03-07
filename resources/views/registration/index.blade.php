@@ -7,18 +7,29 @@
           <h5><b>Register for Quarantine Facility</b></h5>
         </div>
        <div class="card-body">
+<<<<<<< Updated upstream
           <form method="post" action="{{route('registration.store')}}">
              @csrf
              @method('post')
+=======
+          <form action="{{route('apply')}}" method="POST">
+            @csrf
+>>>>>>> Stashed changes
               <div class="row g-3">
                 <div class="col-md-6">
                   <label for="nationality" class="form-label"><b>Nationality</b></label>
                     <div class="input-group">
+<<<<<<< Updated upstream
                       <select
                         name="nationality" id="selectNationality" class="form-select">
                         <option value="">Select Nationality</option>
                         @foreach(\App\Models\Nationality::all() as $nat)
                         <option value="{{$nat->id}}">{{$nat->nationality}}</option>
+=======
+                      <select name="selectNationality" id="selectNationality" class="form-select">
+                      @foreach(\App\Models\Nationality::all() as $nationality)
+                                <option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>
+>>>>>>> Stashed changes
                         @endforeach
                       </select>
                     </div>
@@ -58,15 +69,24 @@
                   <div class="input-group">
                     <select id="gender" name="gender[]" class="form-select" disabled>
                         <option selected></option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        <option value="3">others</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>others</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <label for="phone" class="form-label"><b>Contact Number</b></label>
                   <input type="text" class="form-control required number mobileInput" name="phone[]" autocomplete="off">
+                </div>
+                <div class="col-sm-2">
+                  <label for="" class="form-label">Occupation</label>
+                    <select name="occupation[]" id="" class="form-select">
+                      <option selected>Select Occupation</option>
+                      <option value="1">Student</option>
+                      <option value="2">Civil Servant</option>
+                      <option value="3">Private Sector </option>
+                    </select>
                 </div>
                 <div class="col-md-2 add">
                   <label for="" class="form-label"><b>Any one accompanying?</b></label>
@@ -78,6 +98,7 @@
               <div class="row mt-3 g-2 d-flex justify-content-between">
                 <label for="" class=""><b>Present Address</b></label>
                 <div class="col-sm-3">
+<<<<<<< Updated upstream
                   <label for="dzongkhag" class="form-label">Dzongkhag/Thromde</label>
                     <select name="dzongkhag" id="dzo_select" class="form-select">
                       <option selected>Select Dzongkhag/Thromde</option>
@@ -89,12 +110,26 @@
                 <div class="col-sm-3">
                   <label for="gewog" class="form-label">Gewog</label>
                     <select name="gewog" id="gewog_select" class="form-select">
+=======
+                  <label for="" class="form-label">Dzongkhag/Thromde</label>
+                    <select name="f_dzongkhag" id="f_dzongkhag" class="form-select">
+                    @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                                <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                  <label for="" class="form-label">Gewog</label>
+                    <select name="f_gewog" id="f_gewog" class="form-select">
+                      
+>>>>>>> Stashed changes
                     </select>
                 </div>
                 <div class="col-sm-4">
                   <label for="" class="form-label">Residence Address</label>
                   <textarea name="resident" id="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
                 </div>
+<<<<<<< Updated upstream
                 <div class="col-sm-2">
                   <label for="" class="form-label">Occupation</label>
                     <select name="occupation[]" id="" class="form-select">
@@ -104,6 +139,9 @@
                       @endforeach
                     </select>
                 </div>
+=======
+                
+>>>>>>> Stashed changes
               </div>
               <div class="row mt-3 g-2">
                   <label for="" class="form-label"><b>Travel Details</b></label>
@@ -117,6 +155,7 @@
                     </select>
                   </div>
                   <div class="col-sm-2">
+<<<<<<< Updated upstream
                     <label for="dzong_travel" class="form-label">Traveling to</label>
                     <select name="dzong_travel" id="dzong_travel" class="form-select">
                       <option selected>Select Dzongkhag</option>
@@ -129,6 +168,19 @@
                     <label for="gewog_travel" class="form-label">Gewog</label>
                     <select name="gewog_travel" id="gewog_travel" class="form-select">
                    
+=======
+                    <label for="" class="form-label">Traveling to</label>
+                    <select name="t_dzongkhag" id="t_dzongkhag" class="form-select">
+                    @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                                <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="" class="form-label">Gewog</label>
+                    <select name="t_gewog" id="t_gewog" class="form-select">
+                      
+>>>>>>> Stashed changes
                     </select>
                   </div>
                   <div class="col-sm-4">
@@ -177,6 +229,68 @@
 @section('scripts')
   <script>
     $(document).ready(function(){
+
+      $('#f_dzongkhag').on('change', function() {
+               var DzoID = $(this).val();
+                
+               
+               if(DzoID) {
+                
+                   $.ajax({
+                       url: '/getGewog/'+DzoID,
+                       type: "GET",
+                       data : {"_token":"{{ csrf_token() }}"},
+                       dataType: "json",
+                       success:function(data)
+                       {
+                         if(data){
+                            $('#f_gewog').empty();
+                            //$('#f_gewog').append('<option hidden>Choose Gewog</option>'); 
+                            $.each(data, function(key, gewog){
+                               
+                                $('select[name="f_gewog"]').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                            });
+                        }else{
+                            $('#f_gewog').empty();
+                        }
+                     }
+                   });
+               }else{
+                 $('#f_gewog').empty();
+               }
+            });
+           
+            $('#t_dzongkhag').on('change', function() {
+               var DzoID = $(this).val();
+                
+               
+               if(DzoID) {
+                
+                   $.ajax({
+                       url: '/getGewog/'+DzoID,
+                       type: "GET",
+                       data : {"_token":"{{ csrf_token() }}"},
+                       dataType: "json",
+                       success:function(data)
+                       {
+                         if(data){
+                            $('#t_gewog').empty();
+                            //$('#f_gewog').append('<option hidden>Choose Gewog</option>'); 
+                            $.each(data, function(key, gewog){
+                               
+                                $('select[name="t_gewog"]').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                            });
+                        }else{
+                            $('#t_gewog').empty();
+                        }
+                     }
+                   });
+               }else{
+                 $('#t_gewog').empty();
+               }
+            });
+      
+
       $('#selectNationality').on('change', function(){
         var optionValue = $(this).val();
         if (optionValue != 1){

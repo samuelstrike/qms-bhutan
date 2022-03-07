@@ -21,9 +21,10 @@ class CheckinController extends Controller
                             ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
                             ->join('dzongkhags','registrations.from_dzongkhag_id', '=', 'dzongkhags.id')
                             ->join('gewogs', 'registrations.from_gewog_id', '=', 'gewogs.id')
+                            ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
                             ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
                             ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
-                            ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name')
+                            ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','occupations.occupation_name')
                             ->where('registrations.r_status','P')
                             ->get();
         return view('checkin.index',['check_in_list'=>$check_in_list]);
@@ -35,12 +36,14 @@ class CheckinController extends Controller
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
+        ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
         ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
         ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
-        ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','vaccination_status.dose_name')
+        ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','vaccination_status.dose_name','occupations.occupation_name')
         ->where('registrations.ref_id',$ref_id)
         ->where('registrations.r_status','P')
+        ->orWhere('registrations.r_status','T')
         ->get();
         
         return view('checkin.allocate',['check_in_list' =>$check_in_list]);
