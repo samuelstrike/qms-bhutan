@@ -89,6 +89,7 @@ class CheckinController extends Controller
             $status_update = DB::table('registrations')
               ->where('ref_id', $ref)
               ->update(['r_status' => 'T']);
+              
             
         }
         else
@@ -96,8 +97,9 @@ class CheckinController extends Controller
             $status_update = DB::table('registrations')
             ->where('ref_id', $ref)
             ->update(['r_status' => 'Re']);
+           
         }
-            
+      
         return redirect('checkin');
        
     }

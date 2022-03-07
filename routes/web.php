@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Checkin\CheckinController;
+use App\Http\Controllers\Checkout\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,15 +19,20 @@ Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
-//checkin
+//checkinList
 Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
-//verification
+//Checkin verification
 Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
 //allocation
 Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
 
-//fetching Facility list
 
+//checkout
+Route::get('/checkoutlist', [CheckoutController::class,'index'])->name('checkoutlist');
+Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
+//Verifying Checkout
+Route::get('/verifyCheckout/{ref_id}', [CheckoutController::class, 'verifyCheckout'])->name('verifyCheckout');
+//fetching Facility list
 Route::get('getFacility/{id}', function ($id) {
     $facility =  App\Models\Quanaintine_Facility::where('dzongkhag_id',$id)->get();
     return response()->json($facility);

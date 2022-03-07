@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('checkin_id')->constrained('checkins');
+            $table->foreignId('registration_id')->constrained('registrations');
             $table->string('covid_test_type');
             $table->string('test_result');
+            $table->string('status');
             $table->date('check_out_date');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }
