@@ -14,6 +14,7 @@ use App\Http\Controllers\Checkin\CheckinController;
 */
 
 Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
+Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
 
 Auth::routes();
 

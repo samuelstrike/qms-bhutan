@@ -12,4 +12,9 @@ class Dzongkhag extends Model
     protected $fillable = [
         'Dzongkhag_Name'
     ];
+
+    public function gewogs()
+    {
+        return $this->hasMany(Gewog::class);
+    }
 }

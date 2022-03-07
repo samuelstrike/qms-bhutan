@@ -7,17 +7,19 @@
           <h5><b>Register for Quarantine Facility</b></h5>
         </div>
        <div class="card-body">
-          <form action="">
+          <form method="post" action="{{route('registration.store')}}">
+             @csrf
+             @method('post')
               <div class="row g-3">
                 <div class="col-md-6">
                   <label for="nationality" class="form-label"><b>Nationality</b></label>
                     <div class="input-group">
                       <select
-                        name="" id="selectNationality" class="form-select">
+                        name="nationality" id="selectNationality" class="form-select">
                         <option value="">Select Nationality</option>
-                        <option value="1">Bhutanese</option>
-                        <option value="2">Indian</option>
-                        <option value="2">USA</option>
+                        @foreach(\App\Models\Nationality::all() as $nat)
+                        <option value="{{$nat->id}}">{{$nat->nationality}}</option>
+                        @endforeach
                       </select>
                     </div>
                 </div>
@@ -76,32 +78,30 @@
               <div class="row mt-3 g-2 d-flex justify-content-between">
                 <label for="" class=""><b>Present Address</b></label>
                 <div class="col-sm-3">
-                  <label for="" class="form-label">Dzongkhag/Thromde</label>
-                    <select name="" id="" class="form-select">
+                  <label for="dzongkhag" class="form-label">Dzongkhag/Thromde</label>
+                    <select name="dzongkhag" id="dzo_select" class="form-select">
                       <option selected>Select Dzongkhag/Thromde</option>
-                      <option value="">Thimphu Thromde</option>
-                      <option value="">Thimphu </option>
+                      @foreach(\App\Models\Dzongkhag::all() as $dzo)
+                      <option value="{{$dzo->id}}">{{$dzo->Dzongkhag_Name}}</option>
+                      @endforeach
                     </select>
                 </div>
                 <div class="col-sm-3">
-                  <label for="" class="form-label">Gewog</label>
-                    <select name="" id="" class="form-select">
-                      <option selected>Select Gewog</option>
-                      <option value="1">Thimphu Thromde</option>
-                      <option value="2">Thimphu </option>
+                  <label for="gewog" class="form-label">Gewog</label>
+                    <select name="gewog" id="gewog_select" class="form-select">
                     </select>
                 </div>
                 <div class="col-sm-4">
                   <label for="" class="form-label">Residence Address</label>
-                  <textarea name="" id="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
+                  <textarea name="resident" id="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
                 </div>
                 <div class="col-sm-2">
                   <label for="" class="form-label">Occupation</label>
                     <select name="occupation[]" id="" class="form-select">
                       <option selected>Select Occupation</option>
-                      <option value="1">Student</option>
-                      <option value="2">Civil Servant</option>
-                      <option value="3">Private Sector </option>
+                      @foreach(\App\Models\Occupation::all() as $occupation)
+                      <option value="{{$occupation->id}}">{{$occupation->occupation_name}}</option>
+                      @endforeach
                     </select>
                 </div>
               </div>
@@ -109,31 +109,31 @@
                   <label for="" class="form-label"><b>Travel Details</b></label>
                   <div class="col-sm-2">
                     <label for="" class="form-label">Travel Purpose</label>
-                    <select name="" id="" class="form-select">
+                    <select name="purpose" id="" class="form-select">
                       <option selected>Select</option>
-                      <option value="1">Medical Emergency</option>
-                      <option value="2">Official</option>
+                      @foreach(\App\Models\Purpose::all() as $purpose)
+                      <option value="{{$purpose->id}}">{{$purpose->category_name}}</option>
+                      @endforeach
                     </select>
                   </div>
                   <div class="col-sm-2">
-                    <label for="" class="form-label">Traveling to</label>
-                    <select name="" id="" class="form-select">
+                    <label for="dzong_travel" class="form-label">Traveling to</label>
+                    <select name="dzong_travel" id="dzong_travel" class="form-select">
                       <option selected>Select Dzongkhag</option>
-                      <option value="">Thimphu</option>
-                      <option value="">Official</option>
+                      @foreach(\App\Models\Dzongkhag::all() as $dzo)
+                      <option value="{{$dzo->id}}">{{$dzo->Dzongkhag_Name}}</option>
+                      @endforeach
                     </select>
                   </div>
                   <div class="col-sm-2">
-                    <label for="" class="form-label">Gewog</label>
-                    <select name="" id="" class="form-select">
-                      <option selected>Select</option>
-                      <option value="">Medical Emergency</option>
-                      <option value="">Official</option>
+                    <label for="gewog_travel" class="form-label">Gewog</label>
+                    <select name="gewog_travel" id="gewog_travel" class="form-select">
+                   
                     </select>
                   </div>
                   <div class="col-sm-4">
                     <label for="" class="form-label"><b>Reason for Travel</b></label>
-                    <textarea name="" id="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
+                    <textarea name="reason" id="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
                   </div>
                   <div class="col-sm-2">
                     <label for="travel" class="form-label"><b>Travel mode from QF</b></label>
@@ -154,18 +154,12 @@
                 <div class="col-sm-5">
                   <label for="" class="form-label"><b>Vaccination Status</b></label>
                   <div>
+                    @foreach(\App\Models\Vaccination::all() as $vaccination)
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                      <label class="form-check-label" for="inlineCheckbox1">First Dose</label>
+                      <input class="form-check-input" name="vaccine" type="checkbox" id="" value="{{$vaccination->id}}">
+                      <label class="form-check-label" for="inlineCheckbox1">{{$vaccination->dose_name}}</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                      <label class="form-check-label" for="inlineCheckbox2">Second Dose</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                      <label class="form-check-label" for="inlineCheckbox3">Booster Dose</label>
-                    </div>
+                    @endforeach
                   </div>
                 </div>
               </div>
@@ -236,18 +230,82 @@
           html+= '</div>';
           html+= '<div class="col-md-2">'; 
           html+= '<label class="form-label"><b>Occupation</b></label>';
-          html+= '<select name="occuption[]" class="form-select"><option selected>Occuption</option><option value="1">Student</option><option value="2">Civil Servant</option><option value="3">Private Sector</option></select>';      
+          html+= '<select name="occuption[]" class="form-select"><option selected>Occuption</option>@foreach(\App\Models\Occupation::all() as $occp)<option value="{{$occp->id}}">{{$occp->occupation_name}}</option>@endforeach</select>';      
           html+= '</div>';
           html+= '<div class="mt-3"><button type="button" class="btn btn-danger" id="remove">Delete Accompanying Members</button></div>'
           html+= '</div>';
           $('#form-wrapper').append(html);
       })
+      $(document).on('click','#remove', function(e){
+        e.preventDefault();
+        $(this).closest('.row').remove();
+      });
+
+      //Gewog Selection using Dzongkhag for present Address
+
+      $('#dzo_select').on('change', function() {
+               var DzoID = $(this).val(); 
+               if(DzoID) {
+                
+                   $.ajax({
+                       url: '/getGewog/'+DzoID,
+                       type: "GET",
+                       data : {"_token":"{{ csrf_token() }}"},
+                       dataType: "json",
+                       success:function(data)
+                       {
+                         if(data){
+                            $('#gewog_select').empty();
+                            //$('#t_gewog').append('<option hidden>Choose Gewog</option>'); 
+                            $.each(data, function(key, gewog){
+                               
+                                $('select[name="gewog"]').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                            });
+                        }else{
+                            $('#gewog_select').empty();
+                        }
+                     }
+                   });
+               }else{
+                 $('#gewog_select').empty();
+               }
+            });
+
+            //Gewog Selection using Dzongkhag for present Address
+
+      $('#dzong_travel').on('change', function() {
+               var DzoID = $(this).val(); 
+               if(DzoID) {
+                
+                   $.ajax({
+                       url: '/getGewog/'+DzoID,
+                       type: "GET",
+                       data : {"_token":"{{ csrf_token() }}"},
+                       dataType: "json",
+                       success:function(data)
+                       {
+                         if(data){
+                            $('#gewog_travel').empty();
+                            //$('#t_gewog').append('<option hidden>Choose Gewog</option>'); 
+                            $.each(data, function(key, gewog){
+                               
+                                $('select[name="gewog_travel"]').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                            });
+                        }else{
+                            $('#gewog_travel').empty();
+                        }
+                     }
+                   });
+               }else{
+                 $('#gewog_travel').empty();
+               }
+            });
+
+           
+      
+    });
     
-    });
-    $(document).on('click','#remove', function(e){
-      e.preventDefault();
-      $(this).closest('.row').remove();
-    });
   
+    
   </script>
 @endsection
