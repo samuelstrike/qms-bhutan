@@ -13,7 +13,9 @@ use App\Http\Controllers\Checkout\CheckoutController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/test', function(){
+    return view('test');
+});
 Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
 Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
 
