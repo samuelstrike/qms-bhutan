@@ -24,6 +24,7 @@ return new class extends Migration
             $table->bigInteger('phone_no');
             $table->string('present_address');
             $table->foreignId('purpose_category_id')->constrained('purpose_categories');
+            $table->foreignId('occupation_id')->constrained('occupations');
             $table->string('travel_details');
             $table->string('travel_mode');
             $table->foreignId('from_dzongkhag_id')->constrained('dzongkhags');
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->foreignId('to_dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
-            $table->string('r_status');
+            $table->string('r_status')->detault('P');
             $table->timestamps();
         });
     }
