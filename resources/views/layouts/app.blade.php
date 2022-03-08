@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>

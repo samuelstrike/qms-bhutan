@@ -3,8 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Checkin\CheckinController;
 use App\Http\Controllers\Checkout\CheckoutController;
+<<<<<<< HEAD
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+=======
+use App\Http\Controllers\Transfer\TransferController;
+use App\Http\Controllers\Registration\RegistrationController;
+
+>>>>>>> 4bdfa7657b4b3317da696d880f3ea5f1b3a0ef20
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +21,12 @@ use App\Http\Controllers\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function(){
-    return view('test');
-});
+//Registraiton
 Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
 Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
+
+Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
+
 
 Auth::routes();
 
@@ -47,6 +54,10 @@ Route::get('getFacility/{id}', function ($id) {
     $facility =  App\Models\Quanaintine_Facility::where('dzongkhag_id',$id)->get();
     return response()->json($facility);
 });
+
+//Transfer
+Route::get('/transferlist', [TransferController::class,'index'])->name('transferlist');
+
 
 //fetching Gewog
 

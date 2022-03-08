@@ -26,13 +26,14 @@ return new class extends Migration
             $table->foreignId('purpose_category_id')->constrained('purpose_categories');
             $table->foreignId('occupation_id')->constrained('occupations');
             $table->string('travel_details');
-            $table->foreignId('occupation_id')->constant('occupations');
             $table->string('travel_mode');
             $table->foreignId('from_dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('from_gewog_id')->constrained('gewogs');
             $table->foreignId('to_dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
+            $table->date('expected_date');
+            $table->string('file_name');
             $table->string('r_status')->detault('P');
             $table->timestamps();
         });
