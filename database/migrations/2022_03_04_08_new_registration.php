@@ -33,6 +33,7 @@ return new class extends Migration
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
             $table->date('expected_date');
+            $table->string('file_name');
             $table->string('r_status')->detault('P');
             $table->timestamps();
         });

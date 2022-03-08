@@ -7,7 +7,7 @@
           <h5><b>Register for Quarantine Facility</b></h5>
         </div>
        <div class="card-body">
-          <form action="{{route('apply')}}" method="POST">
+          <form action="{{route('apply')}}" method="POST" enctype="multipart/form-data" >
             @csrf
             <table class="table table-bordered" id="dynamicAddRemove">
                 <tr>
@@ -134,7 +134,12 @@
               <div class="row mt-3 g-2">
                 <div class="col-sm-3">
                   <label for="" class="form-label"><b>Supporting Document</b></label>
-                  <input type="file" class="form-control">
+                  <input 
+                        type="file" 
+                        name="file" 
+                        id="inputFile"
+                        class="form-control @error('file') is-invalid @enderror">
+        
                 </div>
                
                 <div class="col-sm-3">

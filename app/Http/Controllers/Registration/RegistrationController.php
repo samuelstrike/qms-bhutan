@@ -12,56 +12,6 @@ class RegistrationController extends Controller
     {
 
         return view ('registration.index');
-    }
-
-    public function store(Request $request)
-    {
-        
-       $ref = \random_int(100000,999999);
-        
-       $nationality = $request->nationality;
-       $cid=$request->cid;
-       $name = $request->name;
-       $gender = $request->gender;
-       $contact = $request->phone;
-       $presentDzong= $request->dzongkhag;
-       $presentGewog= $request->gewog;
-       $presentResidence = $request->resident;
-       $occupation = $request->occupation;
-       $travelPurpose = $request->purpose;
-       $treavelDzo = $request->dzong_travel;
-       $travelGewog = $request->gewog_travel;
-       $travelReason= $request->reason;
-       $travelMode = $request->travel;
-       $vaccineStatus = $request->vaccine;
-
-       for($count =0; $count < count($cid); $count++){
-            $data = array(
-                'ref_id' => $ref,
-                'cid' => $cid[$count],
-                'name' => $name[$count],
-                'gender' => $gender[$count],
-                'phone_no' => $contact[$count],
-                'from_dzongkhag_id' => $presentDzong,
-                'from_gewog_id' =>$presentGewog,
-                'present_address' => $presentResidence,
-                'occupation_id' =>$occupation[$count],
-                'purpose_category_id'=>$travelPurpose,
-                'to_dzongkhag_id'=>$treavelDzo,
-                'to_gewog_id' =>$travelGewog,
-                'travel_mode' =>$travelMode,
-                'vaccine_status_id' => $vaccineStatus
-
-            );
-            
-            $insert[]=$data;
-            dd($insert);
-
-            Registration::create($insert);
-            return 'success';
-       }
-
-
         
 
     }
@@ -69,7 +19,14 @@ class RegistrationController extends Controller
     public function apply(Request $request)
     {
         $ref = \random_int(100000,999999);
-        $gender="";
+        $request->validate([
+            'file' => 'required|mimes:pdf,xlx,csv|max:100024',
+        ]);
+        $filenameWithExt = $request->file('file')->getClientOriginalName();
+        $fileName = time().'.'.$filenameWithExt;
+        $request->file->move(public_path('uploads/files'), $fileName);
+        
+        // $gender="";
         foreach ($request->cid as $key => $id) {
 
            if($request->gender[$key]==1)
@@ -100,10 +57,12 @@ class RegistrationController extends Controller
                 'to_dzongkhag_id' => $request->t_dzongkhag,
                 'to_gewog_id' => $request->t_gewog,
                 'vaccine_status_id' => $request->vaccine[$key],
+                'file_name' => $fileName,
                 'expected_date' => $request->t_date,
                 'r_status' =>'P',
             ]);
         }
+        return redirect('/');
     
     }
 }

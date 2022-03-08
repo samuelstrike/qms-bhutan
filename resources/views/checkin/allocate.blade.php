@@ -63,7 +63,7 @@
                             <th colspan="6">Supporting Document </th>
                         </tr>
                         <tr>
-                            <td colspan="6"> tesst.docx </td>
+                            <td colspan="6">  <img  src="{{ asset('files/'.$checkin->file_name) }}" alt="user-img"></td>
                         </tr>
             @endif
                             @empty
