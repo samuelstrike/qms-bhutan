@@ -164,16 +164,19 @@
     $(document).ready(function(){
     
     var i = 0;
+    
+   
     $("#dynamic-ar").click(function () {
-     
+       
         ++i;
-        alert(i);
-        // $("#dynamicAddRemove").append('<tr>');
         $("#dynamicAddRemove").append('<tr><td><label class="form-check-label" for="flexCheckChecked" name="yes_l[]" id="yes_l[]">Yes</label><input class="form-check-input" type="radio"  name="cc['+i+']" id="cc['+i+']"><label class="form-check-label" for="flexCheckChecked" name="no_l[]" id="no_l[]">No</label><input class="form-check-input" type="radio"  name="cc['+i+']" id="cc['+i+']"></td> <td><input type="number" class="form-control" name="cid['+i+']" id="cid['+i+']"></td><td><input type="text" class="form-control" name="name['+i+']" id="['+i+']" required></td><td><select id="gender['+i+']" name="gender['+i+']" class="form-select"><option value="1" selected>Male</option><option value="2">Female</option><option value="3">others</option></select></td><td><select name="occupation['+i+']" id="occupation['+i+']" class="form-select"> @foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach </select></td><td><select id="vaccine" name="vaccine['+i+']" class="form-select">@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</td><td><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-select">@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
      });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
     });
+    
+  
+   
       $('#f_dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 
@@ -203,7 +206,9 @@
                  $('#f_gewog').empty();
                }
             });
-           
+            // var id =document.getElementById('cid['+i+']').value;
+            // alert(id);
+
             $('#t_dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 
@@ -234,9 +239,7 @@
                }
             });
       
-            $('#gender['+i+']').on('change', function() {
-              alert(i);
-            });
+           
     });
     
   

@@ -20,11 +20,11 @@ class RegistrationController extends Controller
     {
         $ref = \random_int(100000,999999);
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv|max:100024',
+            'file' => 'required|mimes:pdf,xlx,csv,jpg,jpeg,png|max:100024',
         ]);
         $filenameWithExt = $request->file('file')->getClientOriginalName();
         $fileName = time().'.'.$filenameWithExt;
-        $request->file->move(public_path('uploads/files'), $fileName);
+        $request->file->move(public_path('uploads'), $fileName);
         
         // $gender="";
         foreach ($request->cid as $key => $id) {

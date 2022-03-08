@@ -63,7 +63,16 @@
                             <th colspan="6">Supporting Document </th>
                         </tr>
                         <tr>
-                            <td colspan="6">  <img  src="{{ asset('files/'.$checkin->file_name) }}" alt="user-img"></td>
+                            <td colspan="6"> @if($checkin->file_name!="")
+                            <a href="{{ route('downloadFile',$checkin->file_name) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {{ $checkin->file_name }} </a>   
+
+                                              @endif
+                                              @else
+                                                 No file
+                                              @endelse
+                                        
+
+                            </td>
                         </tr>
             @endif
                             @empty

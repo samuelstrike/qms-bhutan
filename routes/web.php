@@ -18,7 +18,6 @@ use App\Http\Controllers\Registration\RegistrationController;
 */
 //Registraiton
 Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
-Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
 
 Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
 
@@ -55,3 +54,6 @@ Route::get('getGewog/{id}', function ($id) {
     $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
     return response()->json($gewog);
 });
+
+//download file
+Route::get('getfile/{file_name}', [CheckinController::class, 'downloadFile'])->name('downloadFile');

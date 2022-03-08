@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Checkin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Registration;
 use App\Models\Dzongkhag;
 use App\Models\Gewog;
 use App\Models\Quaraintine_Facility;
 use App\Models\Gewog_User_Maping;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 
@@ -106,5 +107,10 @@ class CheckinController extends Controller
       
         return redirect('checkin');
        
+    }
+
+    function downloadFile($file_name){
+        $myFile = public_path('uploads/'.$file_name);
+    	return response()->download($myFile);
     }
 }
