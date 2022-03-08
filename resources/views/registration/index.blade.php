@@ -22,37 +22,37 @@
                 <tr>
                     <td>
                       <label class="form-check-label" for="flexCheckChecked" name="yes_l[]" id="yes_l[]">Yes</label>  
-                      <input class="form-check-input" type="radio"  name="cc[0][yes]" id="cc[]">
+                      <input class="form-check-input" type="radio"  name="cc[0]" id="cc[]">
                       <label class="form-check-label" for="flexCheckChecked" name="no_l[]" id="no_l[]">No</label>
-                      <input class="form-check-input" type="radio"  name="cc[0][yes]" id="cc[]">
+                      <input class="form-check-input" type="radio"  name="cc[0]" id="cc[]">
                 
                     </td>
-                    <td><input type="number" class="form-control" name="cid[0][cid]" id="cid[0][cid]"></td>
-                    <td><input type="text" class="form-control" name="name[0][name]" id="name[0][name]" ></td>
+                    <td><input type="number" class="form-control" name="cid[0]" id="cid[0]"></td>
+                    <td><input type="text" class="form-control" name="name[0]" id="name[0]" ></td>
                     <td>
-                    <select id="gender[0][gender]" name="gender[0][gender]" class="form-select" disabled>
+                    <select id="gender[0]" name="gender[0]" class="form-select" >
                         
-                        <option value="Male" selected>Male</option>
-                        <option value="Female">Female</option>
+                        <option value="1" selected>Male</option>
+                        <option value="2">Female</option>
                         <option value="Others">others</option>
                     </select>
                     </td>
                     <td>
-                    <select name="occupation[0][occupation]" id="occupation[0][occupation]" class="form-select">
+                    <select name="occupation[0]" id="occupation[0]" class="form-select">
                       @foreach(\App\Models\Occupation::all() as $occupation)
                                 <option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>
                         @endforeach
                     </select>
                     </td>
                     <td>
-                  <select id="vaccine" name="vaccine[0][vaccine]" class="form-select">
+                  <select id="vaccine" name="vaccine[0]" class="form-select">
                     @foreach(\App\Models\Vaccination::all() as $vaccination)
                       <option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>
                     @endforeach
                     </select>
                     </td>
                     <td>
-                    <select name="selectNationality[0][selectNationality]" id="selectNationality[0][selectNationality]" class="form-select">
+                    <select name="selectNationality[0]" id="selectNationality[0]" class="form-select">
                       @foreach(\App\Models\Nationality::all() as $nationality)
                                 <option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>
                         @endforeach
@@ -96,7 +96,7 @@
                   </div>
                   <div class="col-md-2">
                   <label for="phone" class="form-label"><b>Contact Number</b></label>
-                  <input type="text" class="form-control required number mobileInput" name="phone" autocomplete="off">
+                  <input type="number" class="form-control required number mobileInput" name="phone" autocomplete="off">
                 </div>
                 
               </div>
@@ -164,7 +164,7 @@
         ++i;
         alert(i);
         // $("#dynamicAddRemove").append('<tr>');
-        $("#dynamicAddRemove").append('<tr><td><label class="form-check-label" for="flexCheckChecked" name="yes_l[]" id="yes_l[]">Yes</label><input class="form-check-input" type="radio"  name="cc['+i+'][yes]" id="cc['+i+'][yes]"><label class="form-check-label" for="flexCheckChecked" name="no_l[]" id="no_l[]">No</label><input class="form-check-input" type="radio"  name="cc['+i+'][yes]" id="cc['+i+'][yes]"></td> <td><input type="number" class="form-control" name="cid['+i+'][cid]" id="cid['+i+'][cid]"></td><td><input type="text" class="form-control" name="name['+i+'][name]" id="['+i+'][name]"></td><td><select id="gender['+i+'][gender]" name="gender['+i+'][gender]" class="form-select"><option value="Male" selected>Male</option><option value="Female">Female</option><option value="Others">others</option></select></td><td><select name="occupation['+i+'][occupation]" id="occupation['+i+'][occupation]" class="form-select"> @foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach </select></td><td><select id="vaccine" name="vaccine['+i+'][vaccine]" class="form-select">@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</td><td><select name="selectNationality['+i+'][selectNationality]" id="selectNationality['+i+'][selectNationality]" class="form-select">@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><label class="form-check-label" for="flexCheckChecked" name="yes_l[]" id="yes_l[]">Yes</label><input class="form-check-input" type="radio"  name="cc['+i+']" id="cc['+i+']"><label class="form-check-label" for="flexCheckChecked" name="no_l[]" id="no_l[]">No</label><input class="form-check-input" type="radio"  name="cc['+i+']" id="cc['+i+']"></td> <td><input type="number" class="form-control" name="cid['+i+']" id="cid['+i+']"></td><td><input type="text" class="form-control" name="name['+i+']" id="['+i+']"></td><td><select id="gender['+i+']" name="gender['+i+']" class="form-select"><option value="1" selected>Male</option><option value="2">Female</option><option value="3">others</option></select></td><td><select name="occupation['+i+']" id="occupation['+i+']" class="form-select"> @foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach </select></td><td><select id="vaccine" name="vaccine['+i+']" class="form-select">@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</td><td><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-select">@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
      });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
@@ -229,7 +229,7 @@
                }
             });
       
-            $('#gender['+i+'][gender]').on('change', function() {
+            $('#gender['+i+']').on('change', function() {
               alert(i);
             });
     });

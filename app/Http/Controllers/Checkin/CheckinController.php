@@ -42,8 +42,9 @@ class CheckinController extends Controller
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
         ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','vaccination_status.dose_name','occupations.occupation_name')
         ->where('registrations.ref_id',$ref_id)
-        ->where('registrations.r_status','P')
-        ->orWhere('registrations.r_status','T')
+        // ->where('registrations.r_status','P')
+        // ->orWhere('registrations.r_status','T')
+       
         ->get();
         
         return view('checkin.allocate',['check_in_list' =>$check_in_list]);
