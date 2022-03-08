@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Checkin\CheckinController;
 use App\Http\Controllers\Checkout\CheckoutController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,11 @@ Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class
 Route::post('/registration', [App\Http\Controllers\Registration\RegistrationController::class, 'store'])->name('registration.store');
 
 Auth::routes();
+
+Route::resources([
+    'roles' => RoleController::class,
+    'permissions' => PermissionController::class,
+]);
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
 //checkinList
