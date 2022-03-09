@@ -35,11 +35,11 @@ class CheckinController extends Controller
     }
 
     public function verify($ref_id)
-    {
+    {   
+        $dzongkhag = Dzongkhag::all();
         $check_in_list = DB::table('registrations')
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
-
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
         ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
         ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
@@ -52,7 +52,10 @@ class CheckinController extends Controller
        
         ->get();
         
-        return view('checkin.allocate',['check_in_list' =>$check_in_list]);
+        return view('checkin.allocate',[
+            'check_in_list' =>$check_in_list,
+            'dzongkhag' => $dzongkhag    
+        ]);
     }
 
     public function allocate(Request $request)

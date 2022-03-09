@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('facility_name');
             $table->foreignId('dzongkhag_id')->constrained('dzongkhags');
             $table->foreignId('gewog_id')->constrained('gewogs');
-            $table->bigInteger('no_of_rooms');
-            $table->bigInteger('star_rating');
-            $table->bigInteger('type_of_facility');
+            $table->bigInteger('capacity');
+            $table->string('star_rating')->default('normal');
+            $table->string('type_of_facility')->default('quaraintine');
+            $table->timestamps();
         });
     }
 

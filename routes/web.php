@@ -7,6 +7,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Transfer\TransferController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\Quaraintine\QuaraintineController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,9 @@ Route::middleware('auth')->group(function () {
 
 Auth::routes();
 
+//quaraintine facility
 
+Route::get('/facility', [QuaraintineController::class,'index'])->name('facility');
+Route::post('/store', [QuaraintineController::class,'store'])->name('addfacility');
 
 

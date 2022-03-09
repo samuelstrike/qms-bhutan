@@ -19,8 +19,8 @@
     @endif
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <div class="row d-flex justify-content-between">
+    <div class="card-header py-3">
+        <div class="row d-flex justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Allocate Quaraintine Facility</h6>
             
         </div>
@@ -83,10 +83,10 @@
                        </thead> 
                         <tbody>                        
                         <tr>
-                            <td colspan="2"> {{ $checkin->Dzongkhag_Name }} </td>
-                            <td colspan="2"> {{ $checkin->gewog_name }} </td>
-                            <td colspan="2"> {{ $checkin->Dzongkhag_Name }} </td>
-                            <td colspan="2"> {{ $checkin->gewog_name }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name'))  }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }} </td>
                             
                         </tr>
                         </tbody>
