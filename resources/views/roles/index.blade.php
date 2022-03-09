@@ -77,12 +77,12 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name" class="form-control-label">Role Name</label>
-                            <input class="form-control" type="text" name="name" value="">
+                            <input class="form-control" type="text" name="name" value="" required>
                         </div>
                         <h5>Assign Permission</h5>
                         <div class="form-check">
                             @foreach($permissions as $permission)
-                            <input class="form-check-input" type="checkbox" name='permissions[]' value="{{$permission->id}}" />
+                            <input class="form-check-input" type="checkbox" name='permissions[]' value="{{$permission->id}}" required/>
                             <label for="{{ $permission->name }}" class="form-check-label">{{ucfirst($permission->name)}}</label>
                             @endforeach
                         </div>
