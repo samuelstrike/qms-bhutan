@@ -25,12 +25,17 @@ Route::post('/registration', [App\Http\Controllers\Registration\RegistrationCont
 Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
 
 
-Auth::routes();
+Auth::routes(['register' => false,]);
 
 Route::resources([
     'roles' => RoleController::class,
     'permissions' => PermissionController::class,
 ]);
+
+//create user
+Route::get('/register-user', [App\Http\Controllers\UserRegisterController::class, 'index'])->name('register-user.index');
+Route::post('/register-user', [App\Http\Controllers\UserRegisterController::class, 'store'])->name('register-user.store');
+Route::delete('/register-user/{id}', [App\Http\Controllers\UserRegisterController::class, 'destroy'])->name('register-user.destroy');
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
 //checkinList
