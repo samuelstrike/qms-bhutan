@@ -53,8 +53,8 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Roles:</h6>
-                <a class="collapse-item" href="#">Create Roles</a>
-                <a class="collapse-item" href="#">Create Permission</a>
+                <a class="collapse-item" href="{{route('roles.index')}}">Manage Roles</a>
+                <a class="collapse-item" href="{{ route('permissions.index')}}">Manage Permission</a>
             </div>
         </div>
     </li>
