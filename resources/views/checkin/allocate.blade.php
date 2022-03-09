@@ -1,22 +1,36 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
+<div class="container-fluid">
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-          <h5><b>Allocate Quarantine Facility</b></h5>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Allocate Quaraintine Facility</h1>
+        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+    </div>
+    @if ($message=Session::get('flash_message')) 
+        
+        <div class="alert alert-primary alert-block">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{$message}}</strong> 
+        
         </div>
-       <div class="card-body">
-       <table class="table table-bordered table-striped text-center mb-0">
-                        
-                   
-                        <tbody>
-                       
-                            
-                @forelse($check_in_list as $checkin)
-                       @if($loop->first)
-                        <tr>
+    @endif
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row d-flex justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Allocate Quaraintine Facility</h6>
+            
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    @foreach($check_in_list as $checkin)
+                    @if($loop->first)
+                    <thead> 
+                       <tr>
                            <th>CID</th>
                            <th colspan="2">Name</th>
                            <th>Gender</th>
@@ -24,20 +38,23 @@
                            <th colspan="2">Occupation</th>
                            <th colspan="2">Vaccination Status</th>
                        </tr>
-                       @endif
-                        <tr>
-                            <td>{{ $checkin->cid }}</td>
-                            
-                            <td colspan="2">{{ $checkin->name }} </td>
-                            <td>{{ $checkin->gender }} </td>
-                           
-                            
-                            <td colspan="2"> {{ $checkin->occupation_name }} </td>
-                            <td colspan="2">{{ $checkin->dose_name }} </td>
-                        </tr>
-                        
-                @if ($loop->last)
-    
+                    </thead>
+                    @endif
+                    <tbody>        
+                      
+                      <tr>
+                          <td>{{ $checkin->cid }}</td>
+                          
+                          <td colspan="2">{{ $checkin->name }} </td>
+                          <td>{{ $checkin->gender }} </td>
+                         
+                          
+                          <td colspan="2"> {{ $checkin->occupation_name }} </td>
+                          <td colspan="2">{{ $checkin->dose_name }} </td>
+                      </tr>
+                  </tbody>
+                  @if ($loop->last)
+                      <thead>  
                         <tr>
                            <th colspan="2">Travel Mode</th>
                            <th colspan="2">Purpose</th>
@@ -45,6 +62,8 @@
                            <th colspan="2">Present Address</th>
                           
                        </tr>
+                       </thead>
+                        <tbody>
                         <tr>
                             <td colspan="2">{{ $checkin->travel_mode }}</td>
                             
@@ -52,13 +71,17 @@
                             <td colspan="2"> {{ $checkin->expected_date }} </td>
                             <td colspan="2"> {{ $checkin->present_address }}</td>
                         </tr>
+                        </tbody>
+                        <thead>
                         <tr>
-                        <th colspan="2">From Dzongkhag</th>
-                        <th colspan="2">From Gewog</th>   
-                        <th colspan="2">To Dzongkhag</th>
-                           <th colspan="2">To Gewog</th>
-                           
-                       </tr>
+                            <th colspan="2">From Dzongkhag</th>
+                            <th colspan="2">From Gewog</th>   
+                            <th colspan="2">To Dzongkhag</th>
+                            <th colspan="2">To Gewog</th>
+                            
+                        </tr>
+                       </thead> 
+                        <tbody>                        
                         <tr>
                             <td colspan="2"> {{ $checkin->Dzongkhag_Name }} </td>
                             <td colspan="2"> {{ $checkin->gewog_name }} </td>
@@ -66,11 +89,15 @@
                             <td colspan="2"> {{ $checkin->gewog_name }} </td>
                             
                         </tr>
+                        </tbody>
+                        <thead>
                         <tr>
                             <th colspan="2">Phone Number</th>
                             <th colspan="4">Remarks</th>
                             <th colspan="2">Supporting Document </th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td colspan="2">{{ $checkin->phone_no }}</td>
                             <td colspan="4">
@@ -83,19 +110,13 @@
                                               @endif
                             </td>
                         </tr>
-            @endif
-                            @empty
-                            <tr>
-                                <td colspan="3">
-                                    <span class="text-danger">No Pending Allocation</span>
-                                </td>
-                            </tr>
-                        @endforelse
-                       
-                               
                         </tbody>
-                    </table>
-    <div class="row">
+                    @endif
+                   @endforeach
+                </table>
+            </div>
+
+            <div class="row">
         <div class="col-md-10">
         <form action="{{ route('allocate') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -113,7 +134,7 @@
                         <label for="remarks"><strong>Remarks if any</strong></label>
                         <textarea class="form-control" name="remarks" id="remarks"></textarea>
                     </div>
-            <input type="hidden" name="ref_id" id="ref_id" value="{{$checkin->ref_id}}">
+                    <input type="hidden" name="ref_id" id="ref_id" value="{{$checkin->ref_id}}">
                 </div>
                 <div class="form-group row" id="Allocate" >
                     <div class="col-sm-4">
@@ -183,9 +204,14 @@
             </form>
         </div>
     </div>
-    
 
+        </div>
+    </div>
 </div>
+
+@endsection
+
+@section('scripts')
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
@@ -291,4 +317,6 @@ $( document ).ready(function() {
     
 });
 </script>
+
+
 @endsection

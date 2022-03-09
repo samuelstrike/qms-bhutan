@@ -77,8 +77,10 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quarantine:</h6>
-                <a class="collapse-item" href="#">Register Individuals</a>
-                <a class="collapse-item" href="register.html">Allocate Quarantine</a>
+                <a class="collapse-item" href="{{ route('checkin') }}">Registered List</a>
+                <a class="collapse-item" href="{{ route('transferlist') }}">Transferred List</a>
+                <a class="collapse-item" href="{{ route('checkoutlist') }}">Check out</a>
+                
             </div>
         </div>
     </li>

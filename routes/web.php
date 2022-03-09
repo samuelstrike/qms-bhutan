@@ -24,43 +24,51 @@ Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class
 Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
 
 
+//Authentication
+
+Route::middleware('auth')->group(function () {
+    //fetching Facility list
+    Route::get('getFacility/{id}', function ($id) {
+        $facility =  App\Models\Quanaintine_Facility::where('dzongkhag_id',$id)->get();
+        return response()->json($facility);
+    });
+    //download file
+    Route::get('getfile/{file_name}', [CheckinController::class, 'downloadFile'])->name('downloadFile');
+    //fetching Gewog
+    Route::get('getGewog/{id}', function ($id) {
+        $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
+        return response()->json($gewog);
+    });
+
+    Route::resources([
+        'roles' => RoleController::class,
+        'permissions' => PermissionController::class,
+    ]);
+    
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
+    //checkinList
+    Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
+    //Checkin verification
+    Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
+    //allocation
+    Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
+    
+    
+    //checkout
+    Route::get('/checkoutlist', [CheckoutController::class,'index'])->name('checkoutlist');
+    Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
+    //Verifying Checkout
+    Route::get('/verifyCheckout/{ref_id}', [CheckoutController::class, 'verifyCheckout'])->name('verifyCheckout');
+    
+    
+    //Transfer
+    Route::get('/transferlist', [TransferController::class,'index'])->name('transferlist');
+    
+
+});
+
 Auth::routes();
 
-Route::resources([
-    'roles' => RoleController::class,
-    'permissions' => PermissionController::class,
-]);
-
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
-//checkinList
-Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
-//Checkin verification
-Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
-//allocation
-Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
 
 
-//checkout
-Route::get('/checkoutlist', [CheckoutController::class,'index'])->name('checkoutlist');
-Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
-//Verifying Checkout
-Route::get('/verifyCheckout/{ref_id}', [CheckoutController::class, 'verifyCheckout'])->name('verifyCheckout');
-//fetching Facility list
-Route::get('getFacility/{id}', function ($id) {
-    $facility =  App\Models\Quanaintine_Facility::where('dzongkhag_id',$id)->get();
-    return response()->json($facility);
-});
 
-//Transfer
-Route::get('/transferlist', [TransferController::class,'index'])->name('transferlist');
-
-
-//fetching Gewog
-
-Route::get('getGewog/{id}', function ($id) {
-    $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
-    return response()->json($gewog);
-});
-
-//download file
-Route::get('getfile/{file_name}', [CheckinController::class, 'downloadFile'])->name('downloadFile');

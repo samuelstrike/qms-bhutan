@@ -1,29 +1,48 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
+<div class="container-fluid">
 
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-          <h5><b>Allocate Quarantine Facility</b></h5>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Allocate Quaraintine Facility</h1>
+        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+    </div>
+    @if ($message=Session::get('flash_message')) 
+        
+        <div class="alert alert-primary alert-block">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{$message}}</strong> 
+        
         </div>
-       <div class="card-body">
-       <table class="table table-bordered table-striped text-center mb-0">
-                        
+    @endif
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row d-flex justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Pending Allocation</h6>
+            
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                        <th>CID</th>
+                            <th>CID</th>
                             <th> Name </th>    
                             <th >Telephone</th>
                             <th >Purpose</th>
                             <th>To Dzongkhag</th>
                             <th>To Gewog</th>
                             <th>Action</th>
-                            
                         </tr>
-                        </thead>
-                        <tbody>
-                       
+                    </thead>
+                    <tfoot>
+                        
+                    </tfoot>
+                    <tbody>
                         @forelse($check_out_list as $checkout)
                         <tr>
                             <td>{{ $checkout->cid }}</td>
@@ -47,10 +66,17 @@
                             </tr>
                         @endforelse
                        
-                                
-                        </tbody>
-                    </table>
+        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('scripts')
+    <script></script>
+
 @endsection

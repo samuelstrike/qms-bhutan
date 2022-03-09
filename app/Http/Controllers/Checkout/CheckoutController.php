@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class CheckoutController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         $check_out_list = DB::table('registrations')
@@ -57,9 +60,19 @@ class CheckoutController extends Controller
            
         ]);
 
-        $status_update = DB::table('registrations')
-        ->where('id', $request->reg_id)
-        ->update(['r_status' => 'C']);
+        if($request->select_action=="Checkout")
+        {
+            $status_update = DB::table('registrations')
+            ->where('id', $request->reg_id)
+            ->update(['r_status' => 'C']);
+        }
+        else
+        {
+            $status_update = DB::table('registrations')
+            ->where('id', $request->reg_id)
+            ->update(['r_status' => 'I']);
+        }
+           
 
         return redirect('checkoutlist');
     }

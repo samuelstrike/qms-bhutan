@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\DB;
 
 class CheckinController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         $check_in_list = DB::table('registrations')
@@ -33,9 +36,6 @@ class CheckinController extends Controller
 
     public function verify($ref_id)
     {
-        
-
-
         $check_in_list = DB::table('registrations')
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
@@ -79,6 +79,11 @@ class CheckinController extends Controller
             $status_update = DB::table('registrations')
               ->where('ref_id', $ref)
               ->update(['r_status' => 'A']);
+
+              return redirect()->route('checkin')
+              ->with('flash_message',
+              'Allocated Quaraintine Center');
+          
                
         }
            
@@ -93,11 +98,19 @@ class CheckinController extends Controller
                         'gewog_id'   => $request->t_gewog,
                         'remarks' => $request->remarks
                     ]);
+                    return redirect()->route('checkin')
+                            ->with('flash_message',
+                            'Allocated Facility');
                 }
 
             $status_update = DB::table('registrations')
               ->where('ref_id', $ref)
               ->update(['r_status' => 'T']);
+
+              return redirect()->route('checkin')
+              ->with('flash_message',
+              'Transferred');
+          
               
             
         }
@@ -106,10 +119,15 @@ class CheckinController extends Controller
             $status_update = DB::table('registrations')
             ->where('ref_id', $ref)
             ->update(['r_status' => 'Re']);
+
+            return redirect()->route('checkin')
+            ->with('flash_message',
+            'Request rejected!');
+        
            
         }
       
-        return redirect('checkin');
+       
        
     }
 

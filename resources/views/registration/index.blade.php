@@ -124,10 +124,12 @@
                     <label for="travel" class="form-label"><b>Travel mode from QF</b></label>
                     <select name="travel" id="" class="form-select">
                       <option selected>Select</option>
-                      <option value="1">Private Car</option>
-                      <option value="2">Bus</option>
-                      <option value="3">Taxi</option>
-                      <option value="4">Government</option>
+                      <option>Private Car</option>
+                      <option>Bus</option>
+                      <option>Taxi</option>
+                      <option>Government Vehicle</option>
+                      <option>No Vehicle</option>
+                      
                     </select>
                   </div>
               </div>
