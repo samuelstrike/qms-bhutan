@@ -96,7 +96,7 @@
         </div>
     </div>
 <!-- Delete Modal-->
-<div class="modal fade" id="deleteRole_{{$role->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="deleteRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -106,8 +106,8 @@ aria-hidden="true">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="modal-body">Please confirm the role deletion {{$role->name}}</div>
-        <form action="{{ route('roles.destroy', $role->id)}}" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">Please confirm the role deletion</div>
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             @method('delete')
             <div class="modal-footer">
