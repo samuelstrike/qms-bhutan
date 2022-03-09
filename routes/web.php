@@ -70,10 +70,23 @@ Route::middleware('auth')->group(function () {
 });
 
 Auth::routes();
+Auth::routes(['register' => false,]);
 
 //quaraintine facility
 
 Route::get('/facility', [QuaraintineController::class,'index'])->name('facility');
 Route::post('/store', [QuaraintineController::class,'store'])->name('addfacility');
+//create user
+Route::get('/register-user', [App\Http\Controllers\UserRegisterController::class, 'index'])->name('register-user.index');
+Route::post('/register-user', [App\Http\Controllers\UserRegisterController::class, 'store'])->name('register-user.store');
+Route::delete('/register-user/{id}', [App\Http\Controllers\UserRegisterController::class, 'destroy'])->name('register-user.destroy');
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
+//checkinList
+Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
+//Checkin verification
+Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
+//allocation
+Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
 
 

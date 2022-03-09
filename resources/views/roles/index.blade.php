@@ -82,7 +82,7 @@
                         <h5>Assign Permission</h5>
                         <div class="form-check">
                             @foreach($permissions as $permission)
-                            <input class="form-check-input" type="checkbox" name='permissions[]' value="{{$permission->id}}" required/>
+                            <input class="form-check-input" type="checkbox" name='permissions[]' value="{{$permission->id}}" />
                             <label for="{{ $permission->name }}" class="form-check-label">{{ucfirst($permission->name)}}</label>
                             @endforeach
                         </div>

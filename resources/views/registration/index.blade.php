@@ -181,7 +181,6 @@
    
       $('#f_dzongkhag').on('change', function() {
                var DzoID = $(this).val();
-                
                
                if(DzoID) {
                 
