@@ -3,14 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Checkin\CheckinController;
 use App\Http\Controllers\Checkout\CheckoutController;
-<<<<<<< HEAD
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
-=======
 use App\Http\Controllers\Transfer\TransferController;
 use App\Http\Controllers\Registration\RegistrationController;
 
->>>>>>> 4bdfa7657b4b3317da696d880f3ea5f1b3a0ef20
 /*
 |--------------------------------------------------------------------------
 | Web Routes

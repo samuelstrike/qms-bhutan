@@ -18,22 +18,22 @@
                        @if($loop->first)
                         <tr>
                            <th>CID</th>
-                           <th>Name</th>
+                           <th colspan="2">Name</th>
                            <th>Gender</th>
-                           <th>Phone Number</th>
-                           <th>Occupation</th>
-                           <th>Vaccination Status</th>
+                          
+                           <th colspan="2">Occupation</th>
+                           <th colspan="2">Vaccination Status</th>
                        </tr>
                        @endif
                         <tr>
                             <td>{{ $checkin->cid }}</td>
                             
-                            <td>{{ $checkin->name }} </td>
+                            <td colspan="2">{{ $checkin->name }} </td>
                             <td>{{ $checkin->gender }} </td>
-                            <td>{{ $checkin->phone_no }}</td>
+                           
                             
-                            <td> {{ $checkin->occupation_name }} </td>
-                            <td>{{ $checkin->dose_name }} </td>
+                            <td colspan="2"> {{ $checkin->occupation_name }} </td>
+                            <td colspan="2">{{ $checkin->dose_name }} </td>
                         </tr>
                         
                 @if ($loop->last)
@@ -41,37 +41,46 @@
                         <tr>
                            <th colspan="2">Travel Mode</th>
                            <th colspan="2">Purpose</th>
-                           <th colspan="2">Remarks</th>
+                           <th colspan="2">Expected Travel Date </th>
+                           <th colspan="2">Present Address</th>
+                          
                        </tr>
                         <tr>
                             <td colspan="2">{{ $checkin->travel_mode }}</td>
                             
                             <td colspan="2"> {{ $checkin->category_name }} </td>
-                            <td colspan="2"> {{ $checkin->travel_details }} </td>
+                            <td colspan="2"> {{ $checkin->expected_date }} </td>
+                            <td colspan="2"> {{ $checkin->present_address }}</td>
                         </tr>
                         <tr>
-                           <th colspan="2">To Dzongkhag</th>
+                        <th colspan="2">From Dzongkhag</th>
+                        <th colspan="2">From Gewog</th>   
+                        <th colspan="2">To Dzongkhag</th>
                            <th colspan="2">To Gewog</th>
-                           <th colspan="2">Present Address</th>
+                           
                        </tr>
                         <tr>
                             <td colspan="2"> {{ $checkin->Dzongkhag_Name }} </td>
                             <td colspan="2"> {{ $checkin->gewog_name }} </td>
-                            <td colspan="2"> {{ $checkin->present_address }}</td>
+                            <td colspan="2"> {{ $checkin->Dzongkhag_Name }} </td>
+                            <td colspan="2"> {{ $checkin->gewog_name }} </td>
+                            
                         </tr>
                         <tr>
-                            <th colspan="6">Supporting Document </th>
+                            <th colspan="2">Phone Number</th>
+                            <th colspan="4">Remarks</th>
+                            <th colspan="2">Supporting Document </th>
                         </tr>
                         <tr>
-                            <td colspan="6"> @if($checkin->file_name!="")
-                            <a href="{{ route('downloadFile',$checkin->file_name) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {{ $checkin->file_name }} </a>   
+                            <td colspan="2">{{ $checkin->phone_no }}</td>
+                            <td colspan="4">
+                                {{ $checkin->travel_details }} 
+                            </td>
+                       
+                            <td colspan="2"> @if($checkin->file_name!="")
+                                <a href="{{ route('downloadFile',$checkin->file_name) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {{ $checkin->file_name }} </a>   
 
                                               @endif
-                                              @else
-                                                 No file
-                                              @endelse
-                                        
-
                             </td>
                         </tr>
             @endif
