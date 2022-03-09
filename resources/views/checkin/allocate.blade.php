@@ -86,7 +86,7 @@
                             <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name'))  }} </td>
                             <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
-                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->to_gewog_id)->pluck('gewog_name')) }} </td>
                             
                         </tr>
                         </tbody>

@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Allocate Quaraintine Facility</h1>
+        <h1 class="h3 mb-0 text-gray-800">Checkout</h1>
         {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
     </div>
@@ -21,7 +21,7 @@
     <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Allocate Quaraintine Facility</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Checkout from Quaraintine Facility</h6>
             
         </div>
         <div class="card-body">
@@ -83,10 +83,10 @@
                        </thead> 
                         <tbody>                        
                         <tr>
-                            <td colspan="2"> {{ $checkout->Dzongkhag_Name }} </td>
-                            <td colspan="2"> {{ $checkout->gewog_name }} </td>
-                            <td colspan="2"> {{ $checkout->Dzongkhag_Name }} </td>
-                            <td colspan="2"> {{ $checkout->gewog_name }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkout->from_dzongkhag_id)->pluck('Dzongkhag_name'))  }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkout->from_gewog_id)->pluck('gewog_name'))  }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkout->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
+                            <td colspan="2"> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkout->to_gewog_id)->pluck('gewog_name')) }} </td>
                             
                         </tr>
                         </tbody>
@@ -118,7 +118,8 @@
 
     <div class="row">
     <div class="col-md-12">
-            <form action="{{ route('checkout') }}" method="POST" enctype="multipart/form-data">
+    @if(count($check_out)>0)    
+        <form action="{{ route('checkout') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             
             <div class="form-group row">
@@ -156,7 +157,7 @@
                         </div>
                         
                        
-                        <input type="hidden" name="reg_id" id="reg_id" value="{{ $checkout->registration_id }}">
+                        <input type="hidden" name="reg_id" id="reg_id" value="{{ $checkout->id }}">
                     </div>
                     
                     <div class="form-group row" id="input-submit" >
@@ -168,6 +169,9 @@
                     
                     
                 </form>
+            @else
+            No Data 
+            @endif
             </div>
     </div>
 
