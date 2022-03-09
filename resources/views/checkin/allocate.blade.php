@@ -116,9 +116,11 @@
                 </table>
             </div>
 
-            <div class="row">
-        <div class="col-md-10">
-        <form action="{{ route('allocate') }}" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        
+    <div class="col-md-10">
+    @if(count($check_in_list)>0)
+    <form action="{{ route('allocate') }}" method="POST" enctype="multipart/form-data">
             @csrf
          
         <div class="form-group row">
@@ -128,6 +130,8 @@
                             <option>Reject</option>
                             <option>Allocate</option>
                             <option> Transfer</option>
+                            
+
                         </select>                          
                     </div>
                     <div class="col-sm-8">
@@ -202,6 +206,10 @@
                 
                 
             </form>
+        @else
+        No DATA
+        @endif
+        
         </div>
     </div>
 

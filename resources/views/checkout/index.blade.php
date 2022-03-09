@@ -61,7 +61,7 @@
                             @empty
                             <tr>
                                 <td colspan="7">
-                                    <span class="text-danger">No Pending Allocation</span>
+                                    <span class="text-danger">No Pending Checkout</span>
                                 </td>
                             </tr>
                         @endforelse

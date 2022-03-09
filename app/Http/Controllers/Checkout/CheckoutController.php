@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Checkout;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class CheckoutController extends Controller
 {
     public function __construct(){
@@ -12,9 +13,10 @@ class CheckoutController extends Controller
     }
     public function index()
     {
+        $user = Auth::user();
+        $user_id=$user->id;
         $check_out_list = DB::table('registrations')
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
-        
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
         ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
         ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
@@ -23,6 +25,7 @@ class CheckoutController extends Controller
         ->join('checkins','registrations.id','checkins.registration_id')
         ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','checkins.registration_id','vaccination_status.dose_name')
         ->where('registrations.r_status','A')
+        ->where('gewog_user_mappings.user_id',$user_id)
         ->get();
 
         return view('checkout.index',['check_out_list'=>$check_out_list]);
@@ -31,6 +34,8 @@ class CheckoutController extends Controller
 
     public function verifyCheckout($ref_id)
     {
+        $user = Auth::user();
+        $user_id=$user->id;
         $check_out = DB::table('registrations')
         ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
         ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
@@ -43,6 +48,7 @@ class CheckoutController extends Controller
         ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','checkins.registration_id','vaccination_status.dose_name','occupations.occupation_name')
         ->where('registrations.r_status','A')
         ->where('registrations.id',$ref_id)
+        ->where('gewog_user_mappings.user_id',$user_id)
         ->get();
         return view('checkout.checkout',['check_out'=>$check_out]);
     }

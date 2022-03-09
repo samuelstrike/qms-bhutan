@@ -49,7 +49,6 @@
                             <td>{{ $checkin->name }}</td>
                             <td> {{ $checkin->phone_no }} </td>
                             <td> {{ $checkin->category_name }} </td>
-                            
                             <td> {{ $checkin->Dzongkhag_Name }} </td>
                             <td> {{ $checkin->gewog_name }} </td>
                             <td>
