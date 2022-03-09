@@ -75,7 +75,12 @@ Auth::routes(['register' => false,]);
 //quaraintine facility
 
 Route::get('/facility', [QuaraintineController::class,'index'])->name('facility');
-Route::post('/store', [QuaraintineController::class,'store'])->name('addfacility');
+Route::post('/fstore', [QuaraintineController::class,'store'])->name('addfacility');
+Route::delete('/fdelete/{f_id}', [QuaraintineController::class,'destroy'])->name('facility_delete');
+Route::get('/fedit/{f_id}', [QuaraintineController::class,'edit'])->name('facility.edit');
+Route::put('/fupdate{f_id}', [QuaraintineController::class,'update'])->name('facility.update');
+
+
 //create user
 Route::get('/register-user', [App\Http\Controllers\UserRegisterController::class, 'index'])->name('register-user.index');
 Route::post('/register-user', [App\Http\Controllers\UserRegisterController::class, 'store'])->name('register-user.store');

@@ -19,4 +19,5 @@ class Checkin extends Model
         $gewog= Gewog::select('gewog_name')->where('id',$id)->get();
         return $gewog;
     }
+   
 }

@@ -3,6 +3,7 @@
 @section('content')
 <div class="container-fluid">
 
+
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Allocate Quaraintine Facility</h1>
@@ -144,8 +145,8 @@
                     <div class="col-sm-4">
                         <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
                         <select name="dzongkhag" id="dzongkhag" class="form-control">
-                        <option value="0">Select Dzongkhag</option>
-                        @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+            
+                        @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
                                 <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                         @endforeach
                         </select>                          

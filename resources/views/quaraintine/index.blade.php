@@ -1,20 +1,15 @@
 @extends('layouts.master')
 
-
-@section('third_party_stylesheets')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
-@endsection
-
-@section('breadcrumb')
-    <ol class="breadcrumb border-0 m-0">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#') }}">Products</a></li>
-        <li class="breadcrumb-item active">Categories</li>
-    </ol>
-@endsection
-
 @section('content')
     <div class="container-fluid">
+    @if ($message=Session::get('flash_message')) 
+        
+        <div class="alert alert-primary alert-block">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{$message}}</strong> 
+        
+        </div>
+    @endif
         <div class="row">
             <div class="col-12">
                 
@@ -46,9 +41,20 @@
                             <td>{{ $facility->facility_name }}</td>
                             <td>{{ $facility->facility_name}}</td>
                             <td>{{ str_replace(array('[',']','"'),'', $facility->dzongkhag($facility->dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
-                            <td>
-                                
-                            </td>
+                            <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-info btn-sm"><i class="bi bi-pencil"></i></a>
+                            <button id="delete" class="btn btn-danger btn-sm" onclick="
+    event.preventDefault();
+    if (confirm('Are you sure? It will delete the data permanently!')) {
+        document.getElementById('destroy{{ $facility->id }}').submit();
+    }
+    ">
+    <i class="bi bi-trash"></i>
+    <form id="destroy{{ $facility->id }}" class="d-none" action="{{ route('facility_delete', $facility->id) }}" method="POST">
+        @csrf
+        @method('delete')
+    </form>
+</button>
+                        </td>
                         </tr>
                         @endforeach
         
@@ -85,7 +91,7 @@
                         <div class="form-group">
                             <label for="category_name">Dzongkhag </label>
                             <select name="dzongkhag" id="dzongkhag" class="form-control">
-                            @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                            @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
                             <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                             @endforeach
                             </select>

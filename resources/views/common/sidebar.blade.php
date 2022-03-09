@@ -71,7 +71,8 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
+            
+            <i class="fas fa-fw fa-chart-area"></i>
             <span>Manage Quarantine</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -87,9 +88,9 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Create Quarantine Facility</span></a>
+        <a class="nav-link" href="{{ route('facility') }}">
+        <i class="fas fa-fw fa-folder"></i>
+            <span>Manage Quarantine Facility</span></a>
     </li>
 
 
