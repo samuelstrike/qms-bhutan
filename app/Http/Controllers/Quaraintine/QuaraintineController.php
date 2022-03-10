@@ -9,12 +9,12 @@ use App\Models\Dzongkhag;
 use App\Models\Checkin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Db;
-
-
+use Datatables;
+use App\Models\User;
 
 class QuaraintineController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $user_id=$user->id;
@@ -22,7 +22,7 @@ class QuaraintineController extends Controller
         $dzo = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('dzongkhag_id');
         $get_fid = DB::table('quarantine_facilities')->whereIn('dzongkhag_id',$dzo)->select('quarantine_facilities.*')->get();
         $dzongkhag = Dzongkhag::all();
-        $facility = Quanaintine_Facility::all();
+        //$facility = Quanaintine_Facility::all();
         return view('quaraintine.index',[
             'facility'=>$get_fid,
             'dzongkhag'=>$dzongkhag
