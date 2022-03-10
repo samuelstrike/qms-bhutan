@@ -21,7 +21,8 @@ use App\Http\Controllers\Quaraintine\QuaraintineController;
 |
 */
 //Registraiton
-Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
+Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class, 'front'])->name('registration.front');
+Route::get('/quarantine-register', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
 
 Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
 

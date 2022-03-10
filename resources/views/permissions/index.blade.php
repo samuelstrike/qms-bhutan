@@ -81,7 +81,7 @@
                         <h5>Assign Permission to Roles</h5>
                         <div class="form-check">
                             @foreach($roles as $role)
-                            <input class="form-check-input" type="checkbox" name='roles[]' value="{{$role->id}}" required/>
+                            <input class="form-check-input" type="checkbox" name='roles[]' value="{{$role->id}}" />
                             <label for="{{ $role->name }}" class="form-check-label">{{ucfirst($role->name)}}</label>
                             @endforeach
                         </div>

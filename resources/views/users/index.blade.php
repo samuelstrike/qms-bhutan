@@ -92,7 +92,7 @@
                         <div class="form-group">
                             <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
                             <select name="dzongkhag" id="dzongkhag" class="form-control">
-                                <option  elected>Select Dzongkhag</option>
+                                <option  selected>Select Dzongkhag</option>
                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
                                 
                                 <option  value="{{ $dzongkhag->id }}" aria-required="true">{{ $dzongkhag->Dzongkhag_Name }}</option>
@@ -178,7 +178,7 @@ aria-hidden="true">
                        success:function(data)
                        {
                          if(data){
-                            // $('#gewog').empty();
+                            $('#gewog').empty();
                             $("#gewog").attr('disabled', false);
                             //$('#f_gewog').append('<option hidden>Choose Gewog</option>'); 
                             $.each(data, function(key, gewog){

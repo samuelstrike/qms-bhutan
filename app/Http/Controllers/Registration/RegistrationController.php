@@ -15,6 +15,9 @@ class RegistrationController extends Controller
         
 
     }
+    public function front(){
+        return view ('registration.front');
+    }
     
     public function apply(Request $request)
     {
@@ -62,7 +65,9 @@ class RegistrationController extends Controller
                 'r_status' =>'P',
             ]);
         }
-        return redirect('/');
+        return redirect()->route('registration.front')
+            ->with('flash_message',
+             'You have successfully register for quarantine Facility, Please track Your application for detail');
     
     }
 }
