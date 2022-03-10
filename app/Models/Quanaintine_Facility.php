@@ -23,6 +23,11 @@ class Quanaintine_Facility extends Model
         $dzongkhag= Dzongkhag::select('Dzongkhag_name')->where('id',$id)->get();
         return $dzongkhag;
     }
+    public static function gewog($id)
+    {
+        $gewog= Gewog::select('gewog_name')->where('id',$id)->get();
+        return $gewog;
+    }
    
     
 }

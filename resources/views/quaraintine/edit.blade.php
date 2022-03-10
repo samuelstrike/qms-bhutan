@@ -41,9 +41,9 @@
                     <div class="form-group">
                         <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
                         <select class="form-control" name="dzongkhag" id="dzongkhag" required>
-                                        @foreach(App\Models\Dzongkhag::all() as $dzongkhag)
-                                                <option {{ $dzongkhag->id == $qf->dzongkhag_id ? 'selected' : '' }} value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
-                                            @endforeach
+                        @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
+                            <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                            @endforeach
                                            
                                             
                       </select>

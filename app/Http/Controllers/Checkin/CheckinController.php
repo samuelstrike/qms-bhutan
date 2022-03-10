@@ -71,7 +71,7 @@ class CheckinController extends Controller
                     DB::table('checkins')->insert([
                         'registration_id' =>$rid->id,
                         'facility_id' => $request->facility,
-                        'room_no'   => $request->room_no,
+                        'room_no'   => 1,
                         'no_of_days' => $request->days,
                         'funding' => $request->fund,
                         'check_in_date' => $request->checkin_dt
@@ -94,7 +94,10 @@ class CheckinController extends Controller
         {
             foreach($reg_id as $rid)
                 {
-                    DB::table('transfers')->insert([
+                    DB::table('transfers')
+                    ->updateOrInsert(
+                        ['registration_id'=>$rid->id],
+                    [
                         'registration_id' =>$rid->id,
                         'dzongkhag_id' => $request->t_dzongkhag,
                         'gewog_id'   => $request->t_gewog,

@@ -27,9 +27,11 @@
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Roles</th>
-                            <th>Permission</th>
+                            <th>Facility Name</th>
+                            <th>Dzongkhag</th>
+                            <th>Gewog</th>
                             <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tfoot>
@@ -38,9 +40,10 @@
                     <tbody>
                             @foreach($facility as $facility)
                         <tr>
+                            <td> {{ $loop->iteration }} </td>
                             <td>{{ $facility->facility_name }}</td>
-                            <td>{{ $facility->facility_name}}</td>
                             <td>{{ str_replace(array('[',']','"'),'', $facility->dzongkhag($facility->dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
+                            <td>{{ str_replace(array('[',']','"'),'', $facility->gewog($facility->gewog_id)->pluck('gewog_name')) }}</td>
                             <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-info btn-sm"><i class="bi bi-pencil"></i></a>
                             <button id="delete" class="btn btn-danger btn-sm" onclick="
     event.preventDefault();

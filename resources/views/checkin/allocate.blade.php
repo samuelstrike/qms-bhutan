@@ -157,13 +157,10 @@
                             
                         </select>
                     </div>
-                    <div class="col-sm-2">
-                        <label for="room_no"><strong>Room Number</strong></label>
-                        <input type="text" name="room_no" id="room_no" class="form-control" required>
-                    </div>
+                   
                     <div class="col-sm-2">
                         <label for="room_no"><strong>Number of Days</strong></label>
-                        <input type="number" name="days" id="days" class="form-control" required >
+                        <input type="number" name="days" id="days" class="form-control" required value="7" >
                     </div>
                     <div class="col-sm-2">
                         <label for="room_no"><strong>Funding</strong></label>
