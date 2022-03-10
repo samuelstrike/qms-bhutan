@@ -147,6 +147,7 @@
                         <select name="dzongkhag" id="dzongkhag" class="form-control">
             
                         @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
+                                <option value="0">Select Dzongkhag</option>
                                 <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                         @endforeach
                         </select>                          

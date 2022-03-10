@@ -36,11 +36,7 @@ Route::middleware('auth')->group(function () {
     });
     //download file
     Route::get('getfile/{file_name}', [CheckinController::class, 'downloadFile'])->name('downloadFile');
-    //fetching Gewog
-    Route::get('getGewog/{id}', function ($id) {
-        $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
-        return response()->json($gewog);
-    });
+  
 
     Route::resources([
         'roles' => RoleController::class,
@@ -95,3 +91,8 @@ Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('veri
 Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
 
 
+  //fetching Gewog
+  Route::get('getGewog/{id}', function ($id) {
+    $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
+    return response()->json($gewog);
+});

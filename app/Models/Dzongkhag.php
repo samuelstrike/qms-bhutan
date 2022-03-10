@@ -25,11 +25,6 @@ class Dzongkhag extends Model
                     ->where('gewog_user_mappings.user_id',$uid)
                     ->select('dzongkhags.*')->distinct()->get();
                     return $dzo;
-                
-               
-                   
-            
-      
         
     }
 }
