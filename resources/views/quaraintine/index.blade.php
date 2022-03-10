@@ -96,6 +96,7 @@
                         <div class="form-group">
                             <label for="category_name">Dzongkhag </label>
                             <select name="dzongkhag" id="dzongkhag" class="form-control">
+                            <option value="0"> Select Dzongkhag</option>
                             @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
                             <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                             @endforeach
