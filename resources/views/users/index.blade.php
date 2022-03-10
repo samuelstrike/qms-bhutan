@@ -49,7 +49,7 @@
                             <td>{{ $user->email}}</td>
                             <td>{{ $user->getRoleNames()}}</td>
                             <td>{{  $user->created_at->diffForHumans();}}</td>
-                            <td class="d-flex justify-content-space">
+                            <td class="d-flex justify-content-evenly">
                                 
                                <a href="" class="btn btn-primary btn-circle pull-right"><i class="fas fa-info-circle"></i></a>
                                <form method="POST" action="{{route('register-user.destroy', $user->id)}}">
@@ -78,7 +78,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{route('register-user.store')}}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -91,28 +91,31 @@
                         </div>
                         <div class="form-group">
                             <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
-                            <select name="dzongkhag" id="dzongkhag" class="form-select">
+                            <select name="dzongkhag" id="dzongkhag" class="form-control">
+                                <option  elected>Select Dzongkhag</option>
                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
-                                <option class="form-select" value="{{ $dzongkhag->id }}" aria-required="true">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                                
+                                <option  value="{{ $dzongkhag->id }}" aria-required="true">{{ $dzongkhag->Dzongkhag_Name }}</option>
                             @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="gewog" class="form-control-label">Gewog</label>
-                            <select name="gewog" id="gewog">
+                            <select multiple="multiple" class="form-control" name="gewog[]" id="gewog" disabled>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="roles" class="form-control-label">Roles</label>
-                            <select name="roles" id="" class="form-select">
+                            <select name="roles" id="" class="form-control">
+                                <option selected>Select Roles</option>
                                 @foreach (\Spatie\Permission\Models\Role::all() as $roles)
-                                <option class="form-control" value="{{$roles->id}}">{{$roles->name}}</option>
+                                <option  value="{{$roles->id}}">{{$roles->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="password" class="form-control-label">Password</label>
-                                <input id="password" type="password" name="password" required autocomplete="new-password">
+                            <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
                         </div>
                         <div class="form-group">
                             <label for="password-confirm" class="form-control-label">Confirm Password</label>
@@ -172,11 +175,13 @@ aria-hidden="true">
                        success:function(data)
                        {
                          if(data){
-                            $('#gewog').empty();
+                            // $('#gewog').empty();
+                            $("#gewog").attr('disabled', false);
                             //$('#f_gewog').append('<option hidden>Choose Gewog</option>'); 
                             $.each(data, function(key, gewog){
                                
-                                $('select[name="gewog"]').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                                 $('#gewog').append('<option value="'+ gewog.id +'">' + gewog.gewog_name + '</option>');
+                                // $("#gewog").append('<option value=' + key + '>' + gewog.gewog_name + '</option>');
                             });
                         }else{
                             $('#gewog').empty();
@@ -187,7 +192,6 @@ aria-hidden="true">
                  $('#gewog').empty();
                }
             });
-     
     });
 
 </script>

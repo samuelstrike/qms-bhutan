@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Auth::routes();
+// Auth::routes();
 Auth::routes(['register' => false,]);
 
 //quaraintine facility

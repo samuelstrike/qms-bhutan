@@ -31,8 +31,8 @@ class UserRegisterController extends Controller
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'dzongkhag' => ['required', 'numeric'],
-            'gewog' => ['required', 'numeric'],
+            'dzongkhag' => ['required'],
+            'gewog' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -43,27 +43,32 @@ class UserRegisterController extends Controller
         ]);
 
         $role =$request->input('roles');
+        
+        $gewogs = $request->input('gewog');
 
         $current = $user->id; 
 
         $user->assignRole($role); 
 
         
-        $user->save();
-        
+            
+                foreach($gewogs as $value )
+                {
+                    DB::table('gewog_user_mappings')->insert([
+                        'user_id' => $current,
+                        'dzongkhag_id'=>$request->dzongkhag,
+                        'gewog_id' => $value
+                    ]);
+                }
+            
+           
 
-        if ($current){
-
-            DB::table('gewog_user_mappings')->insert([
-                'user_id' => $current,
-                'dzongkhag_id'=>$request->input('dzongkhag'),
-                'gewog_id' => $request->input('gewog')
-            ]);
-        }
+         $user->save();
+           
 
         return redirect()->route('register-user.index')
             ->with('flash_message',
-            'User '. $user->name.' Create Successfully!');
+            'User '. $user->name.' Created Successfully!');
 
     }
 
