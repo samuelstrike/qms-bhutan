@@ -161,6 +161,9 @@ aria-hidden="true">
 @section('scripts')
 <script>
     $(document).ready(function(){
+
+        $('#dataTable').DataTable();
+        
         $('#dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 
