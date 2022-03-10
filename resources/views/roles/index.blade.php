@@ -123,6 +123,10 @@ aria-hidden="true">
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>  
+    $(document).ready(function(){
+        $('#dataTable').DataTable();
+    });
+    </script>
 
 @endsection

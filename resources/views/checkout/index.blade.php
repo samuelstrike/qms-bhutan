@@ -54,7 +54,7 @@
                             <td> {{ $checkout->gewog_name }} </td>
                             <td>
                             <a href="{{ route('verifyCheckout',$checkout->registration_id) }}" class="btn btn-info btn-sm">
-                                <i class="bi bi-pencil"></i>
+                            <i class="fas fa-check .btn-sm"></i>
                             </a>
                             </td>
 
@@ -77,6 +77,10 @@
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+    $(document).ready(function(){
+        $('#dataTable').DataTable();
+    });
+    </script>
 
 @endsection

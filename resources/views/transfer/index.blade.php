@@ -27,7 +27,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>CID</th>
@@ -53,7 +53,7 @@
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }} </td>
                             <td>
                             <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
-                                <i class="bi bi-pencil"></i>
+                            <i class="fas fa-check .btn-sm"></i>
                             </a>
                             </td>
 
@@ -76,6 +76,10 @@
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+    $(document).ready(function(){
+        $('#dataTable').DataTable();
+    });
+    </script>
 
 @endsection

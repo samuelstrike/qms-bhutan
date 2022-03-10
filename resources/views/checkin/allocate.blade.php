@@ -145,9 +145,9 @@
                     <div class="col-sm-4">
                         <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
                         <select name="dzongkhag" id="dzongkhag" class="form-control">
-            
+                        <option value="0">Select Dzongkhag</option>
                         @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
-                                <option value="0">Select Dzongkhag</option>
+                                
                                 <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                         @endforeach
                         </select>                          

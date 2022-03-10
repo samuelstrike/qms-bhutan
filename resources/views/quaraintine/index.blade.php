@@ -23,7 +23,7 @@
                         <hr>
 
                         <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -46,14 +46,14 @@
                             <td>{{ $facility->capacity }}</td>
                             <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($facility->dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
                             <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($facility->gewog_id)->pluck('gewog_name')) }}</td>
-                            <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-info btn-sm"><i class="bi bi-pencil"></i></a>
+                            <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-info btn-sm"><i class="fas fa-check .btn-sm"></i></i></a>
                             <button id="delete" class="btn btn-danger btn-sm" onclick="
     event.preventDefault();
     if (confirm('Are you sure? It will delete the data permanently!')) {
         document.getElementById('destroy{{ $facility->id }}').submit();
     }
     ">
-    <i class="bi bi-trash"></i>
+    <i class="fas fa-trash .btn-sm"></i>
     <form id="destroy{{ $facility->id }}" class="d-none" action="{{ route('facility_delete', $facility->id) }}" method="POST">
         @csrf
         @method('delete')
@@ -121,6 +121,7 @@
 @section('scripts')
 <script>
     $(document).ready(function(){
+        $('#dataTable').DataTable();
         $('#dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 

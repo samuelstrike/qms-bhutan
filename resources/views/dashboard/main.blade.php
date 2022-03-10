@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Vacant Facility
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Transferred
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
@@ -96,14 +96,20 @@
             </div>
         </div>
     </div>
-
-    <!-- Content Row -->
-
-
-
-    <!-- Content Row -->
-    
+    <div class="row">
+       <div class="col-md-10 col-md-offset-1">
+           <div class="panel panel-default">
+               <div class="panel-heading"><b></b></div>
+               <div class="panel-body">
+                   <canvas id="canvas" height="280" width="600"></canvas>
+               </div>
+           </div>
+       </div>
+     </div>
 
 </div>
-
+@endsection
+@section('scripts')
+<script>
+</script>
 @endsection

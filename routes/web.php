@@ -8,6 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Transfer\TransferController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\Quaraintine\QuaraintineController;
+use App\Http\Controllers\Report\ReportController;
 
 
 /*
@@ -96,3 +97,7 @@ Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate'
     $gewog =  App\Models\Gewog::where('dzongkhag_id',$id)->get();
     return response()->json($gewog);
 });
+
+//Report
+Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+Route::post('/generate', [ReportController::class,'generate'])->name('reports.generate');
