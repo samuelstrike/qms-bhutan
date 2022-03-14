@@ -19,8 +19,17 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    
 
+    <style>
+        .error {
+    color: red;
+    position: relative;
+    line-height: 1;
+    width: revert;
+    font-size: revert;
+}
+    </style>
+    
 </head>
 
 <body class="bg-gradient-dark">
@@ -36,35 +45,70 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Register for Quarantine Facility</h1>
                             </div>
-                            <form class="user" action="{{route('apply')}}" method="POST" enctype="multipart/form-data">
+                            @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <strong>Whoops!</strong> There were some problems with your input.
+                                        <ul>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <form class="user" action="{{route('apply')}}" method="POST" enctype="multipart/form-data" id="submitForm" autocomplete="off">
                                 @csrf
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="got-cid" class="form-label">Are you travelling from abroad?</label>
+                                        <div class="form-group d-flex justify-content-center">
+                                          <div class="form-check">
+                                            <input class="form-check-inline" type="radio" name="is_abroad" value="0" id="" checked>
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                             No
+                                            </label>
+                                          </div>
+                                          <div class="form-check " id="abroad">
+                                            <input class="form-check-inline" type="radio" name="is_abroad" value="1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                              Yes
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <hr>
                                 <div id="dynamicAddRemove">
                                     <div class="form-group row">
                                         <div class="col-lg-6 mb-3 mb-md-0">
-                                            <label for="nema" class="form-control-label">CID/work permit</label>
-                                            <input type="text" class="form-control" id="cid[0]" name="cid[0]"
-                                                placeholder="Enter CID/work permit"  required>
+                                            <label for="cid[0]" class="form-control-label">CID/work permit/Passport</label>
+                                            <input type="text" class="form-control cid" id="cid[0]" name="cid[0]"
+                                                placeholder="Enter CID/work permit/Passport">
                                                 
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="" class="form-control-label">Full Name</label>
-                                            <input type="text" class="form-control" id="name[0]" name="name[0]"
+                                            <input type="text" class="form-control name" id="name[0]" name="name[0]"
                                                 placeholder="Full Name">
+                                                   
                                         </div>
                                     </div>
                                     <div class="form-group row">    
                                         <div class="col-lg-3">
                                             <label for="gender">Gender</label>
-                                            <select id="gender[0]" name="gender[0]" class="form-control" >
-                                                <option value="1" selected>Male</option>
+                                            <select id="gender[0]" name="gender[0]" class="form-control gender" >
+                                                <option value="">Select</option>
+                                                <option value="1">Male</option>
                                                 <option value="2">Female</option>
                                                 <option value="Others">others</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
                                             <label for="">Occupation</label>
-                                            <select name="occupation[0]" id="occupation[0]" class="form-control" >
-                                            <option selected>Your Occupation</option>
+                                            <select name="occupation[0]" id="occupation[0]" class="form-control occupation" >
+                                            <option value="">Your Occupation</option>
                                             @foreach(\App\Models\Occupation::all() as $occupation)
                                                 <option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>
                                             @endforeach
@@ -72,7 +116,8 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <label for="">Vaccination</label>
-                                            <select name="vaccine[0]" id="vaccine[0]" class="form-control" >
+                                            <select name="vaccine[0]" id="vaccine[0]" class="form-control vaccination" >
+                                                <option value="">Select</option>
                                                 @foreach(\App\Models\Vaccination::all() as $vaccination)
                                                     <option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>
                                                 @endforeach
@@ -80,7 +125,8 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <label for="nat">Nationality</label>
-                                            <select name="selectNationality[0]" id="selectNationality[0]" class="form-control">
+                                            <select name="selectNationality[0]" id="selectNationality[0]" class="form-control nationality">
+                                                <option value="">Select</option>
                                                 @foreach(\App\Models\Nationality::all() as $nationality)
                                                           <option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>
                                                 @endforeach
@@ -93,13 +139,13 @@
                                 </div>
                                 <hr>
                                 <div class="text-center">
-                                    <h1 class="h6 text-gray-900 mb-4">Travel From</h1>
+                                    <h1 class="h6 text-gray-900 mb-4" id="abroad_travel">Travel From</h1>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-6">
                                         <label for="nat">Dzongkhag</label>
                                         <select name="f_dzongkhag" id="f_dzongkhag" class="form-control">
-                                            <option selected>Select the Dzongkhag you are travelling from</option>
+                                            <option value="">Select the Dzongkhag you are travelling from</option>
                                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
                                                         <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                                                 @endforeach
@@ -120,7 +166,7 @@
                                     <div class="col-lg-6">
                                         <label for="nat">Dzongkhag</label>
                                         <select name="t_dzongkhag" id="t_dzongkhag" class="form-control">
-                                            <option selected>Select the Dzongkhag you are travelling to</option>
+                                            <option value="">Select the Dzongkhag you are travelling to</option>
                                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
                                                         <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                                                 @endforeach
@@ -141,7 +187,7 @@
                                     <div class="col-lg-4">
                                         <label for="">Travel Purpose</label>
                                         <select name="purpose" id="" class="form-control">
-                                            <option selected>Select</option>
+                                            <option value="">Select</option>
                                             @foreach(\App\Models\Purpose::all() as $purpose)
                                             <option value="{{$purpose->id}}">{{$purpose->category_name}}</option>
                                             @endforeach
@@ -159,8 +205,8 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3">
                                         <label for="">Travel mode</label>
-                                        <select name="travel" id="" class="form-control">
-                                            <option selected>Select</option>
+                                        <select name="travel" id="travel_mode" class="form-control">
+                                            <option value="">Select</option>
                                             <option>Private Car</option>
                                             <option>Bus</option>
                                             <option>Taxi</option>
@@ -170,8 +216,8 @@
                                           </select>
                                     </div>
                                     <div class="col-lg-3">
-                                        <label for="">Contact Number</label>
-                                        <input type="number" class="form-control required number mobileInput" name="phone" autocomplete="off">
+                                        <label for="phone">Contact Number</label>
+                                        <input type="text" class="form-control " id="cont" name="phone" autocomplete="off">
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="">Expected Date</label>
@@ -183,7 +229,7 @@
                                         type="file" 
                                         name="file" 
                                         id="inputFile"
-                                        class="form-control @error('file') is-invalid @enderror" required>
+                                        class="form-control">
                                     </div> 
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block btn-user">
@@ -199,9 +245,13 @@
 
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('admin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -209,25 +259,30 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('admin/js/sb-admin-2.min.js')}}"></script>
 
-    <script>
+
+
+    <script type="text/javascript">
         $(document).ready(function(){
         
-        var i = 0;
+       $('#abroad').on('change', function(){
+            $('#abroad_travel').text('Dzongkhag Entry Point ')
+       });
         
-       
+        var i = 0;
         $("#dynamic-ar").click(function (e) {
             e.preventDefault();
            
             ++i;
-            $("#dynamicAddRemove").append('<div><div class="form-group row"><div class="col-lg-6 mb-3 mb-md-0"><label for="nema" class="form-control-label">CID/work permit</label><input type="text" class="form-control" id="cid['+i+']" name="cid['+i+']"placeholder="Enter CID/work permit"></div><div class="col-lg-6"><label for="" class="form-control-label">Full Name</label><input type="text" class="form-control" id="name['+i+']" name="name['+i+']"placeholder="Full Name"></div></div><div class="form-group row"><div class="col-lg-3"><label for="gender">Gender</label><select id="gender['+i+']" name="gender['+i+']" class="form-control" ><option value="1" selected>Male</option><option value="2">Female</option><option value="Others">others</option></select></div><div class="col-lg-3"><label for="">Occupation</label><select name="occupation['+i+']" id="occupation['+i+']" class="form-control" ><option selected>Your Occupation</option>@foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="">Vaccination</label><select name="vaccine['+i+']" id="vaccine['+i+']" class="form-control" >@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="nat">Nationality</label><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-control">@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></div></div><button type="button"  class="btn btn-danger btn-block btn-user mt-2 remove-input-field">Delete Accompanying Individuals</button></div>');
-         });
+            $("#dynamicAddRemove").append('<div><div class="form-group row"><div class="col-lg-6 mb-3 mb-md-0"><label for="nema" class="form-control-label">CID/work permit</label><input type="text" class="form-control cid" id="cid['+i+']" name="cid['+i+']"placeholder="Enter CID/work permit"></div><div class="col-lg-6"><label for="" class="form-control-label">Full Name</label><input type="text" class="form-control name" id="name['+i+']" name="name['+i+']"placeholder="Full Name"></div></div><div class="form-group row"><div class="col-lg-3"><label for="gender">Gender</label><select id="gender['+i+']" name="gender['+i+']" class="form-control gender" ><option value="">Select</option><option value="1">Male</option><option value="2">Female</option><option value="Others">others</option></select></div><div class="col-lg-3"><label for="">Occupation</label><select name="occupation['+i+']" id="occupation['+i+']" class="form-control occupation" ><option value="">Your Occupation</option>@foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="">Vaccination</label><select name="vaccine['+i+']" id="vaccine['+i+']" class="form-control vaccination" ><option value="">Select</option>@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="nat">Nationality</label><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-control nationality"><option value="">Select</option>@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></div></div><button type="button"  class="btn btn-danger btn-block btn-user mt-2 remove-input-field">Delete Accompanying Individuals</button></div>');
+        });
         $(document).on('click', '.remove-input-field', function () {
             $(this).closest('div').remove();
         });
         
       
        
-          $('#f_dzongkhag').on('change', function() {
+            $('#f_dzongkhag').on('change', function() 
+            {
                    var DzoID = $(this).val();
                    
                    if(DzoID) {
@@ -255,11 +310,11 @@
                    }else{
                      $('#f_gewog').empty();
                    }
-                });
+            });
                 // var id =document.getElementById('cid['+i+']').value;
                 // alert(id);
     
-                $('#t_dzongkhag').on('change', function() {
+            $('#t_dzongkhag').on('change', function() {
                    var DzoID = $(this).val();
                     
                    
@@ -288,26 +343,114 @@
                    }else{
                      $('#t_gewog').empty();
                    }
-                });
+            });
 
                 //validation
-                
-                $flag=1;
-                $("#cid").focusout(function(){
-                    if($(this).val()==''){
-                        $(this).css("border-color", "#FF0000");
-                            $('#submit').attr('disabled',true);
-                            $("#error_name").text("* You have to enter your first name!");
-                    }
-                    else
-                    {
-                        $(this).css("border-color", "#2eb82e");
-                        $('#submit').attr('disabled',false);
-                        $("#error_name").text("");
+                $('#submitForm').validate({
+                    rules : {
+                        phone: {
+                            required:true,
+                            digits:true,
+                            minlength:8,
+                            maxlength:8
+                        },
+                        travel : {
+                            required: true
+                        },
+                        t_dzongkhag : {
+                            required: true
+                        },
+                        f_dzongkhag : { 
+                            required: true
+                        },
+                        purpose : {
+                            required : true
+                        },
+                        resident : {
+                            required : true,
+                            minlength: 3,
+                            maxlength: 100
+                        },
+                        reason : {
+                            required : true,
+                            minlength:3
+                        },
+                        t_date : {
+                            required : true
+                        }
+                        
+                    },
+                    messages : {
+                        phone: 'Please enter your valid phone number(8 digit)',
+                        travel: 'Please select your travel mode after completing quarantine',
+                        t_dzongkhag : 'Please select the dzongkhag you want to travel',
+                        f_dzongkhag : 'Please select the  dzongkhag you are traveling from',
+                        purpose : 'Please select the travel Purpose',
+                        resident: 'Please enter your exact residence address',
+                        reason : 'Briefly enter the reason for your travel',
+                        t_date : 'Please enter your expected date of journey',   
+                    },
+                    errorElement: "em",
+				    errorPlacement: function ( error, element ) {
+					    // Add the `invalid-feedback` class to the error element
+					    error.addClass( "invalid-feedback" );
 
+					    if ( element.prop( "type" ) === "select" ) {
+						    error.insertAfter( element.next( "label" ) );
+					    } else {
+						    error.insertAfter( element );
+					    }
+				    },
+				    highlight: function ( element, errorClass, validClass ) {
+					    $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+				    },
+				    unhighlight: function (element, errorClass, validClass) {
+					    $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+				    }
+                    
+                    
+                });
+                //custom validation for dynamic input for CID, Name, Gender, Occupation, Vaccination and Nationality    
+                
+                $.validator.addMethod("nRequired", $.validator.methods.required,
+                    "Please enter your Full Name");
+                $.validator.addMethod("cRequired", $.validator.methods.required,
+                    "Please Enter Your CID/SRP/Passport Number"); 
+                $.validator.addMethod("gRequired", $.validator.methods.required,
+                    "Please Select Your Gender (Male/Female/others)");
+                $.validator.addMethod("oRequired", $.validator.methods.required,
+                    "Please Select Your Occupation Category");
+                $.validator.addMethod("vRequired", $.validator.methods.required,
+                    "Please Select Your recent vaccination dose");      
+                $.validator.addMethod("natRequired", $.validator.methods.required,
+                    "Please Select Your Nationality");       
+
+                $.validator.addClassRules({
+                    name: {
+                        nRequired: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    cid : {
+                        cRequired: true,
+                        number: true,
+                    },
+                    gender : {
+                        gRequired: true,
+                    },
+                    occupation : {
+                        oRequired : true
+                    },
+                    vaccination : {
+                        vRequired : true
+                    },
+                    nationality : {
+                        natRequired : true
                     }
-            });
-          
+                        
+                            
+                });
+                
                
         });
         
