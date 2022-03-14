@@ -34,8 +34,8 @@
                             <th> Name </th>    
                             <th >Telephone</th>
                             <th >Purpose</th>
-                            <th>To Dzongkhag</th>
-                            <th>To Gewog</th>
+                            <th>From</th>
+                            <th>To</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,12 +48,16 @@
                             <td>{{ $checkout->cid }}</td>
                             <td>{{ $checkout->name }}</td>
                             <td> {{ $checkout->phone_no }} </td>
-                            <td> {{ $checkout->category_name }} </td>
-                            
-                            <td> {{ $checkout->Dzongkhag_Name }} </td>
-                            <td> {{ $checkout->gewog_name }} </td>
+                            <td>  {{ str_replace(array('[',']','"'),'', App\Models\Purpose::getName($checkout->purpose_category_id)->pluck('category_name')) }} </td>
+                            <td>  {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkout->from_gewog_id)->pluck('gewog_name')) }},
+                                 {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkout->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} 
+                             </td>
+                            <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkout->to_gewog_id)->pluck('gewog_name')) }},
+                            {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkout->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
+                               
+                           
                             <td>
-                            <a href="{{ route('verifyCheckout',$checkout->registration_id) }}" class="btn btn-info btn-sm">
+                            <a href="{{ route('verifyCheckout',$checkout->id) }}" class="btn btn-info btn-sm">
                             <i class="fas fa-check .btn-sm"></i>
                             </a>
                             </td>

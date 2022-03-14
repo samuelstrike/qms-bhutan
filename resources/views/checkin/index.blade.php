@@ -34,7 +34,7 @@
                             <th> Name </th>    
                             <th >Telephone</th>
                             <th >Purpose</th>
-                            <th>To Dzongkhag</th>
+                            <th>From</th>
                             <th>To Gewog</th>
                             <th>Action</th>
                         </tr>
@@ -48,9 +48,12 @@
                             <td>{{ $checkin->cid }}</td>
                             <td>{{ $checkin->name }}</td>
                             <td> {{ $checkin->phone_no }} </td>
-                            <td> {{ $checkin->category_name }} </td>
-                            <td> {{ $checkin->Dzongkhag_Name }} </td>
-                            <td> {{ $checkin->gewog_name }} </td>
+                            <td> {{ str_replace(array('[',']','"'),'', App\Models\Purpose::getName($checkin->purpose_category_id)->pluck('category_name')) }} </td>
+                            <td>  {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }},
+                                 {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} 
+                             </td>
+                            <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->to_gewog_id)->pluck('gewog_name')) }},
+                            {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             <td>
                             <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
                             <i class="fas fa-check .btn-sm"></i>

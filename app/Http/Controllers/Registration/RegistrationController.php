@@ -33,9 +33,6 @@ class RegistrationController extends Controller
             $fileName = time().'.'.$filenameWithExt;
             $request->file->move(public_path('uploads'), $fileName);
 
-            DB::table('registrations')->insert([
-                'file_name' => $fileName,
-            ]);
         }
         
         
@@ -72,6 +69,7 @@ class RegistrationController extends Controller
                 'vaccine_status_id' => $request->vaccine[$key],
                 'expected_date' => $request->t_date,
                 'r_status' =>'P',
+                'file_name' =>$fileName,
                 'has_cid' => $request->is_abroad,
                 'created_at'=>Carbon::now(),
                 'updated_at'=>Carbon::now()

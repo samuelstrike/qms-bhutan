@@ -27,6 +27,7 @@ class DashboardController extends Controller
         $get_fid = DB::table('registrations')->whereIn('id',$get_rid)->where('r_status','A')->count();
         $total_transferrred = DB::table('registrations')->whereIn('id',DB::table('transfers')->select('registration_id'))->whereIn('from_dzongkhag_id',$dzo)->count();
         $transferred_in = DB::table('transfers')->whereIn('dzongkhag_id',$dzo)->count();
+        
         $vacant = $capacity - $get_fid;
         $dzo=$vacant;
         $total_facility =count($fid);
@@ -36,6 +37,7 @@ class DashboardController extends Controller
                     ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
                     ->where('registrations.r_status','P')
                     ->where('gewog_user_mappings.user_id',$user_id)
+                    ->groupBy('registrations.id')
                     ->count();
         
         $transfer_count = DB::table('transfers')

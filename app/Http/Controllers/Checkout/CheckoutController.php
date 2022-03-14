@@ -15,18 +15,12 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
         $user_id=$user->id;
-        $check_out_list = DB::table('registrations')
-        ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
-        ->join('dzongkhags','registrations.to_dzongkhag_id', '=', 'dzongkhags.id')
-        ->join('gewogs', 'registrations.to_gewog_id', '=', 'gewogs.id')
-        ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
-        ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
-        ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
-        ->join('checkins','registrations.id','checkins.registration_id')
-        ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','checkins.registration_id','vaccination_status.dose_name')
-        ->where('registrations.r_status','A')
-        ->where('gewog_user_mappings.user_id',$user_id)
-        ->get();
+
+        $geo_id = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('gewog_id');
+        $fid = DB::table('quarantine_facilities')->whereIn('gewog_id',$geo_id)->pluck('id');
+       
+        $get_rid = DB::table('checkins')->whereIn('facility_id',$fid)->pluck('registration_id');
+        $check_out_list = DB::table('registrations')->whereIn('id',$get_rid)->where('r_status','A')->get();
 
         return view('checkout.index',['check_out_list'=>$check_out_list]);
         

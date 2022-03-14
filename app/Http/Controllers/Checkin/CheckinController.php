@@ -23,17 +23,12 @@ class CheckinController extends Controller
     {
         $user = Auth::user();
         $user_id=$user->id;
+        $geo = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('gewog_id');
         $check_in_list = DB::table('registrations')
-                            ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
-                            ->join('dzongkhags','registrations.from_dzongkhag_id', '=', 'dzongkhags.id')
-                            ->join('gewogs', 'registrations.from_gewog_id', '=', 'gewogs.id')
-                            ->join('occupations', 'registrations.occupation_id', '=', 'occupations.id')
-                            ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
-                            ->join('nationalities','registrations.nationality_id', '=', 'nationalities.id')
-                            ->select('registrations.*','dzongkhags.Dzongkhag_Name','gewogs.gewog_name','nationalities.nationality','purpose_categories.category_name','occupations.occupation_name')
-                            ->where('registrations.r_status','P')
-                            ->where('gewog_user_mappings.user_id',$user_id)
-                            ->get();
+        ->whereIn('registrations.from_gewog_id',$geo)
+        ->where('registrations.r_status','P')
+        ->select('registrations.*')
+        ->get();
       
         return view('checkin.index',['check_in_list'=>$check_in_list]);
     }
