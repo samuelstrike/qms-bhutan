@@ -4,12 +4,18 @@
       <div class="row d-flex justify-content-center align-items-center h-100">
           
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            @if ($message=Session::get('flash_message')) 
+            
+          @if ($message=Session::get('flash_message')) 
         
+               <ul>
                 <div class="alert alert-secondary alert-block">
-                    <strong>{{$message}}</strong> 
-                    <button type="button" class="btn-close" data-dismiss="alert"></button>
+                  {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>   --}}
+                  <strong>{{$message}}</strong> 
+                    
                 </div>
+               </ul>
             @endif
           <div class="card bg-dark text-white" style="border-radius: 1rem;">
             <div class="card-body pt-4 text-center">

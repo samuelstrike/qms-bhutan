@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('ref_id');
             $table->foreignId('nationality_id')->constrained('nationalities');
-            $table->boolean('has_cid')->default(1); 
+            $table->boolean('has_cid')->nullable()->default(0); 
             $table->string('cid')->nullable();
             $table->string('name');
             $table->string('gender');
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->foreignId('to_gewog_id')->constrained('gewogs');
             $table->foreignId('vaccine_status_id')->constrained('vaccination_status');
             $table->date('expected_date');
-            $table->string('file_name');
+            $table->string('file_name')->nullable();
             $table->string('r_status')->detault('P');
             $table->timestamps();
         });

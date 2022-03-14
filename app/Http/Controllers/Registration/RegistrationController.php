@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class RegistrationController extends Controller
 {
     public function index()
@@ -23,11 +24,20 @@ class RegistrationController extends Controller
     {
         $ref = \random_int(100000,999999);
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv,jpg,jpeg,png|max:100024',
+            'file' => 'mimes:pdf,jpg,jpeg,png|max:100024',
         ]);
-        $filenameWithExt = $request->file('file')->getClientOriginalName();
-        $fileName = time().'.'.$filenameWithExt;
-        $request->file->move(public_path('uploads'), $fileName);
+       
+        if ($request->hasFile('file'))
+        {
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            $fileName = time().'.'.$filenameWithExt;
+            $request->file->move(public_path('uploads'), $fileName);
+
+            DB::table('registrations')->insert([
+                'file_name' => $fileName,
+            ]);
+        }
+        
         
         // $gender="";
         foreach ($request->cid as $key => $id) {
@@ -60,9 +70,11 @@ class RegistrationController extends Controller
                 'to_dzongkhag_id' => $request->t_dzongkhag,
                 'to_gewog_id' => $request->t_gewog,
                 'vaccine_status_id' => $request->vaccine[$key],
-                'file_name' => $fileName,
                 'expected_date' => $request->t_date,
                 'r_status' =>'P',
+                'has_cid' => $request->is_abroad,
+                'created_at'=>Carbon::now(),
+                'updated_at'=>Carbon::now()
             ]);
         }
         return redirect()->route('registration.front')
