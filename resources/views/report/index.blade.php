@@ -30,13 +30,13 @@
                 </select>
                 </td>
                 <td>
-                    <label for="category"><strong>Occupation:</strong></label>
+                    <label for="gender"><strong>Gender:</strong></label>
                     
-                    <select name="occupation" id="occupation" class="form-control">
+                    <select name="gender" id="gender" class="form-control">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Others</option>
                     
-                    @foreach(\App\Models\Occupation::all() as $occupation)
-                    <option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>
-                    @endforeach 
                     </select> 
                 </td>
                 <td>

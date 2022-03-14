@@ -28,7 +28,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Facility Name</th>
-                            <th>Facility Name</th>
+                            <th>Capacity</th>
                             <th>Dzongkhag</th>
                             <th>Gewog</th>
                             <th>Action</th>

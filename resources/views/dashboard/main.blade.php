@@ -22,6 +22,9 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Registered</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $r_count }}</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Transferred Out: {{ $total_transferrred }}</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Transferred In: {{ $transferred_in }}</div>
+
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +41,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Facility Allocated</div>
+                                Currently in  Quaraintine Facility</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $a_count }}</div>
                         </div>
                         <div class="col-auto">
@@ -55,11 +58,13 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Transferred
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Facility
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> {{ $t_count }}</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> {{ $total_facility }}</div>
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Capacity: {{ $capacity }}</div>
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Remaining Capacity: {{ $t_count }}</div>
                                 </div>
                                 {{-- <div class="col">
                                     <div class="progress progress-sm mr-2">
