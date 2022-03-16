@@ -39,8 +39,9 @@
                             <div class="form-group">
                                 <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
                                 <select name="dzongkhag" id="dzongkhag" class="form-control">
+                                
                                 @foreach(\App\Models\Dzongkhag::all() as $dzongkhag) 
-                                    <option value="{{ $dzongkhag->id }}" aria-required="true" >{{ $dzongkhag->Dzongkhag_Name }}</option>
+                                    <option {{ $dzo==$dzongkhag->id ? 'selected' : '' }} value="{{ $dzongkhag->id }}" aria-required="true" >{{ $dzongkhag->Dzongkhag_Name }}</option>
                                 @endforeach
                                
                                 </select>
@@ -50,7 +51,7 @@
                             <div class="form-group">
                                 <label for="gewog" class="form-control-label">Gewog</label>
                                 <select multiple="multiple" class="form-control" name="gewog[]" id="gewog">
-                                    @foreach($dzo as $gewog)
+                                    @foreach($gewog as $gewog)
                                     <option value="{{$gewog->gewog_id}}" selected>{{$gewog->gewog_name}}</option>
                                     @endforeach
                                 </select>

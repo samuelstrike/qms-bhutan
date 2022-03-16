@@ -93,15 +93,23 @@ class UserRegisterController extends Controller
     {
         $user = User::with('roles')->findOrFail($id);
 
-        $dzo = DB::table('gewog_user_mappings')
-                    ->join('dzongkhags', 'dzongkhags.id', '=', 'gewog_user_mappings.dzongkhag_id')
+
+        $gewog = DB::table('gewog_user_mappings')
+                    
                     ->join('gewogs','gewogs.id', '=','gewog_user_mappings.gewog_id')    
-                    ->select('dzongkhags.Dzongkhag_Name', 'gewogs.gewog_name','gewog_id','dzongkhags.id')
+                    ->select( 'gewogs.gewog_name','gewog_id')
                     ->where('user_id', $id)
                     ->get();
+        $dzongkhag = DB::table('gewog_user_mappings')
+                    ->where('user_id', $id)
+                    ->pluck('dzongkhag_id')
+                    ->last();
+       
+        
         return view('users.edit',[
             'user' => $user,
-            'dzo' => $dzo
+            'gewog' => $gewog,
+            'dzo' =>$dzongkhag
         ]);
     }
 
