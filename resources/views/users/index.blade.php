@@ -90,23 +90,25 @@
                             <input class="form-control" type="text" name="email" value="" required>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1" >
-                            <label for="is_admin" class="form-check-label">Admin</label></label>
+                            <input class="form-check-input" type="checkbox" name="admin" id="admin" value="1" >
+                            <label for="admin" class="form-check-label">Admin</label></label>
                         </div>
-                        <div class="form-group">
-                            <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
-                            <select name="dzongkhag" id="dzongkhag" class="form-control">
-                                <option  selected>Select Dzongkhag</option>
-                            @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
-                                
-                                <option  value="{{ $dzongkhag->id }}" aria-required="true">{{ $dzongkhag->Dzongkhag_Name }}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="gewog" class="form-control-label">Gewog</label>
-                            <select multiple="multiple" class="form-control" name="gewog[]" id="gewog" disabled>
-                            </select>
+                        <div id="hide_dzong">
+                            <div class="form-group">
+                                <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
+                                <select name="dzongkhag" id="dzongkhag" class="form-control">
+                                    <option  selected>Select Dzongkhag</option>
+                                @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                                    
+                                    <option  value="{{ $dzongkhag->id }}" aria-required="true">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="gewog" class="form-control-label">Gewog</label>
+                                <select multiple="multiple" class="form-control" name="gewog[]" id="gewog" disabled>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="roles" class="form-control-label">Roles</label>
@@ -165,6 +167,10 @@ aria-hidden="true">
 @section('scripts')
 <script>
     $(document).ready(function(){
+        //toggle admin and dzongkhag
+        $('input[type="checkbox"]').click(function(){
+            $('#hide_dzong').toggle();
+	    });
 
         $('#dataTable').DataTable();
         

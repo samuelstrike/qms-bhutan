@@ -10,10 +10,10 @@ use DB;
 
 class UserRegisterController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index(){
 
@@ -31,8 +31,8 @@ class UserRegisterController extends Controller
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'dzongkhag' => ['required'],
-            'gewog' => ['required'],
+            // 'dzongkhag' => ['required'],
+            // 'gewog' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -50,25 +50,30 @@ class UserRegisterController extends Controller
 
         $user->assignRole($role); 
 
-        if($request->has('is_admin') == 1){
-            $dzongkhag = DB::table('dzongkhags')->select('id')->get();
-            dd($dzongkhag);
-            DB::table('gewog_user_mappings')->insert([
-                'user_id' => $current,
-            ]);
-        }    
-               
-        foreach($gewogs as $value )
-        {
-            DB::table('gewog_user_mappings')->insert([
-                'user_id' => $current,
-                'dzongkhag_id'=>$request->dzongkhag,
-                'gewog_id' => $value
-            ]);
-        }
-            
-           
+        if($request->has('admin')){
+             $dzongkhag = DB::table('dzongkhags')
+                            ->join('gewogs', 'gewogs.dzongkhag_id', '=','dzongkhags.id')
+                            ->select('gewogs.dzongkhag_id','gewogs.id')
+                            ->get();
+                foreach($dzongkhag as $dzo){                     
+                    DB::table('gewog_user_mappings')->insert([
+                            'user_id' => $current,
+                            'dzongkhag_id' => $dzo->dzongkhag_id,
+                            'gewog_id' => $dzo->id
+                            ]);
+                        }                      
 
+        } else {
+            foreach($gewogs as $value )
+            {
+                DB::table('gewog_user_mappings')->insert([
+                    'user_id' => $current,
+                    'dzongkhag_id'=>$request->dzongkhag,
+                    'gewog_id' => $value
+                ]);
+            }
+        }   
+               
          $user->save();
            
 
@@ -115,6 +120,51 @@ class UserRegisterController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+    
+        $this->validate($request,[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'dzongkhag' => ['required'],
+            'gewog' => ['required'],
+            'roles' => ['required'],
+            // 'password' => ['string', 'min:8', 'confirmed'],
+        ]);
+
+        $name = $request->name;
+        $email = $request->has('email') ? $request->email : $user->email;
+        // $password= $request->has('password') ? Hash::make($request->password) : $user->password;
+        $role = $request->roles;
+
+        $data = [
+            "name" => $name,
+            "email" => $email,
+            // "password" =>$password
+        ];
+        
+        $user->assignRole($role);
+        
+        $gewogs = $request->gewog;
+        // dd($gewogs);
+
+        foreach($gewogs as $value )
+            {
+                DB::table('gewog_user_mappings')
+                    ->where('user_id',$id)    
+                    ->update([
+                        'dzongkhag_id'=>$request->dzongkhag,
+                        'gewog_id' => $value,
+                        ]
+                    );
+            }
+        
+        User::updateOrCreate(['id' => $id], $data);
+        
+       
+        return redirect()->route('register-user.index')
+        ->with('flash_message',
+         'User  updated!');
+    
 
     }
 }

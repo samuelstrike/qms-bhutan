@@ -17,7 +17,20 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="" method="POST">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.
+                        <ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                </div>
+            @endif
+            <form action="{{route('register-user.update',$user->id)}}" method="POST">
                 @csrf
                 @method('PUT')
                     <div class="row">
@@ -73,13 +86,13 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="password" class="form-control-label">Password</label>
-                                <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
+                                <input id="password" class="form-control" type="password" name="password" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="password-confirm" class="form-control-label">Confirm Password</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                             </div>
                         </div>
                     </div>
