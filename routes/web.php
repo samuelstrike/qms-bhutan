@@ -69,7 +69,8 @@ Route::middleware('auth')->group(function () {
     //Report
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
     Route::match(['POST','GET'],'/generate', [ReportController::class,'generate'])->name('reports.generate');
-
+    Route::get('/qfreports', [ReportController::class, 'qfReport'])->name('qfReports');
+    Route::match(['POST','GET'],'/qfgenerate', [ReportController::class,'qfGenerate'])->name('reports.qfgenerate');
 //quaraintine facility
 
 Route::get('/facility', [QuaraintineController::class,'index'])->name('facility');

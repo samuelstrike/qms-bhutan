@@ -15,7 +15,7 @@
                 <td>
                 <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
                     <select name="dzongkhag" id="dzongkhag" class="form-control">
-                   
+                    <option value="0">All</option>
                     @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
                     <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                     @endforeach
@@ -33,6 +33,7 @@
                     <label for="gender"><strong>Gender:</strong></label>
                     
                     <select name="gender" id="gender" class="form-control">
+                    <option>All</option>
                     <option>Male</option>
                     <option>Female</option>
                     <option>Others</option>
