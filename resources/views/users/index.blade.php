@@ -47,7 +47,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name}}</td>
                             <td>{{ $user->email}}</td>
-                            <td>{{ $user->roles->first()->name}}</td>
+                            <td>{{ $user->roles->first()}}</td>
                             <td>{{  $user->created_at->diffForHumans();}}</td>
                             <td class="d-flex justify-content-evenly">
                                 
