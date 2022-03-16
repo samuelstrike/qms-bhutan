@@ -31,8 +31,8 @@ class UserRegisterController extends Controller
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'dzongkhag' => ['required'],
-            'gewog' => ['required'],
+            // 'dzongkhag' => ['required'],
+            // 'gewog' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -50,16 +50,30 @@ class UserRegisterController extends Controller
 
         $user->assignRole($role); 
 
-        
+        if($request->is_admin== 1){
+           
+            $gewogs = DB::table('gewogs')->where('id','dzongkhag_id')->get();
             
-                foreach($gewogs as $value )
-                {
-                    DB::table('gewog_user_mappings')->insert([
-                        'user_id' => $current,
-                        'dzongkhag_id'=>$request->dzongkhag,
-                        'gewog_id' => $value
-                    ]);
-                }
+            foreach($gewogs as $gewog )
+            {
+                DB::table('gewog_user_mappings')->insert([
+                    'user_id' => $current,
+                    'dzongkhag_id' => $gewog->dzongkhag_id,
+                    'gewog_id' => $gewog->id
+                ]);
+            }
+            
+        } else {    
+               
+        foreach($gewogs as $value )
+        {
+            DB::table('gewog_user_mappings')->insert([
+                'user_id' => $current,
+                'dzongkhag_id'=>$request->dzongkhag,
+                'gewog_id' => $value
+            ]);
+        }
+    }
             
            
 
@@ -87,15 +101,23 @@ class UserRegisterController extends Controller
     {
         $user = User::with('roles')->findOrFail($id);
 
-        $dzo = DB::table('gewog_user_mappings')
-                    ->join('dzongkhags', 'dzongkhags.id', '=', 'gewog_user_mappings.dzongkhag_id')
+
+        $gewog = DB::table('gewog_user_mappings')
+                    
                     ->join('gewogs','gewogs.id', '=','gewog_user_mappings.gewog_id')    
-                    ->select('dzongkhags.Dzongkhag_Name', 'gewogs.gewog_name','gewog_id','dzongkhags.id')
+                    ->select( 'gewogs.gewog_name','gewog_id')
                     ->where('user_id', $id)
                     ->get();
+        $dzongkhag = DB::table('gewog_user_mappings')
+                    ->where('user_id', $id)
+                    ->pluck('dzongkhag_id')
+                    ->last();
+       
+        
         return view('users.edit',[
             'user' => $user,
-            'dzo' => $dzo
+            'gewog' => $gewog,
+            'dzo' =>$dzongkhag
         ]);
     }
 
