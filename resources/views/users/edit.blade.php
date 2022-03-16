@@ -83,18 +83,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="password" class="form-control-label">Password</label>
-                                <input id="password" class="form-control" type="password" name="password" autocomplete="new-password">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="password-confirm" class="form-control-label">Confirm Password</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
-                            </div>
-                        </div>
                     </div>
                     <div class="row justify-content-end">
                         <button class="btn btn-primary">Update</button>

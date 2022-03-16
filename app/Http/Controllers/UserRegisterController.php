@@ -141,7 +141,7 @@ class UserRegisterController extends Controller
         $data = [
             "name" => $name,
             "email" => $email,
-            "password" =>$password
+            //"password" =>$password
         ];
 
         $user->syncRoles($role);

@@ -92,12 +92,28 @@
             <span>Manage Quarantine Facility</span></a>
     </li>
 
-    <!-- Nav Item - Charts -->
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1"
+            aria-expanded="true" aria-controls="collapsePages1">
+            
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Report</span>
+        </a>
+        <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Quarantine:</h6>
+                <a class="collapse-item" href="{{ route('reports') }}">Report</a>
+            </div>
+        </div>
+    </li>
+
+    {{-- <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('reports') }}">
         <i class="fas fa-fw fa-chart-area"></i>
             <span>Reports</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
