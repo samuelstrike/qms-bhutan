@@ -47,11 +47,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name}}</td>
                             <td>{{ $user->email}}</td>
-                            <td>{{ $user->getRoleNames()}}</td>
+                            <td>{{ $user->roles->first()->name}}</td>
                             <td>{{  $user->created_at->diffForHumans();}}</td>
                             <td class="d-flex justify-content-evenly">
                                 
-                               <a href="" class="btn btn-primary btn-circle pull-right"><i class="fas fa-info-circle"></i></a>
+                               <a href="{{ route('register-user.edit',$user->id)}}" class="btn btn-primary btn-circle pull-right"><i class="fas fa-info-circle"></i></a>
                                <form method="POST" action="{{route('register-user.destroy', $user->id)}}">
                                 @csrf  
                                 <input type="hidden" name="_method" value="DELETE">

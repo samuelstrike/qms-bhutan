@@ -36,8 +36,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">User Setting:</h6>
-                <a class="collapse-item" href="{{route('register-user.index')}}">Create User</a>
-                <a class="collapse-item" href="#"> Transfer User</a>
+                <a class="collapse-item" href="{{route('register-user.index')}}"> Users</a>
             </div>
         </div>
     </li>
