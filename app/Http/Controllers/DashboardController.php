@@ -20,48 +20,50 @@ class DashboardController extends Controller
         $user = Auth::user();
         $user_id=$user->id;
 
-        $dzo = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('dzongkhag_id');
-        $fid = DB::table('quarantine_facilities')->whereIn('dzongkhag_id',$dzo)->pluck('id');
+        $geo = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('gewog_id');
+        $fid = DB::table('quarantine_facilities')->whereIn('gewog_id',$geo)->pluck('id');
         $capacity = DB::table('quarantine_facilities')->whereIn('id',$fid)->sum('capacity');
         $get_rid = DB::table('checkins')->whereIn('facility_id',$fid)->pluck('registration_id');
         $get_fid = DB::table('registrations')->whereIn('id',$get_rid)->where('r_status','A')->count();
-        $total_transferrred = DB::table('registrations')->whereIn('id',DB::table('transfers')->select('registration_id'))->whereIn('from_dzongkhag_id',$dzo)->count();
-        $transferred_in = DB::table('transfers')->whereIn('dzongkhag_id',$dzo)->count();
+        $total_transferrred = DB::table('registrations')->whereIn('id',DB::table('transfers')->select('registration_id'))->whereIn('from_gewog_id',$geo)->count();
+        $transferred_in = DB::table('transfers')->whereIn('gewog_id',$geo)->count();
         
         $vacant = $capacity - $get_fid;
-        $dzo=$vacant;
         $total_facility =count($fid);
 
        
         $reg_count = DB::table('registrations')
-                    ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
-                    ->where('registrations.r_status','P')
-                    ->where('gewog_user_mappings.user_id',$user_id)
-                    ->groupBy('registrations.id')
+                    ->whereIn('from_gewog_id',$geo)
+                    ->where('r_status','P')
                     ->count();
         
         $transfer_count = DB::table('transfers')
-                    ->join('gewog_user_mappings','transfers.gewog_id','=','gewog_user_mappings.gewog_id')
                     ->join('registrations','transfers.registration_id', '=', 'registrations.id')
-                    ->where('gewog_user_mappings.user_id',$user_id)
+                    ->whereIn('transfers.gewog_id',$geo)
                     ->where('registrations.r_status','T')
                     ->count();
 
         
         $total_reg = DB::table('registrations')
-                    ->join('gewog_user_mappings','registrations.from_gewog_id','=','gewog_user_mappings.gewog_id')
-                    ->where('gewog_user_mappings.user_id',$user_id)
+                    ->whereIn('from_gewog_id',$geo)
                     ->count();
+
+        $total_quaraintined = DB::table('checkins')
+                                ->join('registrations', 'registrations.id', '=', 'checkins.registration_id')
+                                ->whereIn('checkins.facility_id',$fid)
+                                ->where('registrations.r_status', '<>','A')
+                                ->count();
       
         return view('dashboard.main',[
-            'reg_count'=>$reg_count,
-            't_count' => $dzo,  
+            'reg_count'=>$reg_count+$transfer_count,
+            't_count' => $vacant,  
             'a_count'   =>$get_fid,
             'r_count'   =>$total_reg,
             'capacity' =>$capacity,
             'total_facility' => $total_facility,
             'total_transferrred' =>$total_transferrred,
-            'transferred_in' => $transferred_in
+            'transferred_in' => $transferred_in,
+            'total_quaraintined' =>$total_quaraintined
         ]);
     }
 }

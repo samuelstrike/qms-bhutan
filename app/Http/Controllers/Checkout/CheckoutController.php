@@ -46,6 +46,11 @@ class CheckoutController extends Controller
     public function checkout(Request $request)
     {
       
+        $request->validate(
+            [
+                'checkout_dt' => 'date',
+            ]
+        );
         DB::table('checkouts')->insert([
             'registration_id' =>$request->reg_id,
             'covid_test_type' => $request->test,

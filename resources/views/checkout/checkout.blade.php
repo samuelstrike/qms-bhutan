@@ -149,7 +149,8 @@
                         </div>
                         <div class="col-sm-2">
                             <label for="checkout"><strong>Checkout Date:</strong></label>
-                            <input type="date" name="checkout_dt" id="checkout_dt">
+                            
+                            <input type="date" name="checkout_dt" id="checkout_dt" required>
                         </div>
                         <div class="col-sm-2">
                             <label for="remarks"><strong>Remarks if any:</strong></label>

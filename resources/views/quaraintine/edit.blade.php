@@ -42,8 +42,10 @@
                         <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
                         <select class="form-control" name="dzongkhag" id="dzongkhag" required>
                         @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
-                            <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                            <option {{ $qf->dzongkhag_id==$dzongkhag->id ? 'selected' : '' }} value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                             @endforeach
+
+                           
                                            
                                             
                       </select>
@@ -78,9 +80,13 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
-    @foreach(App\Models\Gewog::all() as $gewog)
+    var gewog_id = "";
+    gewog_id = $('#dzongkhag').val();
+    @foreach(App\Models\Gewog::getGewog($dzongkhag->id) as $gewog)
                 $('select[name="gewog"]').append('<option {{ $qf->gewog_id==$gewog->id ? 'selected' : '' }} value="{{ $gewog->id }}">{{ $gewog->gewog_name }}</option>');   
     @endforeach
+
+    
     $('#dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 

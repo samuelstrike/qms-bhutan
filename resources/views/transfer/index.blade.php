@@ -48,7 +48,7 @@
                             <td>{{ $checkin->cid }}</td>
                             <td>{{ $checkin->name }}</td>
                             <td> {{ $checkin->phone_no }} </td>
-                            <td> {{ $checkin->category_name }} </td>
+                            <td> {{ str_replace(array('[',']','"'),'', App\Models\Purpose::getName($checkin->purpose_category_id)->pluck('category_name')) }} </td>
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }} </td>
                             <td>

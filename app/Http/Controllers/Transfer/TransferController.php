@@ -12,14 +12,12 @@ class TransferController extends Controller
     {
         $user = Auth::user();
         $user_id=$user->id;
-
-        $transfer_list = Transfer::join('registrations','registrations.id','=','transfers.registration_id')
-        ->join('gewog_user_mappings','transfers.gewog_id','=','gewog_user_mappings.gewog_id')
-        ->join('vaccination_status','registrations.vaccine_status_id', '=','vaccination_status.id')
-        ->join('purpose_categories','registrations.purpose_category_id', '=','purpose_categories.id')
-        ->select('registrations.*','purpose_categories.category_name','transfers.registration_id','vaccination_status.dose_name')
+        $geo = DB::table('gewog_user_mappings')->where('user_id',$user_id)->pluck('gewog_id');
+        $transfer_list = DB::table('registrations')
+        ->join('transfers', 'registrations.id', '=', 'transfers.registration_id')
+        ->whereIn('transfers.gewog_id',$geo)
         ->where('registrations.r_status','T')
-        ->where('gewog_user_mappings.user_id',$user_id)
+        ->select('registrations.*')
         ->get();
 
         return view('transfer.index',['transferred_list'=>$transfer_list]);

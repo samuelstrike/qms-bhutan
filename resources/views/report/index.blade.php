@@ -93,9 +93,11 @@
                         <td>{{ $list->cid }}</td>
                         <td>{{ $list->name }}</td>
                         <td>{{ $list->phone_no }}</td>
-                        <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($list->from_dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
+                        <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($list->from_gewog_id)->pluck('gewog_name')) }},
+                            {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($list->from_dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
                         
-                        <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($list->to_dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
+                        <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($list->to_gewog_id)->pluck('gewog_name')) }},
+                            {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($list->to_dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
                         
                         <td>{{ str_replace(array('[',']','"'),'', App\Models\Purpose::getName($list->purpose_category_id)->pluck('category_name')) }}</td>
                         
