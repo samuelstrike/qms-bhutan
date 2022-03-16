@@ -122,6 +122,7 @@ class UserRegisterController extends Controller
     {
         $user = User::findOrFail($id);
     
+        
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
@@ -133,25 +134,26 @@ class UserRegisterController extends Controller
 
         $name = $request->name;
         $email = $request->has('email') ? $request->email : $user->email;
-        // $password= $request->has('password') ? Hash::make($request->password) : $user->password;
+        
+        //$password= $request->has('password') ? Hash::make($request->password) : $user->password;
         $role = $request->roles;
 
         $data = [
             "name" => $name,
             "email" => $email,
-            // "password" =>$password
+            //"password" =>$password
         ];
-        
-        $user->assignRole($role);
+
+        $user->syncRoles($role);
         
         $gewogs = $request->gewog;
-        // dd($gewogs);
-
+        
+        DB::table('gewog_user_mappings')->where('user_id', $id)->delete();
         foreach($gewogs as $value )
-            {
-                DB::table('gewog_user_mappings')
-                    ->where('user_id',$id)    
-                    ->update([
+            {  
+                DB::table('gewog_user_mappings')  
+                    ->insert([
+                        'user_id' => $id,
                         'dzongkhag_id'=>$request->dzongkhag,
                         'gewog_id' => $value,
                         ]
@@ -163,7 +165,7 @@ class UserRegisterController extends Controller
        
         return redirect()->route('register-user.index')
         ->with('flash_message',
-         'User  updated!');
+         'User '.$user->name. ' updated Successfully');
     
 
     }
