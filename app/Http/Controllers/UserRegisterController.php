@@ -83,4 +83,24 @@ class UserRegisterController extends Controller
         ->with('flash_message',
         'User Deleted');
     }
+    public function edit($id)
+    {
+        $user = User::with('roles')->findOrFail($id);
+
+        $dzo = DB::table('gewog_user_mappings')
+                    ->join('dzongkhags', 'dzongkhags.id', '=', 'gewog_user_mappings.dzongkhag_id')
+                    ->join('gewogs','gewogs.id', '=','gewog_user_mappings.gewog_id')    
+                    ->select('dzongkhags.Dzongkhag_Name', 'gewogs.gewog_name','gewog_id','dzongkhags.id')
+                    ->where('user_id', $id)
+                    ->get();
+        return view('users.edit',[
+            'user' => $user,
+            'dzo' => $dzo
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
 }

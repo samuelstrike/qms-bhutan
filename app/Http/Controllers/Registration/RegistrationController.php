@@ -33,6 +33,8 @@ class RegistrationController extends Controller
             $fileName = time().'.'.$filenameWithExt;
             $request->file->move(public_path('uploads'), $fileName);
 
+        } else {
+            $fileName = '';
         }
         
         

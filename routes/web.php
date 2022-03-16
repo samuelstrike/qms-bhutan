@@ -81,6 +81,8 @@ Route::put('/fupdate{f_id}', [QuaraintineController::class,'update'])->name('fac
 
 //create user
 Route::get('/register-user', [App\Http\Controllers\UserRegisterController::class, 'index'])->name('register-user.index');
+Route::get('/register-user/{id}/edit', [App\Http\Controllers\UserRegisterController::class, 'edit'])->name('register-user.edit');
+Route::put('/register-user/{id}', [App\Http\Controllers\UserRegisterController::class, 'edit'])->name('register-user.update');
 Route::post('/register-user', [App\Http\Controllers\UserRegisterController::class, 'store'])->name('register-user.store');
 Route::delete('/register-user/{id}', [App\Http\Controllers\UserRegisterController::class, 'destroy'])->name('register-user.destroy');
 
