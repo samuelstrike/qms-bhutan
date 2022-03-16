@@ -80,4 +80,33 @@ class RegistrationController extends Controller
              'You have successfully register for quarantine Facility, Please track Your application for detail');
     
     }
+    public function trackStatusFront(Request $request)
+    {
+        
+       
+        return view('registration.track');
+    }
+
+    public function trackStatus(Request $request)
+    {
+        if ($request->isMethod('GET')) {
+           return view('registration.track');
+        }
+
+        else
+        {
+
+            
+            
+            $request->validate([
+                'cid' => 'required',
+                'phone' => 'required',
+            ]);
+
+            $cid = $request->cid;
+            $phone = $request->phone;
+            $status=DB::table('registrations')->where('cid',$cid)->where('phone_no',$phone)->get()->last();
+        return view('registration.status',['status'=>$status]);
+        }
+    } 
 }

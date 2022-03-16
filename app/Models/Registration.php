@@ -16,5 +16,27 @@ class Registration extends Model
         'to_dzongkhag_id','to_gewog_id','vaccine_status_id','r_status', 'occupation_id',
     ];
 
+    public static function getStatus($value)
+    {
+        if($value=="P")
+            return "Pending";
+        else
+        if($value=="A")
+            return "Allocated";
+        else
+        if($value=="T")
+            return "Transferred";
+        else    
+        if($value=="Re")
+            return "Rejected";
+        else    
+        if($value=="C")
+            return "Checked out";
+        else    
+            if($value=="I")
+                return "Isolated";
+            
+    }
+
   
 }

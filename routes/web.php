@@ -26,6 +26,9 @@ Route::get('/', [App\Http\Controllers\Registration\RegistrationController::class
 Route::get('/quarantine-register', [App\Http\Controllers\Registration\RegistrationController::class, 'index'])->name('registration.index');
 
 Route::post('/apply', [RegistrationController::class,'apply'])->name('apply');
+Route::get('/track-status', [RegistrationController::class,'trackStatusFront'])->name('status_track');
+Route::match(['GET', 'POST'],'/track', [RegistrationController::class,'trackStatus'])->name('get_status');
+
 
 
 //Authentication
@@ -63,12 +66,9 @@ Route::middleware('auth')->group(function () {
     
     //Transfer
     Route::get('/transferlist', [TransferController::class,'index'])->name('transferlist');
-    
-
-});
-
-// Auth::routes();
-Auth::routes(['register' => false,]);
+    //Report
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    Route::match(['POST','GET'],'/generate', [ReportController::class,'generate'])->name('reports.generate');
 
 //quaraintine facility
 
@@ -77,8 +77,6 @@ Route::post('/fstore', [QuaraintineController::class,'store'])->name('addfacilit
 Route::delete('/fdelete/{f_id}', [QuaraintineController::class,'destroy'])->name('facility_delete');
 Route::get('/fedit/{f_id}', [QuaraintineController::class,'edit'])->name('facility.edit');
 Route::put('/fupdate{f_id}', [QuaraintineController::class,'update'])->name('facility.update');
-
-
 //create user
 Route::get('/register-user', [App\Http\Controllers\UserRegisterController::class, 'index'])->name('register-user.index');
 Route::post('/register-user', [App\Http\Controllers\UserRegisterController::class, 'store'])->name('register-user.store');
@@ -91,6 +89,14 @@ Route::get('/checkin', [CheckinController::class, 'index'])->name('checkin');
 Route::get('/verify/{ref_id}', [CheckinController::class, 'verify'])->name('verify');
 //allocation
 Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate');
+        
+
+});
+
+// Auth::routes();
+Auth::routes(['register' => false,]);
+
+
 
 
   //fetching Gewog
@@ -99,6 +105,3 @@ Route::post('/allocate', [CheckinController::class,'allocate'])->name('allocate'
     return response()->json($gewog);
 });
 
-//Report
-Route::get('/reports', [ReportController::class, 'index'])->name('reports');
-Route::post('/generate', [ReportController::class,'generate'])->name('reports.generate');

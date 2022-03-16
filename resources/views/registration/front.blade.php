@@ -31,7 +31,7 @@
                   <a href="{{route('registration.index')}}" class="btn btn-outline-light btn-lg px-5">Register for Quarantine</a>
                 </div>
                 <div class="form-outline form-white mb-4">
-                    <a href="#" class="btn btn-outline-light btn-lg px-5">Track Your Registration</a>
+                    <a href="{{route('status_track')}}" class="btn btn-outline-light btn-lg px-5">Track Your Registration</a>
                   </div>
                 
               </div>   
