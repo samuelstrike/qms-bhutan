@@ -31,8 +31,8 @@ class UserRegisterController extends Controller
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'dzongkhag' => ['required'],
-            // 'gewog' => ['required'],
+            'dzongkhag' => ['required'],
+            'gewog' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -50,20 +50,13 @@ class UserRegisterController extends Controller
 
         $user->assignRole($role); 
 
-        if($request->is_admin== 1){
-           
-            $gewogs = DB::table('gewogs')->where('id','dzongkhag_id')->get();
-            
-            foreach($gewogs as $gewog )
-            {
-                DB::table('gewog_user_mappings')->insert([
-                    'user_id' => $current,
-                    'dzongkhag_id' => $gewog->dzongkhag_id,
-                    'gewog_id' => $gewog->id
-                ]);
-            }
-            
-        } else {    
+        if($request->has('is_admin') == 1){
+            $dzongkhag = DB::table('dzongkhags')->select('id')->get();
+            dd($dzongkhag);
+            DB::table('gewog_user_mappings')->insert([
+                'user_id' => $current,
+            ]);
+        }    
                
         foreach($gewogs as $value )
         {
@@ -73,7 +66,6 @@ class UserRegisterController extends Controller
                 'gewog_id' => $value
             ]);
         }
-    }
             
            
 
