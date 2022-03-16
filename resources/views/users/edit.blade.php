@@ -40,7 +40,7 @@
                                 <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
                                 <select name="dzongkhag" id="dzongkhag" class="form-control">
                                 @foreach(\App\Models\Dzongkhag::all() as $dzongkhag) 
-                                    <option value="{{ $dzongkhag->id }}" aria-required="true" {{$dzo->id == $dzongkhag->id ? 'selected' : ''}}>{{ $dzongkhag->Dzongkhag_Name }}</option>
+                                    <option value="{{ $dzongkhag->id }}" aria-required="true" >{{ $dzongkhag->Dzongkhag_Name }}</option>
                                 @endforeach
                                
                                 </select>

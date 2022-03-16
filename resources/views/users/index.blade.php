@@ -47,7 +47,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name}}</td>
                             <td>{{ $user->email}}</td>
-                            <td>{{ $user->roles->first()->name}}</td>
+                            <td>{{ $user->getRoleNames();}}</td>
                             <td>{{  $user->created_at->diffForHumans();}}</td>
                             <td class="d-flex justify-content-evenly">
                                 
@@ -88,6 +88,10 @@
                         <div class="form-group">
                             <label for="email" class="form-control-label">Email</label>
                             <input class="form-control" type="text" name="email" value="" required>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1" >
+                            <label for="is_admin" class="form-check-label">Admin</label></label>
                         </div>
                         <div class="form-group">
                             <label for="dzongkhag" class="form-control-label">Dzongkhag</label>
