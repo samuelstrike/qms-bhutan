@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +36,15 @@ class Registration extends Model
             if($value=="I")
                 return "Isolated";
             
+    }
+
+    public static function countReg($cid)
+    {
+        $count = DB::table('registrations')
+                ->where('cid',$cid)
+                ->distinct('ref_id')
+                ->count();
+        return $count;
     }
 
   

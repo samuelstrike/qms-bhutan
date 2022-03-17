@@ -29,7 +29,6 @@ class CheckinController extends Controller
         ->where('registrations.r_status','P')
         ->select('registrations.*')
         ->get();
-      
         return view('checkin.index',['check_in_list'=>$check_in_list]);
     }
 

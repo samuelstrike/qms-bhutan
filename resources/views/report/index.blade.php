@@ -73,7 +73,7 @@
                                     <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
                                     <select name="dzongkhag" id="dzongkhag" class="form-control">
                                         <option value="0">All</option>
-                                        @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                                        @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
                                         <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
                                         @endforeach
                                     </select>

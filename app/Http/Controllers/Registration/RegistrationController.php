@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Registration;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 class RegistrationController extends Controller
 {
     public function index()
@@ -25,6 +26,15 @@ class RegistrationController extends Controller
         $ref = \random_int(100000,999999);
         $request->validate([
             'file' => 'mimes:pdf,jpg,jpeg,png|max:100024',
+            'cid' => [
+                'required',
+                Rule::unique('registrations','cid')->where(function ($query) {
+                    $query->whereNotIn('r_status',['C','Re']);
+                }),  
+                
+                
+                
+            ]
         ]);
        
         if ($request->hasFile('file'))

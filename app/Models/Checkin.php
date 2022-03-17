@@ -25,5 +25,11 @@ class Checkin extends Model
         $cdate = DB::table('checkins')->where('registration_id',$id)->pluck('check_in_date')->last();
         return $cdate;
     }
+
+    public static function getFunding($id)
+    {
+        $funding = DB::table('checkins')->where('registration_id',$id)->pluck('funding')->last();
+        return $funding;
+    }
    
 }

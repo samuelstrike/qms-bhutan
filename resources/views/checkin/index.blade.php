@@ -35,7 +35,8 @@
                             <th >Telephone</th>
                             <th >Purpose</th>
                             <th>From</th>
-                            <th>To Gewog</th>
+                            <th>To</th>
+                            <th>QS availed in the past</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,6 +55,15 @@
                              </td>
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->to_gewog_id)->pluck('gewog_name')) }},
                             {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
+                            </td>
+                            <td> 
+                             @if ( App\Models\Registration::countReg($checkin->cid)<2)
+                                {{ App\Models\Registration::countReg($checkin->cid) }} time
+                            @else
+                            {{ App\Models\Registration::countReg($checkin->cid) }} times
+                             @endif
+                        
+                        </td>
                             <td>
                             <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
                             <i class="fas fa-check .btn-sm"></i>
