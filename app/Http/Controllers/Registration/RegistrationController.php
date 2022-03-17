@@ -64,7 +64,7 @@ class RegistrationController extends Controller
             DB::table('registrations')->insert([
                 'ref_id' =>$ref,
                 'nationality_id' =>$request->selectNationality[$key] ,
-                'has_cid'   => 1,
+                'has_cid'   => $request->is_abroad,
                 'cid' => $request->cid[$key],
                 'name' => $request->name[$key],
                 'gender' =>$gender,
