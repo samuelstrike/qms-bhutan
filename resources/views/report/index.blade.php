@@ -79,10 +79,14 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label for="category"><strong>Category:</strong></label>
+                                    <label for="category"><strong>Type:</strong></label>
                                     <select name="category" id="category" class="form-control">
                                         <option value="0">Registered</option>
-                                        <option value="0">Quaraintined</option>
+                                        <option value="C">Quaraintined</option>
+                                        <option value="A">Currently in Quaraintine</option>
+                                        <option value="P">New Registration</option>
+                                        <option value="Re">Rejected</option>
+                                        
                                     </select>
                                 </div>
                                 <div class="col-lg-2">
@@ -94,13 +98,22 @@
                                             <option>Others</option>
                                         </select> 
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
+                                    <label for="gender"><strong>Category:</strong></label>
+                                        <select name="cat" id="cat" class="form-control">
+                                            <option>All</option>
+                                            <option value='0'>Domestic</option>
+                                            <option value='1'>International</option>
+                                           
+                                        </select> 
+                                </div>    
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label for="f_date" class="form-control-label"><strong>From:</strong></label>
                                     <input type="date" class="form-control" name="f_date" value="{{date('Y-m-d')}}">
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label for="t_date" class="form-control-label"><strong>To:</strong></label>
                                         <input type="date" class="form-control" name="t_date" value="{{date('Y-m-d')}}">
@@ -183,9 +196,23 @@
 @endsection
 
 @section('scripts')
-    <script>
+<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+
+<script>
     $(document).ready(function(){
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+            //'copy',
+            // 'csv', 
+            'excel', 
+            //'pdf', 
+            //'print'
+        ]
+        });
+
+       
+      
     });
     </script>
 

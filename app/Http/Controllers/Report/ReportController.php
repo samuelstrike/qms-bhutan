@@ -19,6 +19,8 @@ class ReportController extends Controller
         $t_date = $request->t_date .' 23:59:59';
         $dzo = $request->dzongkhag;
         $gender=$request->gender;
+        $cat = $request->category;
+        $nat = $request->cat;
 
        //dd($t_date);
 
@@ -31,8 +33,8 @@ class ReportController extends Controller
                         })
                         ->when($request->get('category') ==0, function ($query) {
                             //$query->where('r_status','A');
-                            }, function ($query) {
-                                $query->whereIn('id',DB::table('checkins')->select('registration_id')->get());
+                            }, function ($query) use ($cat) {
+                                $query->where('r_status',$cat)->get();
                             })
                             ->when($request->get('gender') =="All", 
                             function ($query) {
@@ -40,6 +42,13 @@ class ReportController extends Controller
                                 }, 
                                 function ($query) use ($gender){
                                     $query->where('gender',$gender);
+                                })
+                                ->when($request->get('cat') =="All", 
+                            function ($query) {
+                                
+                                }, 
+                                function ($query) use ($nat){
+                                    $query->where('has_cid',$nat);
                                 })
                        
                        ->whereBetween('updated_at',[$f_date,$t_date])

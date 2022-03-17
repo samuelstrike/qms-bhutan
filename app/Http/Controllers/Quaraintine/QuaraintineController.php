@@ -9,7 +9,6 @@ use App\Models\Dzongkhag;
 use App\Models\Checkin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Db;
-use Datatables;
 use App\Models\User;
 
 class QuaraintineController extends Controller
