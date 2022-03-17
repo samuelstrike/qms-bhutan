@@ -196,18 +196,16 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
+
 
 <script>
     $(document).ready(function(){
         $('#dataTable').DataTable({
             dom: 'Bfrtip',
+            responsive: true,
         buttons: [
-            //'copy',
-            // 'csv', 
-            'excel', 
-            //'pdf', 
-            //'print'
+            'excel', 'print'
         ]
         });
 
