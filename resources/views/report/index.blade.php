@@ -200,18 +200,19 @@
 
 <script>
     $(document).ready(function(){
-        $('#dataTable').DataTable({
-            dom: 'Bfrtip',
+        $('#dataTable').DataTable( {
+        dom: 'Bfrtip',
         buttons: [
-            //'copy',
-            // 'csv', 
-            'excel', 
-            //'pdf', 
-            //'print'
+            {
+                extend: 'excelHtml5',
+                title: 'Reports'
+            },
+            // {
+            //     extend: 'pdfHtml5',
+            //     title: 'Data export'
+            // }
         ]
-        });
-
-       
+    } );
       
     });
     </script>

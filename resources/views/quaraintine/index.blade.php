@@ -121,7 +121,19 @@
 @section('scripts')
 <script>
     $(document).ready(function(){
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Quaraintine Facility'
+            },
+            // {
+            //     extend: 'pdfHtml5',
+            //     title: 'Data export'
+            // }
+        ]
+    } );
         $('#dzongkhag').on('change', function() {
                var DzoID = $(this).val();
                 
