@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group row">
                 <div class="col-lg-6">
-                    <input type="submit" class="btn-primary" value="submit"> 
+                    <input type="submit" class="btn btn-primary" value="submit"> 
                 </div>
                 </div>        
                

@@ -10,10 +10,10 @@ use DB;
 
 class UserRegisterController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(){
 
@@ -55,24 +55,25 @@ class UserRegisterController extends Controller
                             ->join('gewogs', 'gewogs.dzongkhag_id', '=','dzongkhags.id')
                             ->select('gewogs.dzongkhag_id','gewogs.id')
                             ->get();
-                foreach($dzongkhag as $dzo){                     
-                    DB::table('gewog_user_mappings')->insert([
-                            'user_id' => $current,
-                            'dzongkhag_id' => $dzo->dzongkhag_id,
-                            'gewog_id' => $dzo->id
-                            ]);
-                        }                      
-
-        } else {
-            foreach($gewogs as $value )
-            {
+            foreach($dzongkhag as $dzo){                     
                 DB::table('gewog_user_mappings')->insert([
-                    'user_id' => $current,
-                    'dzongkhag_id'=>$request->dzongkhag,
-                    'gewog_id' => $value
-                ]);
-            }
-        }   
+                        'user_id' => $current,
+                        'dzongkhag_id' => $dzo->dzongkhag_id,
+                        'gewog_id' => $dzo->id
+                        ]);
+                    }                      
+
+        } else 
+            {
+                foreach($gewogs as $value )
+                {
+                    DB::table('gewog_user_mappings')->insert([
+                        'user_id' => $current,
+                        'dzongkhag_id'=>$request->dzongkhag,
+                        'gewog_id' => $value
+                    ]);
+                }
+            }   
                
          $user->save();
            

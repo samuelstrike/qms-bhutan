@@ -147,12 +147,12 @@
                                 <option>Isolate</option>
                             </select>                          
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <label for="checkout"><strong>Checkout Date:</strong></label>
                             
                             <input type="date" name="checkout_dt" id="checkout_dt" required>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <label for="remarks"><strong>Remarks if any:</strong></label>
                             <textarea class="form-control" name="remarks" id="remarks"></textarea>
                         </div>

@@ -6,7 +6,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         
-        <div class="table-responsive">
+        {{-- <div class="table-responsive">
             <table class="table table-bordered"  width="100%" cellspacing="0">
             <form method="POST" action="{{ route('reports.generate') }}">
             @csrf
@@ -49,12 +49,73 @@
                     <input type="date" class="form-control" name="t_date" value="{{date('Y-m-d')}}">  
                 </td>
                 <td>
-                <input type="submit" class="btn-primary" value="submit"> 
+                <input type="submit" class="btn btn-primary" value="submit"> 
                 </td>
             </tr>
             </form>
             </table>
+        </div> --}}
+        <div class="row">
+            <div class="card shadow">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                    role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                    <h6 class="m-0 font-weight-bold text-primary">Filter Data</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample">
+                    <div class="card-body">
+                       <form action="{{ route('reports.generate') }}">
+                        @csrf
+                        @method('post')
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
+                                    <select name="dzongkhag" id="dzongkhag" class="form-control">
+                                        <option value="0">All</option>
+                                        @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
+                                        <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="category"><strong>Category:</strong></label>
+                                    <select name="category" id="category" class="form-control">
+                                        <option value="0">Registered</option>
+                                        <option value="0">Quaraintined</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="gender"><strong>Gender:</strong></label>
+                                        <select name="gender" id="gender" class="form-control">
+                                            <option>All</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Others</option>
+                                        </select> 
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="f_date" class="form-control-label"><strong>From:</strong></label>
+                                    <input type="date" class="form-control" name="f_date" value="{{date('Y-m-d')}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="t_date" class="form-control-label"><strong>To:</strong></label>
+                                        <input type="date" class="form-control" name="t_date" value="{{date('Y-m-d')}}">
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="row justify-content-end mr-1">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
     
   
@@ -74,7 +135,7 @@
             @isset($reg)       
             <thead>
                         <tr>
-                            <th>sl</th>
+                            <th>SL</th>
                             <th> CID </th>    
                             <th >Name</th>
                             <th>Contact No</th>
