@@ -12,7 +12,7 @@
            
             <div class="form-group row">
                     <div class="col-lg-12">
-                        <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
+                        <label for="dzongkhag" class="text-gray-900"><strong>Dzongkhag:</strong></label>
                         <select name="dzongkhag" id="dzongkhag" class="form-control">
                         <option value="0">All</option>
                         @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group row">
                 <div class="col-lg-6">
-                    <input type="submit" class="btn btn-primary" value="submit"> 
+                    <input type="submit" class="btn btn-dark" value="submit"> 
                 </div>
                 </div>        
                
@@ -37,7 +37,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Report </h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Report </h6>
             
             </div>
         </div>

@@ -21,7 +21,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Pending Allocation</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Pending Allocation</h6>
             
             </div>
         </div>
@@ -65,7 +65,7 @@
                         
                         </td>
                             <td>
-                            <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
+                            <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-dark btn-sm btn-circle">
                             <i class="fas fa-check .btn-sm"></i>
                             </a>
                             </td>
@@ -91,7 +91,9 @@
 @section('scripts')
     <script>
     $(document).ready(function(){
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            responsive: true
+        });
     });
     </script>
 

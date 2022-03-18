@@ -21,7 +21,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Transferred List </h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Transferred List </h6>
             
             </div>
         </div>
@@ -56,8 +56,8 @@
                             {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             </td>
                             <td>
-                            <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
-                            <i class="fas fa-check .btn-sm"></i>
+                            <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-dark btn-sm btn-circle">
+                            <i class="fas fa-check .btn-sm "></i>
                             </a>
                             </td>
 

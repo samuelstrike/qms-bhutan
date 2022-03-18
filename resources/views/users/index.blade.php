@@ -21,8 +21,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-            <a href="#" class="btn btn-primary pull-right"data-toggle="modal" data-target="#create_user">Create User</a>
+            <h6 class="m-0 font-weight-bold text-dark">Users</h6>
+            <a href="#" class="btn btn-dark pull-right"data-toggle="modal" data-target="#create_user">Create User</a>
             </div>
         </div>
         <div class="card-body">
@@ -51,11 +51,11 @@
                             <td>{{  $user->created_at->diffForHumans();}}</td>
                             <td class="d-flex justify-content-evenly">
                                 
-                               <a href="{{ route('register-user.edit',$user->id)}}" class="btn btn-primary btn-circle pull-right"><i class="fas fa-info-circle"></i></a>
+                               <a href="{{ route('register-user.edit',$user->id)}}" class="btn btn-dark btn-circle btn-sm pull-right"><i class="fas fa-info-circle"></i></a>
                                <form method="POST" action="{{route('register-user.destroy', $user->id)}}">
                                 @csrf  
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>  
+                                <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>  
  
                                </form>  
                             </td>

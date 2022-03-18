@@ -79,7 +79,7 @@ class RegistrationController extends Controller
                 'to_dzongkhag_id' => $request->t_dzongkhag,
                 'to_gewog_id' => $request->t_gewog,
                 'vaccine_status_id' => $request->vaccine[$key],
-                'expected_date' => $request->t_date,
+                'expected_date' => Carbon::parse($request->t_date)->format('Y-m-d'),
                 'r_status' =>'P',
                 'file_name' =>$fileName,
                 'has_cid' => $request->is_abroad,

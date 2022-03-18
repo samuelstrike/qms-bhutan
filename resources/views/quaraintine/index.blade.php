@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryCreateModal">
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#categoryCreateModal">
                             Add Facility <i class="bi bi-plus"></i>
                         </button>
 
@@ -46,8 +46,8 @@
                             <td>{{ $facility->capacity }}</td>
                             <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($facility->dzongkhag_id)->pluck('Dzongkhag_name')) }}</td>
                             <td>{{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($facility->gewog_id)->pluck('gewog_name')) }}</td>
-                            <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-info btn-sm"><i class="fas fa-check .btn-sm"></i></i></a>
-                            <button id="delete" class="btn btn-danger btn-sm" onclick="
+                            <td><a href="{{ route('facility.edit',$facility->id) }}" class="btn btn-dark btn-sm btn-circle"><i class="fas fa-check .btn-sm"></i></i></a>
+                            <button id="delete" class="btn btn-danger btn-sm btn-circle" onclick="
     event.preventDefault();
     if (confirm('Are you sure? It will delete the data permanently!')) {
         document.getElementById('destroy{{ $facility->id }}').submit();

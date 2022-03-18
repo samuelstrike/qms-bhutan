@@ -60,7 +60,7 @@
                 <!-- Card Header - Accordion -->
                 <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
                     role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Filter Data</h6>
+                    <h6 class="m-0 font-weight-bold text-gray-900">Filter Data</h6>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseCardExample">
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-end mr-1">
-                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <button type="submit" class="btn btn-dark">Filter</button>
                             </div>
                        </form>
                     </div>
@@ -136,7 +136,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Report </h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Report </h6>
             
             </div>
         </div>
