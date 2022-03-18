@@ -33,9 +33,11 @@
                             <th>CID</th>
                             <th> Name </th>    
                             <th >Telephone</th>
+                          
                             <th >Purpose</th>
                             <th>From</th>
                             <th>To</th>
+                            <th >QS availed in the past</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,6 +50,7 @@
                             <td>{{ $checkin->cid }}</td>
                             <td>{{ $checkin->name }}</td>
                             <td> {{ $checkin->phone_no }} </td>
+                           
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Purpose::getName($checkin->purpose_category_id)->pluck('category_name')) }} </td>
                             <td>  {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->from_gewog_id)->pluck('gewog_name')) }},
                                  {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->from_dzongkhag_id)->pluck('Dzongkhag_name')) }} 
@@ -55,6 +58,14 @@
                             <td> {{ str_replace(array('[',']','"'),'', App\Models\Checkin::gewog($checkin->to_gewog_id)->pluck('gewog_name')) }},
                             {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             </td>
+                            <td> 
+                             @if ( App\Models\Registration::countReg($checkin->cid)-1<2)
+                                {{ App\Models\Registration::countReg($checkin->cid)-1 }} time
+                            @else
+                            {{ App\Models\Registration::countReg($checkin->cid)-1 }} times
+                             @endif
+                        
+                        </td>
                             <td>
                             <a href="{{ route('verify',$checkin->ref_id) }}" class="btn btn-info btn-sm">
                             <i class="fas fa-check .btn-sm"></i>

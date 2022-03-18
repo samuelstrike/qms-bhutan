@@ -57,10 +57,10 @@
                             {{ str_replace(array('[',']','"'),'', App\Models\Checkin::dzongkhag($checkin->to_dzongkhag_id)->pluck('Dzongkhag_name')) }} </td>
                             </td>
                             <td> 
-                             @if ( App\Models\Registration::countReg($checkin->cid)<2)
-                                {{ App\Models\Registration::countReg($checkin->cid) }} time
+                             @if ( App\Models\Registration::countReg($checkin->cid)-1<2)
+                                {{ App\Models\Registration::countReg($checkin->cid)-1 }} time
                             @else
-                            {{ App\Models\Registration::countReg($checkin->cid) }} times
+                            {{ App\Models\Registration::countReg($checkin->cid)-1 }} times
                              @endif
                         
                         </td>
