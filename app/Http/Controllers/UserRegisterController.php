@@ -31,8 +31,7 @@ class UserRegisterController extends Controller
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'dzongkhag' => ['required'],
-            // 'gewog' => ['required'],
+            'roles' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -65,6 +64,10 @@ class UserRegisterController extends Controller
 
         } else 
             {
+                $this->validate($request,[
+                    'dzongkhag' => ['required'],
+                    'gewog' => ['required'],
+                ]);
                 foreach($gewogs as $value )
                 {
                     DB::table('gewog_user_mappings')->insert([
@@ -93,7 +96,7 @@ class UserRegisterController extends Controller
 
         return redirect()->route('register-user.index')
         ->with('flash_message',
-        'User Deleted');
+        'User '.$user->name. ' Deleted successfully');
     }
     public function edit($id)
     {

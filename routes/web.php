@@ -108,6 +108,10 @@ Route::middleware('auth')->group(function () {
     // Auth::routes();
     Auth::routes(['register' => false,]);
 
+    //profile
+
+    Route::get('/profile/{id}', [App\Http\Controllers\ProfileController::class,'profile'])->name('profile');
+    Route::put('/profile/{id}', [App\App\Http\Controllers\ProfileController::class,'updateUser'])->name('profile.update-user');
 
     //fetching Gewog
     Route::get('getGewog/{id}', function ($id) {
