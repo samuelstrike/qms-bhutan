@@ -21,7 +21,7 @@
     <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Checkout from Quaraintine Facility</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Checkout from Quaraintine Facility</h6>
             
         </div>
         <div class="card-body">
@@ -149,8 +149,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label for="checkout"><strong>Checkout Date:</strong></label>
-                            
-                            <input type="date" name="checkout_dt" id="checkout_dt" required>
+                            <input type="text" name="checkout_dt" id="checkout_dt" class="form-control" placeholder="dd-mm-yyyy" readonly>
                         </div>
                         <div class="col-sm-3">
                             <label for="remarks"><strong>Remarks if any:</strong></label>
@@ -164,7 +163,7 @@
                     <div class="form-group row" id="input-submit" >
                         
                         <div class="col-sm-4">
-                        <input type="submit" class="btn-primary" value="submit">                        
+                        <input type="submit" class="btn btn-dark" value="submit">                        
                         </div>
                     </div>
                     
@@ -183,9 +182,18 @@
 @endsection
 
 @section('scripts')
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
+{{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
 
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function (){
+    $('#checkout_dt').datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        autoSize: true
+       });
+
+});
 </script>
 
 
