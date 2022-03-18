@@ -5,11 +5,11 @@
 
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Allocate Quaraintine Facility</h1>
-        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
-    </div>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div> --}}
     @if ($message=Session::get('flash_message')) 
         
         <div class="alert alert-primary alert-block">
@@ -22,7 +22,7 @@
     <div class="card shadow mb-4">
     <div class="card-header py-3">
         <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Allocate Quaraintine Facility</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Allocate Quaraintine Facility</h6>
             
         </div>
         <div class="card-body">
@@ -141,40 +141,43 @@
                     </div>
                     <input type="hidden" name="ref_id" id="ref_id" value="{{$checkin->ref_id}}">
                 </div>
-                <div class="form-group row" id="Allocate" >
-                    <div class="col-sm-4">
-                        <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
-                        <select name="dzongkhag" id="dzongkhag" class="form-control">
-                        <option value="0">Select Dzongkhag</option>
-                        @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
+                <div id="Allocate" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="dzongkhag"><strong>Dzongkhag:</strong></label>
+                            <select name="dzongkhag" id="dzongkhag" class="form-control">
+                            <option value="0">Select Dzongkhag</option>
+                            @foreach(\App\Models\Dzongkhag::getDzongkhag(Auth::user()->id) as $dzongkhag)
+                                    
+                                    <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
+                            @endforeach
+                            </select>                          
+                        </div>
+                        <div class="col-md-6">
+                            <label for="facility"><strong>Facility</strong></label>
+                            <select name="facility" id="facility" class="form-control">
                                 
-                                <option value="{{ $dzongkhag->id }}">{{ $dzongkhag->Dzongkhag_Name }}</option>
-                        @endforeach
-                        </select>                          
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label for="facility"><strong>Facility</strong></label>
-                        <select name="facility" id="facility" class="form-control">
-                            
-                        </select>
-                    </div>
-                   
-                    <div class="col-sm-2">
-                        <label for="room_no"><strong>Number of Days</strong></label>
-                        <input type="number" name="days" id="days" class="form-control" required value="7" >
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="room_no"><strong>Funding</strong></label>
-                        <select name="fund" id="fund" class="form-control">
-                            <option>RGoB</option>
-                            <option>Self</option>
-                            <option>Company</option>
-                            <option>Others</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="room_no"><strong>CheckIn Date</strong></label>
-                        <input type="date" name="checkin_dt" id="checkin_dt" class="form-control">
+                    <div class="row mt-3 mb-2">
+                        <div class="col-md-3">
+                            <label for="room_no"><strong>Number of Days</strong></label>
+                            <input type="number" name="days" id="days" class="form-control" required value="7" >
+                        </div>
+                        <div class="col-md-3">
+                            <label for="room_no"><strong>Funding</strong></label>
+                            <select name="fund" id="fund" class="form-control">
+                                <option>RGoB</option>
+                                <option>Self</option>
+                                <option>Company</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="room_no"><strong>CheckIn Date</strong></label>
+                            <input type="date" name="checkin_dt" id="checkin_dt" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row" id="Transfer" >
@@ -197,13 +200,9 @@
                 </div>
                 <div class="form-group row" id="input-submit" >
                     <div class="col-sm-4">
-                       <input type="submit" class="btn-primary" value="submit">                        
+                       <input type="submit" class="btn btn-primary" value="submit">                        
                     </div>
-                   
-    
                 </div>
-                
-                
             </form>
         @else
         No DATA

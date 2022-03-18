@@ -13,7 +13,7 @@ class Registration extends Model
         
         'ref_id', 'nationality_id', 'has_cid','cid','name','gender','phone_no','present_address',
         'purpose_category_id','travel_details','travel_mode','from_dzongkhag_id','from_gewog_id',
-        'to_dzongkhag_id','to_gewog_id','vaccine_status_id','r_status', 'occupation_id',
+        'to_dzongkhag_id','to_gewog_id','vaccine_status_id','expected_date','r_status', 'occupation_id',
     ];
 
     public static function getStatus($value)
@@ -46,6 +46,4 @@ class Registration extends Model
                 ->count();
         return $count;
     }
-
-  
 }

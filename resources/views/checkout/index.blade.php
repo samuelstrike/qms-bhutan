@@ -21,7 +21,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Pending Checkout</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Pending Checkout</h6>
             
             </div>
         </div>
@@ -60,7 +60,7 @@
                                
                            
                             <td>
-                            <a href="{{ route('verifyCheckout',$checkout->id) }}" class="btn btn-info btn-sm">
+                            <a href="{{ route('verifyCheckout',$checkout->id) }}" class="btn btn-dark btn-sm btn-circle">
                             <i class="fas fa-check .btn-sm"></i>
                             </a>
                             </td>

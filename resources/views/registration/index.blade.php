@@ -19,15 +19,16 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
     <style>
         .error {
-    color: red;
-    position: relative;
-    line-height: 1;
-    width: revert;
-    font-size: revert;
-}
+        color: red;
+        position: relative;
+        line-height: 1;
+        width: revert;
+        font-size: revert;
+    }
     </style>
     
 </head>
@@ -62,9 +63,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label for="got-cid" class="form-label">Are you travelling from abroad?</label>
+                                        <label for="got-cid" class="form-label text-gray-900">Are you travelling from abroad?</label>
                                         <div class="form-group d-flex justify-content-center">
-                                          <div class="form-check">
+                                          <div class="form-check" id="domestic">
                                             <input class="form-check-inline" type="radio" name="is_abroad" value="0" id="" checked>
                                             <label class="form-check-label" for="flexRadioDefault1">
                                              No
@@ -83,21 +84,21 @@
                                 <div id="dynamicAddRemove">
                                     <div class="form-group row">
                                         <div class="col-lg-6 mb-3 mb-md-0">
-                                            <label for="cid[0]" class="form-control-label">CID/work permit/Passport</label>
+                                            <label for="cid[0]" class="form-control-label text-gray-900">CID/work permit/Passport</label>
                                             <input type="text" class="form-control cid" id="cid[0]" name="cid[0]"
-                                                placeholder="Enter CID/work permit/Passport">
+                                                placeholder="Enter your CID/work permit/Passport Numbers">
                                                 
                                         </div>
                                         <div class="col-lg-6">
-                                            <label for="" class="form-control-label">Full Name</label>
+                                            <label for="" class="form-control-label text-gray-900">Full Name</label>
                                             <input type="text" class="form-control name" id="name[0]" name="name[0]"
-                                                placeholder="Full Name">
+                                                placeholder="Enter your Full Name">
                                                    
                                         </div>
                                     </div>
                                     <div class="form-group row">    
                                         <div class="col-lg-3">
-                                            <label for="gender">Gender</label>
+                                            <label for="gender" class="text-gray-900">Gender</label>
                                             <select id="gender[0]" name="gender[0]" class="form-control gender" >
                                                 <option value="">Select</option>
                                                 <option value="1">Male</option>
@@ -106,7 +107,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label for="">Occupation</label>
+                                            <label for="" class="text-gray-900">Occupation</label>
                                             <select name="occupation[0]" id="occupation[0]" class="form-control occupation" >
                                             <option value="">Your Occupation</option>
                                             @foreach(\App\Models\Occupation::all() as $occupation)
@@ -115,7 +116,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label for="">Vaccination</label>
+                                            <label for="" class="text-gray-900">Vaccination</label>
                                             <select name="vaccine[0]" id="vaccine[0]" class="form-control vaccination" >
                                                 <option value="">Select</option>
                                                 @foreach(\App\Models\Vaccination::all() as $vaccination)
@@ -124,7 +125,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label for="nat">Nationality</label>
+                                            <label for="nat" class="text-gray-900">Nationality</label>
                                             <select name="selectNationality[0]" id="selectNationality[0]" class="form-control nationality">
                                                 <option value="">Select</option>
                                                 @foreach(\App\Models\Nationality::all() as $nationality)
@@ -143,7 +144,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-6">
-                                        <label for="nat">Dzongkhag</label>
+                                        <label for="nat" class="text-gray-900">Dzongkhag</label>
                                         <select name="f_dzongkhag" id="f_dzongkhag" class="form-control">
                                             <option value="">Select the Dzongkhag you are travelling from</option>
                                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
@@ -152,7 +153,7 @@
                                             </select>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for="nat">Gewog</label>
+                                        <label for="nat" class="text-gray-900">Gewog</label>
                                         <select name="f_gewog" id="f_gewog" class="form-control" disabled>
                       
                                         </select>
@@ -164,7 +165,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-6">
-                                        <label for="nat">Dzongkhag</label>
+                                        <label for="nat" class="text-gray-900">Dzongkhag</label>
                                         <select name="t_dzongkhag" id="t_dzongkhag" class="form-control">
                                             <option value="">Select the Dzongkhag you are travelling to</option>
                                             @foreach(\App\Models\Dzongkhag::all() as $dzongkhag)
@@ -173,7 +174,7 @@
                                             </select>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for="nat">Gewog</label>
+                                        <label for="nat" class="text-gray-900">Gewog</label>
                                         <select name="t_gewog" id="t_gewog" class="form-control" disabled>
                       
                                         </select>
@@ -185,7 +186,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-4">
-                                        <label for="">Travel Purpose</label>
+                                        <label for="" class="text-gray-900">Travel Purpose</label>
                                         <select name="purpose" id="" class="form-control">
                                             <option value="">Select</option>
                                             @foreach(\App\Models\Purpose::all() as $purpose)
@@ -194,11 +195,11 @@
                                           </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="">Present Address</label>
+                                        <label for="" class="text-gray-900">Present Address</label>
                                         <textarea name="resident" id="" cols="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="">Reason for travel</label>
+                                        <label for="" class="text-gray-900">Reason for travel</label>
                                         <textarea name="reason" id="" cols="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
                                     </div>
                                 </div>
@@ -216,15 +217,15 @@
                                           </select>
                                     </div>
                                     <div class="col-lg-3">
-                                        <label for="phone">Contact Number</label>
+                                        <label for="phone" class="text-gray-900">Contact Number</label>
                                         <input type="text" class="form-control " id="cont" name="phone" autocomplete="off">
                                     </div>
                                     <div class="col-lg-3">
-                                        <label for="">Expected Date</label>
-                                        <input type="date" name="t_date" id="t_date" class="form-control">
+                                        <label for="" class="text-gray-900">Expected Date</label>
+                                        <input type="text" name="t_date" id="t_date" class="form-control" placeholder="dd-mm-yyyy" readonly>
                                     </div> 
                                     <div class="col-lg-3">
-                                        <label for="">Supporting Document</label>
+                                        <label for="" class="text-gray-900">Supporting Document</label>
                                         <input 
                                         type="file" 
                                         name="file" 
@@ -258,6 +259,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('admin/js/sb-admin-2.min.js')}}"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
 
 
@@ -267,7 +269,19 @@
        $('#abroad').on('change', function(){
             $('#abroad_travel').text('Dzongkhag Entry Point ')
        });
+       $('#domestic').on('change', function(){
+            $('#abroad_travel').text('Travel From')
+       });
+
+      
+       $('#t_date').datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        autoSize: true
+       });
         
+        
+        //dynamic field add
         var i = 0;
         $("#dynamic-ar").click(function (e) {
             e.preventDefault();
@@ -344,6 +358,30 @@
                      $('#t_gewog').empty();
                    }
             });
+           
+            //validating date: dd-mm-yyyy
+            $.validator.addMethod("dateFormat",function(value, element) {
+                var check = false;
+                var re = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
+            if( re.test(value)){
+                var adata = value.split('-');
+                var dd = parseInt(adata[0],10);
+                var mm = parseInt(adata[1],10);
+                var yyyy = parseInt(adata[2],10);
+                var xdata = new Date(yyyy,mm-1,dd);
+                if ( ( xdata.getFullYear() === yyyy ) && ( xdata.getMonth () === mm - 1 ) && ( xdata.getDate() === dd ) ) {
+                check = true;
+                }
+                else {
+                    check = false;
+                }
+            } else {
+                check = false;
+            }
+                return this.optional(element) || check;
+            },
+                "Wrong date format"
+            );
 
                 //validation
                 $('#submitForm').validate({
@@ -368,16 +406,17 @@
                         },
                         resident : {
                             required : true,
-                            minlength: 3,
+                            minlength: 4,
                             maxlength: 100
                         },
                         reason : {
                             required : true,
-                            minlength:3
+                            minlength:5
                         },
                         t_date : {
-                            required : true
-                        }
+                            required : true,
+                            dateFormat: true
+                        },
                         
                     },
                     messages : {
@@ -386,11 +425,20 @@
                         t_dzongkhag : 'Please select the dzongkhag you want to travel',
                         f_dzongkhag : 'Please select the  dzongkhag you are traveling from',
                         purpose : 'Please select the travel Purpose',
-                        resident: 'Please enter your exact residence address',
-                        reason : 'Briefly enter the reason for your travel',
-                        t_date : 'Please enter your expected date of journey',   
+                        resident: {
+                            required: 'Please enter your exact residence address',
+                            minlength: 'Please enter atleast 4 characters'
+                        },
+                        reason : {
+                            required : 'Briefly enter the reason for your travel',
+                            minlength : 'Please enter atleast 5 characters'
+                        },
+                        t_date : {
+                            required : 'Please enter your expected date of journey',
+                            dateFormat : 'Please enter a valid date (dd-mm-year)'
+                        },
                     },
-                    errorElement: "em",
+                    // errorElement: "em",
 				    errorPlacement: function ( error, element ) {
 					    // Add the `invalid-feedback` class to the error element
 					    error.addClass( "invalid-feedback" );
