@@ -155,7 +155,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="facility"><strong>Facility</strong></label>
-                            <select name="facility" id="facility" class="form-control">
+                            <select name="facility" id="facility" class="form-control" required>
                                 
                             </select>
                         </div>
@@ -176,7 +176,7 @@
                         </div>
                         <div class="col-md-5">
                             <label for="room_no"><strong>CheckIn Date</strong></label>
-                            <input type="date" name="checkin_dt" id="checkin_dt" class="form-control">
+                            <input type="text" name="checkin_dt" id="checkin_dt" class="form-control" placeholder="dd-mm-yyyy" readonly>
                         </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                 </div>
                 <div class="form-group row" id="input-submit" >
                     <div class="col-sm-4">
-                       <input type="submit" class="btn btn-primary" value="submit">                        
+                       <input type="submit" class="btn btn-dark submit" value="submit">                        
                     </div>
                 </div>
             </form>
@@ -218,9 +218,21 @@
 @endsection
 
 @section('scripts')
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
+{{-- date picker cdn --}}
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
 <script>
 $( document ).ready(function() {
+    
+    //datepicker for checkin
+    $('#checkin_dt').datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        autoSize: true
+       });
+
+    
     $("input").attr("required",false);
     var x = document.getElementById("Allocate");
     var t = document.getElementById("Transfer");

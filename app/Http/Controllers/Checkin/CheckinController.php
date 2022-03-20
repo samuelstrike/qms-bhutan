@@ -13,6 +13,7 @@ use App\Models\Gewog_User_Maping;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class CheckinController extends Controller
 {
@@ -68,7 +69,8 @@ class CheckinController extends Controller
                         'room_no'   => 1,
                         'no_of_days' => $request->days,
                         'funding' => $request->fund,
-                        'check_in_date' => $request->checkin_dt
+                        'check_in_date' =>Carbon::parse($request->checkin_dt)->format('Y-m-d'), 
+
                     ]);
                 }
 

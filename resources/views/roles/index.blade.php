@@ -11,18 +11,31 @@
     </div>
     @if ($message=Session::get('flash_message')) 
         
-        <div class="alert alert-primary alert-block">
+        <div class="alert alert-warning alert-block">
             <button type="button" class="close" data-dismiss="alert">x</button>
                 <strong>{{$message}}</strong> 
         
+        </div>
+    @endif
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.
+        <ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
         </div>
     @endif
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Roles</h6>
-            <a href="#" class="btn btn-primary pull-right"data-toggle="modal" data-target="#create_role">Create Role</a>
+            <h6 class="m-0 font-weight-bold text-gray-900">Roles</h6>
+            <a href="#" class="btn btn-dark pull-right"data-toggle="modal" data-target="#create_role">Create Role</a>
             </div>
         </div>
         <div class="card-body">
@@ -45,13 +58,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $role->name}}</td>
                             <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>
-                            <td>
-                                <form action="/roles/{{$role->id}}" method="POST">
-                                <a href="{{url('roles/'.$role->id.'/edit')}}" class="btn btn-primary pull-right">Edit</a>
-                                  @csrf  
-                                <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>   
+                            <td> 
+                                <a href="{{url('roles/'.$role->id.'/edit')}}" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>
+                                <a href="#" class="btn btn-danger btn-circle btn-sm" data-action="/roles/{{$role->id}}" data-toggle="modal" data-target="#deleteRole"><i class="fas fa-trash"></i></a>               
                             </td>
                         </tr>
                         @endforeach
@@ -108,7 +117,7 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">Please confirm the role deletion</div>
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST">
             @csrf
             @method('delete')
             <div class="modal-footer">
@@ -124,9 +133,16 @@ aria-hidden="true">
 
 @section('scripts')
     <script>  
-    $(document).ready(function(){
-        $('#dataTable').DataTable();
-    });
+        $(document).ready(function(){
+            $('#deleteRole').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) 
+                var action = button.data('action') 
+                var modal = $(this)
+                modal.find('form').attr('action', action)
+            });
+
+            $('#dataTable').DataTable();
+        });
     </script>
 
 @endsection

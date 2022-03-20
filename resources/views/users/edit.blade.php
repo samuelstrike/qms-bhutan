@@ -13,7 +13,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Edit User: {{$user->name}}</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Transfer User: <span class="text-danger">{{$user->name}}</span></h6>
             </div>
         </div>
         <div class="card-body">
@@ -37,13 +37,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="name" class="form-control-label">Name</label>
-                                <input class="form-control" type="text" name="name" value="{{$user->name}}" required>
+                                <input class="form-control" type="text" name="name" value="{{$user->name}}" required readonly>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="email" class="form-control-label">Email</label>
-                                <input class="form-control" type="text" name="email" value="{{$user->email}}" required>
+                                <input class="form-control" type="text" name="email" value="{{$user->email}}" required readonly>
                             </div>
                         </div>   
                     </div>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-end">
-                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-dark">Update</button>
                     </div>
             </form>
         </div>

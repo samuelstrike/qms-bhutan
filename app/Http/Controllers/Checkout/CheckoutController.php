@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 class CheckoutController extends Controller
 {
     public function __construct(){
@@ -56,7 +58,7 @@ class CheckoutController extends Controller
             'covid_test_type' => $request->test,
             'test_result'   => $request->result,
             'status' => $request->select_action,
-            'check_out_date' => $request->checkout_dt,
+            'check_out_date' =>Carbon::parse($request->checkout_dt)->format('Y-m-d'),
             'remarks' => $request->remarks
            
         ]);
