@@ -26,19 +26,19 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-dark">Your Profile</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Your Profile</h6>
             </div>
         </div>
         <div class="card-body">
             <form action="">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Your Name</label>
+                        <label for="" class="text-gray-700">Your Name</label>
                         <input type="text" name="name" class="form-control" id="" value="{{$user->name}}">
                     </div>
                     <div class="col-md-6">
-                        <label for="">Email Address</label>
-                        <input type="email" name="name" class="form-control" id="" value="{{$user->email}}">
+                        <label for="" class="text-gray-700">Email Address</label>
+                        <input type="email" name="email" class="form-control" id="" value="{{$user->email}}">
                     </div>
                     <div class="mt-2 ml-3">
                         <button class="btn btn-dark btn-user">Save</button>
@@ -51,22 +51,22 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-dark">Change Your Password</h6>
+            <h6 class="m-0 font-weight-bold text-gray-900">Change Your Password</h6>
             </div>
         </div>
         <div class="card-body">
             <form action="">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="">Current Password</label>
+                        <label for="" class="text-gray-700">Current Password</label>
                         <input type="password" name="c_password" class="form-control" id="">
                     </div>
                     <div class="col-md-4">
-                        <label for="">New Password</label>
+                        <label for="" class="text-gray-700">New Password</label>
                         <input type="password" name="password" class="form-control" id="" >
                     </div>
                     <div class="col-md-4">
-                        <label for="">Confirm Password</label>
+                        <label for="" class="text-gray-700">Confirm Password</label>
                         <input type="password" name="password_confirmation" class="form-control" id="">
                     </div>
                     <div class="mt-2 ml-3">

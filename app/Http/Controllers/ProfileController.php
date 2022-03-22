@@ -26,8 +26,13 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request,[
-            
+            'name' => ['required', 'string', 'max:255', 'min:4'],
         ]);
+
+        if ($request->has('email'))
+        {
+            
+        }
 
     }
 }
