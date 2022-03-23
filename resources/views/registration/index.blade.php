@@ -120,7 +120,7 @@
                                             <select name="vaccine[0]" id="vaccine[0]" class="form-control vaccination" >
                                                 <option value="">Select</option>
                                                 @foreach(\App\Models\Vaccination::all() as $vaccination)
-                                                    <option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>
+                                                    <option value="{{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -200,7 +200,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="" class="text-gray-900">Reason for travel</label>
-                                        <textarea name="reason" id="" cols="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
+                                        <textarea name="reason" id="reason" cols="" rows="1" class="form-control" placeholder="Specify Reason"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -281,19 +281,61 @@
         minDate: 0,
         autoSize: true
        });
-        
+
         
         //dynamic field add
         var i = 0;
-        $('#cid[0]').on('blur', function()
+        $(document).on('blur','.cid',function() {
+            //var id =document.getElementById('cid['+i+']').value;
+            var cid = $(this).val();
+
+            if(cid)
             {
-                alert("test");
-            });
+                $.ajax({
+                           url: '/getDetails/'+cid,
+                           type: "GET",
+                           data : {"_token":"{{ csrf_token() }}"},
+                           dataType: "json",
+
+                           success:function(data)
+                           {
+                               if(data.length>0)
+                               {
+                                    
+
+                                    $.each(data, function(key, detail){
+                                        $('input[id="name['+i+']"]').val(detail.name);
+                                        $('select[id="occupation['+i+']"]').val(detail.occupation_id);
+                                        $('select[id="selectNationality['+i+']"]').val(detail.nationality_id);
+                                        $('select[id="vaccine['+i+']"]').val(1);
+                                        if(detail.gender=="Male")
+                                            $('select[id="gender['+i+']"]').val(1);
+                                        else
+                                        if(detail.gender=="Female")
+                                        $('select[id="gender['+i+']"]').val(2);
+                                        else
+                                        $('select[id="gender['+i+']"]').val(0);
+                                        
+                               });
+                               }
+                               else
+                               {
+                                  alert("Record not found! Punch data manually");
+                               }
+                           }
+
+                           
+                });
+               
+                               
+            }
+           
+        });
         $("#dynamic-ar").click(function (e) {
             e.preventDefault();
            
             ++i;
-            $("#dynamicAddRemove").append('<div><div class="form-group row"><div class="col-lg-6 mb-3 mb-md-0"><label for="nema" class="form-control-label">CID/work permit</label><input type="text" class="form-control cid" id="cid['+i+']" name="cid['+i+']"placeholder="Enter CID/work permit"></div><div class="col-lg-6"><label for="" class="form-control-label">Full Name</label><input type="text" class="form-control name" id="name['+i+']" name="name['+i+']"placeholder="Full Name"></div></div><div class="form-group row"><div class="col-lg-3"><label for="gender">Gender</label><select id="gender['+i+']" name="gender['+i+']" class="form-control gender" ><option value="">Select</option><option value="1">Male</option><option value="2">Female</option><option value="Others">others</option></select></div><div class="col-lg-3"><label for="">Occupation</label><select name="occupation['+i+']" id="occupation['+i+']" class="form-control occupation" ><option value="">Your Occupation</option>@foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="">Vaccination</label><select name="vaccine['+i+']" id="vaccine['+i+']" class="form-control vaccination" ><option value="">Select</option>@foreach(\App\Models\Vaccination::all() as $vaccination)<option value=" {{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="nat">Nationality</label><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-control nationality"><option value="">Select</option>@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></div></div><button type="button"  class="btn btn-danger btn-block btn-user mt-2 remove-input-field">Delete Accompanying Individuals</button></div>');
+            $("#dynamicAddRemove").append('<div><div class="form-group row"><div class="col-lg-6 mb-3 mb-md-0"><label for="nema" class="form-control-label">CID/work permit</label><input type="text" class="form-control cid" id="cid['+i+']" name="cid['+i+']"placeholder="Enter CID/work permit"></div><div class="col-lg-6"><label for="" class="form-control-label">Full Name</label><input type="text" class="form-control name" id="name['+i+']" name="name['+i+']"placeholder="Full Name"></div></div><div class="form-group row"><div class="col-lg-3"><label for="gender">Gender</label><select id="gender['+i+']" name="gender['+i+']" class="form-control gender" ><option value="">Select</option><option value="1">Male</option><option value="2">Female</option><option value="Others">others</option></select></div><div class="col-lg-3"><label for="">Occupation</label><select name="occupation['+i+']" id="occupation['+i+']" class="form-control occupation" ><option value="">Your Occupation</option>@foreach(\App\Models\Occupation::all() as $occupation)<option value="{{ $occupation->id }}">{{ $occupation->occupation_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="vaccine">Vaccination</label><select name="vaccine['+i+']" id="vaccine['+i+']" class="form-control vaccination" ><option value="">Select</option>@foreach(\App\Models\Vaccination::all() as $vaccination)<option value="{{ $vaccination->id }}"> {{ $vaccination->dose_name }}</option>@endforeach</select></div><div class="col-lg-3"><label for="nat">Nationality</label><select name="selectNationality['+i+']" id="selectNationality['+i+']" class="form-control nationality"><option value="">Select</option>@foreach(\App\Models\Nationality::all() as $nationality)<option value="{{ $nationality->id }}">{{ $nationality->nationality }}</option>@endforeach</select></div></div><button type="button"  class="btn btn-danger btn-block btn-user mt-2 remove-input-field">Delete Accompanying Individuals</button></div>');
         });
         $(document).on('click', '.remove-input-field', function () {
             $(this).closest('div').remove();

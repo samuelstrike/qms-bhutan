@@ -46,4 +46,6 @@ class Registration extends Model
                 ->count();
         return $count;
     }
+
+  
 }

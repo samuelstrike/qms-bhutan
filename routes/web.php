@@ -119,3 +119,9 @@ Route::middleware('auth')->group(function () {
         return response()->json($gewog);
     });
 
+     //fetching Details
+     Route::get('getDetails/{id}', function ($id) {
+        $detail =  App\Models\Registration::where('cid',$id)->orderByDesc('id')->get();
+        return response()->json($detail);
+    });
+
