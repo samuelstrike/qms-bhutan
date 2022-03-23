@@ -86,8 +86,7 @@
                                     <div class="form-group row">
                                         <div class="col-lg-6 mb-3 mb-md-0">
                                             <label for="cid[0]" class="form-control-label text-gray-900">CID/work permit/Passport</label>
-                                            <input type="text" class="form-control cid" id="cid[0]" name="cid[0]"
-                                                placeholder="Enter your CID/work permit/Passport Numbers">
+                                            <input type="text" class="form-control cid" id="cid[0]" name="cid[0]" placeholder="Enter your CID/work permit/Passport Numbers">
                                                 
                                         </div>
                                         <div class="col-lg-6">
@@ -197,7 +196,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="" class="text-gray-900">Present Address</label>
-                                        <textarea name="resident" id="" cols="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
+                                        <textarea name="resident" id="resident" cols="" rows="1" class="form-control" placeholder="Enter your residence address"></textarea>
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="" class="text-gray-900">Reason for travel</label>
@@ -219,7 +218,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="phone" class="text-gray-900">Contact Number</label>
-                                        <input type="text" class="form-control " id="cont" name="phone" autocomplete="off">
+                                        <input type="text" class="form-control " id="phone" name="phone" autocomplete="off">
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="" class="text-gray-900">Expected Date</label>
@@ -266,6 +265,8 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
+
+          
         
        $('#abroad').on('change', function(){
             $('#abroad_travel').text('Dzongkhag Entry Point ')
@@ -284,6 +285,10 @@
         
         //dynamic field add
         var i = 0;
+        $('#cid[0]').on('blur', function()
+            {
+                alert("test");
+            });
         $("#dynamic-ar").click(function (e) {
             e.preventDefault();
            

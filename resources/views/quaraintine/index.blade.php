@@ -91,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category_code">Capacity <span class="text-danger">*</span></label>
-                            <input class="form-control" type="number" name="capacity" required>
+                            <input class="form-control" type="number" name="capacity" id="capacity" required>
                         </div>
                         <div class="form-group">
                             <label for="category_name">Dzongkhag </label>
@@ -163,6 +163,8 @@
                  $('#gewog').empty();
                }
             });
+
+     
            
     });
 </script>

@@ -13,6 +13,7 @@ use App\Models\Gewog_User_Maping;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator; 
 use Carbon\Carbon;
 
 class CheckinController extends Controller
@@ -57,7 +58,11 @@ class CheckinController extends Controller
         $ref = $request->ref_id;
         $reg_id = Registration::where('ref_id',$ref)->get();
         $action = $request->selectaction;
+        $this->validate($request, [
+            'checkin_dt'=>'required',
+        ]);
         
+       
         if($action=="Allocate")
         {
             

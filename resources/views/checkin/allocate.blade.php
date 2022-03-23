@@ -25,6 +25,15 @@
             <h6 class="m-0 font-weight-bold text-gray-900">Allocate Quaraintine Facility</h6>
             
         </div>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -209,10 +218,14 @@
         @endif
         
         </div>
+      
+    
     </div>
 
         </div>
     </div>
+   
+   
 </div>
 
 @endsection

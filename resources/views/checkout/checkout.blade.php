@@ -187,6 +187,8 @@
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function (){
+
+    
     $('#checkout_dt').datepicker({
         dateFormat: "dd-mm-yy",
         minDate: 0,
