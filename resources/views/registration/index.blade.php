@@ -103,7 +103,7 @@
                                                 <option value="">Select</option>
                                                 <option value="1">Male</option>
                                                 <option value="2">Female</option>
-                                                <option value="Others">others</option>
+                                                <option value="3">others</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
