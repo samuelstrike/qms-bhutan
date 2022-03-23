@@ -127,7 +127,7 @@
 // Bar Chart 
 var ctx = document.getElementById("canvas");
 var myBarChart = new Chart(ctx, {
-  type: 'bar',
+  type: 'line',
   data: {
     labels: ["January", "February", "March", "April", "May", "June","July","August","September","October", "November","December"],
     datasets: [{
@@ -149,37 +149,12 @@ var myBarChart = new Chart(ctx, {
       }
     },
     scales: {
-      xAxes: [{
-        time: {
-          unit: 'month'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 6
-        },
-        maxBarThickness: 25,
-      }],
       yAxes: [{
+        display: true,  
         ticks: {
-          min: 0,
-        //   max: 15000,
-          maxTicksLimit: 5,
-          padding: 10,
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
+            beginAtZero: true 
         }
       }],
-    },
-    legend: {
-      display: false
     },
   }
 });
